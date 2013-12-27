@@ -579,7 +579,7 @@ void GeomUtils::extrude( const std::vector<std::vector<carve::geom::vector<2> > 
 			carve::geom::vector<2> first = loop_2d.front();
 			carve::geom::vector<2>& last = loop_2d.back();
 
-			if( abs(first.x-last.x) > 0.00001 || abs(first.y-last.y) > 0.00001 )
+			if( std::abs(first.x-last.x) > 0.00001 || std::abs(first.y-last.y) > 0.00001 )
 			{
 				loop_2d.push_back( first );
 			}
@@ -791,7 +791,7 @@ void GeomUtils::extrude( const std::vector<std::vector<carve::geom::vector<2> > 
 		carve::geom::vector<3> pc( carve::geom::VECTOR( v_c.v[0],	v_c.v[1],	v_c.v[2] ) );
 
 		double A = 0.5*(cross( pa-pb, pa-pc ).length());
-		if( abs(A) < 0.000000001 )
+		if( std::abs(A) < 0.000000001 )
 		{
 			std::cout << "area < 0.000000001\n" << std::endl;
 		}
@@ -1092,9 +1092,9 @@ void GeomUtils::appendPointsToCurve( const std::vector<carve::geom::vector<2> >&
 	{
 		const carve::geom::vector<3>& last_point = target_vec.back();
 		const carve::geom::vector<2>& first_point_current_segment = points_vec.front();
-		if( abs(last_point.x - first_point_current_segment.x) < 0.000001 )
+		if( std::abs(last_point.x - first_point_current_segment.x) < 0.000001 )
 		{
-			if( abs(last_point.y - first_point_current_segment.y) < 0.000001 )
+			if( std::abs(last_point.y - first_point_current_segment.y) < 0.000001 )
 			{
 				omit_first = true;
 			}
@@ -1266,7 +1266,7 @@ bool GeomUtils::bisectingPlane( const carve::geom::vector<3>& v1, const carve::g
 			v32.normalize();
 
 			double dot_product = dot( v32, v21 );
-			double dot_product_abs = abs( dot_product );
+			double dot_product_abs = std::abs( dot_product );
 
 			if( dot_product_abs > (1.0+GEOM_TOLERANCE) || dot_product_abs < (1.0-GEOM_TOLERANCE) )
 			{

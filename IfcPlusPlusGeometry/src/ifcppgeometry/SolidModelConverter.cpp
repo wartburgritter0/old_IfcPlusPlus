@@ -315,7 +315,7 @@ void SolidModelConverter::convertIfcSolidModel( const shared_ptr<IfcSolidModel>&
 				section2.normalize();
 
 				double dot_product = dot( section1, section2 );
-				double dot_product_abs = abs(dot_product);
+				double dot_product_abs = std::abs(dot_product);
 
 				// if dot == 1 or -1, then points are colinear
 				if( dot_product_abs < (1.0-0.0001) || dot_product_abs > (1.0+0.0001) )
@@ -335,7 +335,7 @@ void SolidModelConverter::convertIfcSolidModel( const shared_ptr<IfcSolidModel>&
 			// sweeping curve is linear. assume any local z vector
 			local_z = carve::geom::VECTOR( 0, 0, 1 );
 			double dot_normal_local_z = dot( (basis_curve_points.at(1) - basis_curve_points.at(0)), local_z );
-			if( abs(dot_normal_local_z) < 0.0001 )
+			if( std::abs(dot_normal_local_z) < 0.0001 )
 			{
 				local_z = carve::geom::VECTOR( 0, 1, 0 );
 				local_z.normalize();
@@ -376,7 +376,7 @@ void SolidModelConverter::convertIfcSolidModel( const shared_ptr<IfcSolidModel>&
 			section1.normalize();
 			section2.normalize();
 			double dot_product = dot( section1, section2 );
-			double dot_product_abs = abs(dot_product);
+			double dot_product_abs = std::abs(dot_product);
 
 			if( dot_product_abs < (1.0-0.0001) || dot_product_abs > (1.0+0.0001) )
 			{
