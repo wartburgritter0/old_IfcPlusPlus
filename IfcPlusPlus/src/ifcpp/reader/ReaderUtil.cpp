@@ -547,7 +547,7 @@ void readStringList( const std::string& str, std::vector<std::string>& vec )
 	}
 }
 
-inline void findEndOfString( char*& stream_pos )
+void findEndOfString( char*& stream_pos )
 {
 	++stream_pos;
 	char* pos_begin = stream_pos;
