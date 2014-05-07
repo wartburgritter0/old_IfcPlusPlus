@@ -13,12 +13,12 @@
 
 #include <QtCore/qglobal.h>
 
-#include <QtWidgets/qaction.h>
-#include <QtWidgets/qtoolbar.h>
-#include <QtWidgets/qsplitter.h>
-#include <QtWidgets/qstatusbar.h>
-#include <QtWidgets/qlabel.h>
-#include <QtWidgets/QDockWidget>
+#include <QtGui/qaction.h>
+#include <QtGui/qtoolbar.h>
+#include <QtGui/qsplitter.h>
+#include <QtGui/qstatusbar.h>
+#include <QtGui/qlabel.h>
+#include <QtGui/QDockWidget>
 #include <QtCore/qfile.h>
 #include <QtCore/qsettings.h>
 

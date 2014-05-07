@@ -14,7 +14,7 @@
 #pragma once
 
 #include <QtCore/qglobal.h>
-#include <QtWidgets/QMainWindow>
+#include <QtGui/QMainWindow>
 
 class QLabel;
 class QSplitter;

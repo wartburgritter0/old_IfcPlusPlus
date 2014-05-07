@@ -23,13 +23,11 @@ INCLUDE_DIRECTORIES(${INCLUDE_DIRECTORIES} ${IFCPP_SOURCE_DIR}/IfcPlusPlus/src/)
 INCLUDE_DIRECTORIES(${INCLUDE_DIRECTORIES} ${IFCPP_SOURCE_DIR}/IfcPlusPlusGeometry/src/)
 
 # Qt library
-find_package(Qt5Core REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5OpenGL REQUIRED)
-include_directories(${Qt5Widgets_INCLUDES})
-include_directories(${Qt5OpenGL_INCLUDES})
-add_definitions(${Qt5Widgets_DEFINITIONS})
-set(CMAKE_CXX_FLAGS "${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
+FIND_PACKAGE(Qt4 REQUIRED)
+SET(QT_USE_QTOPENGL TRUE)
+INCLUDE(${QT_USE_FILE})
+ADD_DEFINITIONS(${QT_DEFINITIONS})
+ADD_DEFINITIONS(-DQT_GUI_LIBS -DQT_CORE_LIB) 
 
 INCLUDE_DIRECTORIES(${INCLUDE_DIRECTORIES} 
         ${QT_INCLUDES}
@@ -103,7 +101,7 @@ set(IFCPPVIEWER_HEADER_FILES
   src/ifcplusplusviewer/viewer/ViewerWidget.h
 )
 
-find_package(Boost 1.53)
+find_package(Boost 1.49)
 if(Boost_FOUND)
   include_directories(${Boost_INCLUDE_DIRS})
   message(STATUS "Using Boost libraries for Carve")
@@ -111,7 +109,7 @@ else(Boost_FOUND)
   message(STATUS "Could not find Boost libraries for Carve")
 endif(Boost_FOUND)
 
-QT5_WRAP_CPP( IFCPPVIEWER_MOC_GENERATED_FILES ${IFCPPVIEWER_HEADER_FILES})
+QT4_WRAP_CPP( IFCPPVIEWER_MOC_GENERATED_FILES ${IFCPPVIEWER_HEADER_FILES})
 
 LINK_DIRECTORIES (${LINK_DIRECTORIES} ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}) 
 
@@ -128,7 +126,7 @@ ADD_EXECUTABLE(IfcPlusPlusViewer
   ${IfcPlusPlusViewer_RESOURCES_RCC}
 )
 
-TARGET_LINK_LIBRARIES(IfcPlusPlusViewer IfcPlusPlusGeometry carve)
+TARGET_LINK_LIBRARIES(IfcPlusPlusViewer IfcPlusPlusGeometry)
 
 TARGET_LINK_LIBRARIES(IfcPlusPlusViewer ${OPENTHREADS_LIBRARY} )
 TARGET_LINK_LIBRARIES(IfcPlusPlusViewer ${OSG_LIBRARY} )
@@ -140,6 +138,6 @@ TARGET_LINK_LIBRARIES(IfcPlusPlusViewer ${OSGFX_LIBRARY} )
 TARGET_LINK_LIBRARIES(IfcPlusPlusViewer ${OSGQT_LIBRARY} )
 TARGET_LINK_LIBRARIES(IfcPlusPlusViewer ${OSGVIEWER_LIBRARY} )
 
-qt5_use_modules(IfcPlusPlusViewer Core Gui Widgets OpenGL)
+TARGET_LINK_LIBRARIES(IfcPlusPlusViewer ${QT_LIBRARIES})
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
