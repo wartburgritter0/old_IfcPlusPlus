@@ -14,8 +14,8 @@
 #include <iostream>
 
 #include <QtCore/qglobal.h>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QSplashScreen>
+#include <QtGui/QApplication>
+#include <QtGui/QSplashScreen>
 
 #include <osgViewer/CompositeViewer>
 #include "gui/TabReadWrite.h"

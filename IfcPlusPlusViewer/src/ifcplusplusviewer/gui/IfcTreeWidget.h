@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QtWidgets/QTreeWidget>
+#include <QtGui/QTreeWidget>
 #include "ifcpp/model/shared_ptr.h"
 
 class IfcPPEntity;

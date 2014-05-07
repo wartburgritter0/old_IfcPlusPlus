@@ -14,9 +14,9 @@
 #pragma once
 
 #include <QtCore/qglobal.h>
-#include <QtWidgets/QTextEdit>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QLineEdit>
+#include <QtGui/QTextEdit>
+#include <QtGui/QPushButton>
+#include <QtGui/QLineEdit>
 
 class IfcPlusPlus;
 

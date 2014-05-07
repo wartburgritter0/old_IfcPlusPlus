@@ -19,9 +19,9 @@
 
 #include <QtCore/qglobal.h>
 
-#include <QtWidgets/QAction>
-#include <QtWidgets/QToolBar>
-#include <QtWidgets/QCheckBox>
+#include <QtGui/QAction>
+#include <QtGui/QToolBar>
+#include <QtGui/QCheckBox>
 #include <QtCore/QSettings>
 #include <QtCore/QFile>
 

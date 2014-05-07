@@ -13,17 +13,17 @@
 
 #pragma warning( disable: 4996 )
 #include <QtCore/qglobal.h>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QTreeWidget>
-#include <QtWidgets/QFileDialog>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QProgressBar>
-#include <QtWidgets/QLineEdit>
-#include <QtWidgets/QSplitter>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QTextEdit>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QTreeWidget>
+#include <QtGui/QFileDialog>
+#include <QtGui/QLabel>
+#include <QtGui/QComboBox>
+#include <QtGui/QPushButton>
+#include <QtGui/QProgressBar>
+#include <QtGui/QLineEdit>
+#include <QtGui/QSplitter>
+#include <QtGui/QApplication>
+#include <QtGui/QTextEdit>
 #include <QtGui/qevent.h>
 #include <QtCore/QSettings>
 
