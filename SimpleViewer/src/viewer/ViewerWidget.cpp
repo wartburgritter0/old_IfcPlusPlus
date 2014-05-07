@@ -23,8 +23,8 @@
 #include <osg/LightModel>
 
 #include <QtCore/qglobal.h>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QLabel>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QLabel>
 #include <QtGui/QKeyEvent>
 
 #include <osgQt/GraphicsWindowQt>

@@ -1,7 +1,7 @@
 
 #include <iostream>
 #include <iomanip>
-#include <QtWidgets/QApplication>
+#include <QtGui/QApplication>
 #include <osg/ShapeDrawable>
 #include <osgUtil/IntersectionVisitor>
 #include <osg/MatrixTransform>

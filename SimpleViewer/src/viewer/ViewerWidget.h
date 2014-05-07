@@ -19,7 +19,7 @@
 
 
 #include <QtCore/qglobal.h>
-#include <QtWidgets/qwidget.h>
+#include <QtGui/qwidget.h>
 #include <QtCore/QTimer>
 
 //\brief class to combine OSG Viewer and Qt widget

@@ -14,7 +14,7 @@
 #pragma once
 
 #include <QtCore/qglobal.h>
-#include <QtWidgets/QWidget>
+#include <QtGui/QWidget>
 
 class IfcPlusPlusSystem;
 class ViewerWidget;
