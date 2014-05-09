@@ -18,7 +18,7 @@
 #include <cmath>
 #endif
 #include <limits>
-#include <codecvt>
+#include <boost/iostreams/detail/config/codecvt.hpp>
 
 #include "ifcpp/model/IfcPPException.h"
 #include "ReaderUtil.h"

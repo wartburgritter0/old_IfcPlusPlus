@@ -10,6 +10,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
  * OpenSceneGraph Public License for more details.
 */
+#include <strings.h>
 
 #include "IfcPPException.h"
 #include "ifcpp/writer/WriterUtil.h"
