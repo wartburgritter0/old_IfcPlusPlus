@@ -27,6 +27,7 @@
 #include <vector>
 
 #include <math.h>
+#include <algorithm>
 
 #if defined(CARVE_DEBUG)
 #  include <iostream>

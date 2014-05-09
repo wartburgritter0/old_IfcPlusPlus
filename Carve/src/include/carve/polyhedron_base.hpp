@@ -25,6 +25,8 @@
 #include <carve/edge_decl.hpp>
 #include <carve/face_decl.hpp>
 
+#include <stddef.h>
+
 namespace carve {
   namespace poly {
 
