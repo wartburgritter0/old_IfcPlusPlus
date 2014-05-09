@@ -23,6 +23,7 @@
 #include <carve/aabb.hpp>
 
 #include <iostream>
+#include <stdint.h>
 
 #include <cmath>
 #include <limits>
