@@ -13,6 +13,7 @@
 
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <strings.h>
 
 #include "ifcpp/IFC4/include/IfcConversionBasedUnit.h"
 #include "ifcpp/IFC4/include/IfcLabel.h"
