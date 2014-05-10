@@ -7,7 +7,7 @@
 #include <osg/MatrixTransform>
 #include <osg/Switch>
 #include <osgViewer/View>
-#include <osgFx/Scribe>
+#include <osgFX/Scribe>
 #include <osgText/Text>
 
 #include <ifcpp/model/IfcPPModel.h>

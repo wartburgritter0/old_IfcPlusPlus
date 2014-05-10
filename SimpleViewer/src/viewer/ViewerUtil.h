@@ -18,6 +18,7 @@
 #include <osg/Geode>
 #include <osg/Group>
 #include <osgViewer/Viewer>
+#include <osgViewer/CompositeViewer>
 
 #include <QtGui/QTreeWidget>
 
