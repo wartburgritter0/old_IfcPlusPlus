@@ -44,9 +44,11 @@ set(IFCPP_HEADER_FILES
   src/ifcpp/IfcPPTypeMap.h
   src/ifcpp/IfcPPTypes.h
   src/ifcpp/guid/CreateGuid_64.h
+  src/ifcpp/model/IfcPPAttributeObject.h
   src/ifcpp/model/IfcPPException.h
   src/ifcpp/model/IfcPPModel.h
   src/ifcpp/model/IfcPPObject.h
+  src/ifcpp/model/IfcPPOpenMP.h
   src/ifcpp/model/IfcPPUtil.h
   src/ifcpp/model/StatusObservable.h
   src/ifcpp/model/UnitConverter.h
