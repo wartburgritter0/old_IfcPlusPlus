@@ -1,0 +1,18 @@
+# defines which files are ignored by git
+
+# all files which ends with ~
+# backup files of most text editors including kate and kwrite
+*~
+
+
+*.zip
+*.msi
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+
+
+# all file in build
+build/
+
