@@ -1782,10 +1782,10 @@ bool SolidModelConverter::computeCSG( carve::mesh::MeshSet<3>* op1, carve::mesh:
 
 		// check if meshset aabb is far away from origin. if so, move to origin, compute, move back
 		carve::geom::vector<3> translate_avoid_large_numbers;
-		carve::geom::aabb<3>& aabb_op1 = op1->getAABB();
+		const carve::geom::aabb<3>& aabb_op1 = op1->getAABB();
 		if( aabb_op1.pos.length2() > 10000 )
 		{
-			carve::geom::aabb<3>& aabb_op2 = op2->getAABB();
+			const carve::geom::aabb<3>& aabb_op2 = op2->getAABB();
 
 			if( aabb_op2.pos.length2() > 10000 )
 			{
