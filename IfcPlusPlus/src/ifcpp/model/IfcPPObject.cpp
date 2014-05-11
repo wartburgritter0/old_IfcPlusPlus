@@ -12,19 +12,9 @@
 */
 
 #include "IfcPPException.h"
+#include "ifcpp/writer/WriterUtil.h"
 #include "IfcPPObject.h"
 
-// TYPE
-IfcPPType::IfcPPType()
-{
-}
-IfcPPType::~IfcPPType()
-{
-}
-void IfcPPType::readStepArgument( const std::string& arg )
-{
-	throw IfcPPException("IfcPPType::readStepArgument(), this method should be overwritten");
-}
 
 // ENTITY
 IfcPPEntity::IfcPPEntity() : m_id(-1)
@@ -64,4 +54,12 @@ void IfcPPEntity::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self )
 void IfcPPEntity::unlinkSelf()
 {
 	throw IfcPPException("IfcPPEntity::unlinkSelf(), this method should be overwritten");
+}
+
+void IfcPPEntity::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+{
+}
+
+void IfcPPEntity::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+{
 }

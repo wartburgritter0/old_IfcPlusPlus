@@ -23,7 +23,7 @@ set(IFCPPGEOMETRY_HEADER_FILES
   src/ifcppgeometry/ProfileCache.h
   src/ifcppgeometry/ProfileConverter.h
   src/ifcppgeometry/ReaderWriterIFC.h
-  src/ifcppgeometry/RecursiveCallException.h
+  #  src/ifcppgeometry/RecursiveCallException.h
   src/ifcppgeometry/RepresentationConverter.h
   src/ifcppgeometry/SolidModelConverter.h
   src/ifcppgeometry/StylesConverter.h

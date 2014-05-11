@@ -462,14 +462,14 @@ bool ConverterOSG::checkMeshSet( const carve::mesh::MeshSet<3>* mesh_set, std::s
 	if( !mesh_set )
 	{
 #ifdef _DEBUG
-		err_poly << "MeshSet of entity #" << entity_id << " not valid" << std::endl;
+		std::cout << "MeshSet of entity #" << entity_id << " not valid" << std::endl;
 #endif
 		return false;
 	}
 	if( mesh_set->meshes.size() == 0 )
 	{
 #ifdef _DEBUG
-		err_poly << "MeshSet of entity #" << entity_id << " has no meshes" << std::endl;
+		std::cout << "MeshSet of entity #" << entity_id << " has no meshes" << std::endl;
 #endif
 		return false;
 	}
@@ -624,6 +624,11 @@ bool ConverterOSG::checkMeshSet( const carve::mesh::MeshSet<3>* mesh_set, std::s
 
 double ConverterOSG::computeSurfaceAreaOfGroup( const osg::Group* grp )
 {
+	if( !grp )
+	{
+		return 0.0;
+	}
+
 	double surface_area = 0.0;
 	int num_children = grp->getNumChildren();
 	for( int i=0; i<num_children; ++i )

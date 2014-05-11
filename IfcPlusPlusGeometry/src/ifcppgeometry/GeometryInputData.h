@@ -27,6 +27,8 @@
 class ItemData
 {
 public:
+	ItemData();
+	~ItemData();
 	std::vector<shared_ptr<carve::input::PolyhedronData> >	closed_polyhedrons;
 	std::vector<shared_ptr<carve::input::PolyhedronData> >	open_polyhedrons;
 	std::vector<shared_ptr<carve::input::PolyhedronData> >	open_or_closed_polyhedrons;
@@ -34,7 +36,14 @@ public:
 	std::vector<shared_ptr<carve::mesh::MeshSet<3> > >		meshsets;
 	//std::vector<shared_ptr<carve::mesh::MeshSet<3> > >	meshsets_open;
 	std::vector<osg::ref_ptr<osg::StateSet> >				statesets;
+	bool													m_csg_computed;
+
 	void createMeshSetsFromClosedPolyhedrons();
+	void applyPosition( const carve::math::Matrix& mat );
+	shared_ptr<ItemData> getDeepCopy();
+	
+	/** copies the content of other instance and adds it to own content */
+	void addItemData( shared_ptr<ItemData>& other );
 };
 
 struct PlacementData
@@ -48,6 +57,9 @@ class ShapeInputData
 public:
 	ShapeInputData() { added_to_storey = false; }
 	~ShapeInputData() {}
+
+	void addInputData( shared_ptr<ShapeInputData>& other );
+	void deepCopyFrom( shared_ptr<ShapeInputData>& other );
 
 	shared_ptr<IfcProduct> ifc_product;
 	shared_ptr<IfcRepresentation> representation;

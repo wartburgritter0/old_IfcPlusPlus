@@ -37,6 +37,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>
     <Keyword>Qt4VSv1.0</Keyword>
+    <ProjectName>IfcPlusPlusViewer</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -1134,7 +1135,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties UicDir=".\bin\GeneratedFiles" MocDir=".\bin\GeneratedFiles\$(ConfigurationName)" MocOptions="" RccDir=".\bin\GeneratedFiles" lupdateOnBuild="0" lupdateOptions="" lreleaseOptions="" Qt5Version_x0020_x64="5.2.0" />
+      <UserProperties UicDir=".\bin\GeneratedFiles" MocDir=".\bin\GeneratedFiles\$(ConfigurationName)" MocOptions="" RccDir=".\bin\GeneratedFiles" lupdateOnBuild="0" lupdateOptions="" lreleaseOptions="" Qt5Version_x0020_x64="5.2.1" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

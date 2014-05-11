@@ -35,8 +35,15 @@ shared_ptr<IfcFontWeight> IfcFontWeight::createObjectFromStepData( const std::st
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcFontWeight>(); }
-	shared_ptr<IfcFontWeight> type_object( new IfcFontWeight() );
+	auto type_object = std::make_shared<IfcFontWeight>();
 	//supertype as attribute: std::string m_value
-	type_object->m_value = arg;
+	if( arg.at(0) == '\'' && arg.at(arg.size()-1) == '\'' )
+	{
+		type_object->m_value = arg.substr(1,arg.length()-2);
+	}
+	else
+	{
+		type_object->m_value = arg;
+	}
 	return type_object;
 }

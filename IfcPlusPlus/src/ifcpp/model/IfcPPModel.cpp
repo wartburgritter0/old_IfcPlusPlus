@@ -14,6 +14,7 @@
 #pragma warning( disable: 4996 )
 #include <iostream>
 #include <time.h>
+#include <boost/algorithm/string/replace.hpp>
 #include "ifcpp/IFC4/include/IfcLabel.h"
 #include "ifcpp/IFC4/include/IfcIdentifier.h"
 #include "ifcpp/IFC4/include/IfcUnitEnum.h"
@@ -258,11 +259,12 @@ int IfcPPModel::getMaxUsedEntityId()
 
 void IfcPPModel::initFileHeader( std::string file_name )
 {
+	std::string filename_escaped = boost::replace_all_copy(file_name, "\\", "\\\\");
 	std::stringstream strs;
 	strs << "ISO-10303-21;" << std::endl;
 	strs << "HEADER;" << std::endl;
 	strs << "FILE_DESCRIPTION(('IFC4'),'2;1');" << std::endl;
-	strs << "FILE_NAME('" << file_name.c_str() << "','";
+	strs << "FILE_NAME('" << filename_escaped.c_str() << "','";
 	char buffer [80];
 
 	//2011-04-21T14:25:12
@@ -316,8 +318,8 @@ void IfcPPModel::clearIfcModel()
 	}
 	m_map_entities.clear();
 
-	m_ifc_project = NULL;
-	m_geom_context_3d = NULL;
+	m_ifc_project = nullptr;
+	m_geom_context_3d = nullptr;
 	m_ifc_schema_version = IFC_VERSION_UNKNOWN;
 	m_IFC_FILE_SCHEMA = "";
 	m_IFC_FILE_NAME = "";
@@ -378,8 +380,8 @@ void IfcPPModel::updateCache()
 
 void IfcPPModel::clearCache()
 {
-	m_ifc_project = NULL;
-	m_geom_context_3d = NULL;
+	m_ifc_project = nullptr;
+	m_geom_context_3d = nullptr;
 }
 
 void IfcPPModel::resolveInverseAttributes()
