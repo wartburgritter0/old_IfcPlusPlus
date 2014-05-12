@@ -4,7 +4,7 @@ branch r42linuxbuild
 IfcPLusPlus
 ============
 open source software to view ifc-files on Linux
-https://github.com/berndhahnebach/IFCPlusPlus
+https://github.com/berndhahnebach/IfcPlusPlus
 
 The Repository is based on the work done by Fabian Gerold 
 http://code.google.com/p/ifcplusplus/
@@ -27,7 +27,7 @@ Internal Carve of IfcPlusPlus is used.
 IfcPLusPlus
 ===========
 get source code, change branch and build
-$ git clone git://github.com/berndhahnebach/IFCPlusPlus/   ifcplusplus-code
+$ git clone git://github.com/berndhahnebach/IfcPlusPlus/   ifcplusplus-code
 $ cd ifcplusplus-code
 $ git checkout r42linuxbuild
 $ mkdir build
