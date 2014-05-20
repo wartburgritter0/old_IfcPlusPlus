@@ -22,7 +22,10 @@
 #include <osg/PolygonOffset>
 
 #define _USE_MATH_DEFINES
-#include <math.h>
+
+#include <cmath>
+//#include <math.h>
+
 #include <iostream>
 #include <utility>
 #include <sstream>
@@ -581,9 +584,9 @@ bool GeomUtils::checkOpenPolygonConvexity( const std::vector<carve::geom::vector
 
 		if( k > 0 )
 		{
-			if( abs(zcrossproduct) > 0.0001 )
+			if( std::abs(zcrossproduct) > 0.0001 )
 			{
-				if( abs(zcrossproduct_previous) > 0.0001 )
+				if( std::abs(zcrossproduct_previous) > 0.0001 )
 				{
 					if( zcrossproduct*zcrossproduct_previous < 0 )
 					{
@@ -646,9 +649,9 @@ void GeomUtils::createFace( const std::vector<std::vector<carve::geom::vector<3>
 		carve::geom3d::Vector normal = GeomUtils::computePolygonNormal( loop_points );
 		if( it_bounds == vec_bounds.begin() )
 		{
-			double nx = abs(normal.x);
-			double ny = abs(normal.y);
-			double nz = abs(normal.z);
+			double nx = std::abs(normal.x);
+			double ny = std::abs(normal.y);
+			double nz = std::abs(normal.z);
 			if( nz > nx && nz >= ny )
 			{
 				face_plane = XY_PLANE;
@@ -824,15 +827,15 @@ void GeomUtils::createFace( const std::vector<std::vector<carve::geom::vector<3>
 			const carve::poly::Vertex<3>& v_b = poly_cache.m_poly_data->getVertex(vertex_id_b);
 
 			double dx = v_a.v[0] - v_b.v[0];
-			if( abs(dx) < 0.0000001 )
+			if( std::abs(dx) < 0.0000001 )
 			{
 				double dy = v_a.v[1] - v_b.v[1];
-				if( abs(dy) < 0.0000001 )
+				if( std::abs(dy) < 0.0000001 )
 				{
 					double dz = v_a.v[2] - v_b.v[2];
-					if( abs(dz) < 0.0000001 )
+					if( std::abs(dz) < 0.0000001 )
 					{
-						std::cerr << "abs(dx) < 0.00001 && abs(dy) < 0.00001 && abs(dz) < 0.00001\n";
+						std::cerr << "std::abs(dx) < 0.00001 && std::abs(dy) < 0.00001 && std::abs(dz) < 0.00001\n";
 					}
 				}
 			}
@@ -933,7 +936,7 @@ void GeomUtils::extrude( const std::vector<std::vector<carve::geom::vector<2> > 
 			carve::geom::vector<2> first = loop_2d.front();
 			carve::geom::vector<2>& last = loop_2d.back();
 
-			if( abs(first.x-last.x) > 0.00001 || abs(first.y-last.y) > 0.00001 )
+			if( std::abs(first.x-last.x) > 0.00001 || std::abs(first.y-last.y) > 0.00001 )
 			{
 				loop_2d.push_back( first );
 			}
@@ -1143,7 +1146,7 @@ void GeomUtils::extrude( const std::vector<std::vector<carve::geom::vector<2> > 
 		carve::geom::vector<3> pc( carve::geom::VECTOR( v_c.v[0],	v_c.v[1],	v_c.v[2] ) );
 
 		double A = 0.5*(cross( pa-pb, pa-pc ).length());
-		if( abs(A) < 0.000000001 )
+		if( std::abs(A) < 0.000000001 )
 		{
 			std::cout << "area < 0.000000001\n" << std::endl;
 		}
@@ -1192,7 +1195,7 @@ void GeomUtils::sweepDisk( std::vector<carve::geom::vector<3> >& basis_curve_poi
 			section2.normalize();
 
 			double dot_product = dot( section1, section2 );
-			double dot_product_abs = abs(dot_product);
+			double dot_product_abs = std::abs(dot_product);
 
 			// if dot == 1 or -1, then points are colinear
 			if( dot_product_abs < (1.0-0.0001) || dot_product_abs > (1.0+0.0001) )
@@ -1223,13 +1226,13 @@ void GeomUtils::sweepDisk( std::vector<carve::geom::vector<3> >& basis_curve_poi
 			local_z.normalize();
 		}
 		double dot_normal_local_z = dot( sweep_dir, local_z );
-		if( abs(dot_normal_local_z-1.0) < 0.0001 )
+		if( std::abs(dot_normal_local_z-1.0) < 0.0001 )
 		{
 			local_z = cross( carve::geom::VECTOR( 0, 1, 0 ), sweep_dir );
 			local_z.normalize();
 
 			dot_normal_local_z = dot( sweep_dir, local_z );
-			if( abs(dot_normal_local_z-1.0) < 0.0001 )
+			if( std::abs(dot_normal_local_z-1.0) < 0.0001 )
 			{
 				local_z = cross( carve::geom::VECTOR( 1, 0, 0 ), sweep_dir );
 				local_z.normalize();
@@ -1311,7 +1314,7 @@ void GeomUtils::sweepDisk( std::vector<carve::geom::vector<3> >& basis_curve_poi
 		section1.normalize();
 		section2.normalize();
 		double dot_product = dot( section1, section2 );
-		double dot_product_abs = abs(dot_product);
+		double dot_product_abs = std::abs(dot_product);
 
 		if( dot_product_abs < (1.0-0.0001) || dot_product_abs > (1.0+0.0001) )
 		{
@@ -1545,7 +1548,7 @@ void GeomUtils::sweepArea( const std::vector<carve::geom::vector<3> >& curve_poi
 			carve::geom::vector<2> first = loop_2d.front();
 			carve::geom::vector<2>& last = loop_2d.back();
 
-			if( abs(first.x-last.x) > 0.00001 || abs(first.y-last.y) > 0.00001 )
+			if( std::abs(first.x-last.x) > 0.00001 || std::abs(first.y-last.y) > 0.00001 )
 			{
 				loop_2d.push_back( first );
 			}
@@ -1684,7 +1687,7 @@ void GeomUtils::sweepArea( const std::vector<carve::geom::vector<3> >& curve_poi
 			section2.normalize();
 
 			double dot_product = dot( section1, section2 );
-			double dot_product_abs = abs(dot_product);
+			double dot_product_abs = std::abs(dot_product);
 
 			// if dot == 1 or -1, then points are colinear
 			if( dot_product_abs < (1.0-0.0001) || dot_product_abs > (1.0+0.0001) )
@@ -1715,13 +1718,13 @@ void GeomUtils::sweepArea( const std::vector<carve::geom::vector<3> >& curve_poi
 			local_z.normalize();
 		}
 		double dot_normal_local_z = dot( sweep_dir, local_z );
-		if( abs(dot_normal_local_z-1.0) < 0.0001 )
+		if( std::abs(dot_normal_local_z-1.0) < 0.0001 )
 		{
 			local_z = cross( carve::geom::VECTOR( 0, 1, 0 ), sweep_dir );
 			local_z.normalize();
 
 			dot_normal_local_z = dot( sweep_dir, local_z );
-			if( abs(dot_normal_local_z-1.0) < 0.0001 )
+			if( std::abs(dot_normal_local_z-1.0) < 0.0001 )
 			{
 				local_z = cross( carve::geom::VECTOR( 1, 0, 0 ), sweep_dir );
 				local_z.normalize();
@@ -1803,7 +1806,7 @@ void GeomUtils::sweepArea( const std::vector<carve::geom::vector<3> >& curve_poi
 		section1.normalize();
 		section2.normalize();
 		double dot_product = dot( section1, section2 );
-		double dot_product_abs = abs(dot_product);
+		double dot_product_abs = std::abs(dot_product);
 
 		if( dot_product_abs < (1.0-0.0001) || dot_product_abs > (1.0+0.0001) )
 		{
@@ -2073,7 +2076,7 @@ void GeomUtils::sweepArea( const std::vector<carve::geom::vector<3> >& curve_poi
 		carve::geom::vector<3> pc( carve::geom::VECTOR( v_c.v[0],	v_c.v[1],	v_c.v[2] ) );
 
 		double A = 0.5*(cross( pa-pb, pa-pc ).length());
-		if( abs(A) < 0.000000001 )
+		if( std::abs(A) < 0.000000001 )
 		{
 			std::cout << "area < 0.000000001\n" << std::endl;
 		}
@@ -2354,9 +2357,9 @@ void GeomUtils::appendPointsToCurve( const std::vector<carve::geom::vector<2> >&
 	{
 		const carve::geom::vector<3>& last_point = target_vec.back();
 		const carve::geom::vector<2>& first_point_current_segment = points_vec.front();
-		if( abs(last_point.x - first_point_current_segment.x) < 0.000001 )
+		if( std::abs(last_point.x - first_point_current_segment.x) < 0.000001 )
 		{
-			if( abs(last_point.y - first_point_current_segment.y) < 0.000001 )
+			if( std::abs(last_point.y - first_point_current_segment.y) < 0.000001 )
 			{
 				omit_first = true;
 			}
@@ -2503,7 +2506,7 @@ bool GeomUtils::bisectingPlane( const carve::geom::vector<3>& v1, const carve::g
 			v32.normalize();
 
 			double dot_product = dot( v32, v21 );
-			double dot_product_abs = abs( dot_product );
+			double dot_product_abs = std::abs( dot_product );
 
 			if( dot_product_abs > (1.0+GEOM_TOLERANCE) || dot_product_abs < (1.0-GEOM_TOLERANCE) )
 			{

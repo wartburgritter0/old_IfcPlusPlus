@@ -12,7 +12,8 @@
 */
 
 
-#include <stdlib.h>
+#include <cstdlib>
+//#include <stdlib.h>
 #include <osgGA/GUIEventAdapter>
 #include <osgGA/OrbitManipulator>
 

@@ -557,7 +557,7 @@ void SolidModelConverter::convertIfcRevolvedAreaSolid( const shared_ptr<IfcRevol
 	if( revolution_angle < -M_PI*2 ) revolution_angle = M_PI*2;
 
 	// TODO: calculate num segments according to length/width/height ratio and overall size of the object
-	int num_segments = m_geom_settings->m_num_vertices_per_circle*(abs(revolution_angle)/(2.0*M_PI));
+	int num_segments = m_geom_settings->m_num_vertices_per_circle*(std::abs(revolution_angle)/(2.0*M_PI));
 	if( num_segments < 6 )
 	{
 		num_segments = 6;
@@ -657,7 +657,7 @@ void SolidModelConverter::convertIfcRevolvedAreaSolid( const shared_ptr<IfcRevol
 		carve::geom::vector<3> pc( carve::geom::VECTOR( v_c.v[0],	v_c.v[1],	v_c.v[2] ) );
 
 		double A = 0.5*(cross( pa-pb, pa-pc ).length());
-		if( abs(A) < 0.000000001 )
+		if( std::abs(A) < 0.000000001 )
 		{
 			std::cout << "area < 0.000000001\n" << std::endl;
 		}
