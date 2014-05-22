@@ -1,5 +1,11 @@
 
-branch r50linux
+master is svn repo is HEAD
+linuxbuild is on branch r50linux
+
+ISUES Linuxversion:
+On some file the colour of Objects is the same for nearly alle elements.
+Further Investigation is needed
+
 
 
 IfcPLusPlus
@@ -30,7 +36,8 @@ IfcPLusPlus
 get source code, change branch and build
 $ git clone git://github.com/berndhahnebach/IfcPlusPlus/   ifcplusplus-code
 $ cd ifcplusplus-code
-$ git checkout r50linux
+$ git checkout remotes/origin/r50linux
+$ git checkout -b r50linux
 $ mkdir build
 $ cd build
 You need to tell IfcPLusPlus where your Carve is. Since CMakeLists.txt is optimized for use of external Carve
