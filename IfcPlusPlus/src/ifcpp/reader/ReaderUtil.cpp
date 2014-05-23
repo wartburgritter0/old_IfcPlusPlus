@@ -682,7 +682,8 @@ void decodeArgumentStrings( std::vector<std::string>& entity_arguments )
 									//we got a multibyte character here
 									char buf[2];
 									//int len = WideCharToMultiByte(CP_UTF8, 0, &wc, 1, buf, 2, nullptr, nullptr);
-									arg_str_new+= buf[0];
+									err << "Just ried to use documented method "WideCharToMultiByte" right now! " << std::endl;
+                                                                        arg_str_new+= buf[0];
 									arg_str_new+= buf[1];
 								}
 								else
@@ -721,6 +722,7 @@ void decodeArgumentStrings( std::vector<std::string>& entity_arguments )
 											//we got a multibyte character here
 											char buf[2];
 											//int len = WideCharToMultiByte(CP_UTF8, 0, &wc, 1, buf, 2, nullptr, nullptr);
+                                                                                        err << "Just ried to use documented method "WideCharToMultiByte" right now! " << std::endl;
 											arg_str_new+= buf[0];
 											arg_str_new+= buf[1];
 										}
