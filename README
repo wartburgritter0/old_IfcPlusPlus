@@ -1,10 +1,8 @@
 
-master is svn repo is HEAD
+master is svn repo
+
 linuxbuild is on branch r50linux
 
-ISUES Linuxversion:
-On some file the colour of Objects is the same for nearly alle elements.
-Further Investigation is needed
 
 
 
@@ -25,6 +23,7 @@ http://www.forum.freecadweb.org/viewtopic.php?f=23&t=5101
 
 Packagelist
 ===========
+Tested on Debian Wheezy
 $ apt-get install cmake git 
 $ apt-get install libboost-dev libopenscenegraph-dev libqt4-dev
 
