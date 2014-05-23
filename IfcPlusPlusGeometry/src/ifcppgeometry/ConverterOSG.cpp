@@ -825,25 +825,25 @@ osg::StateSet* AppearanceManagerOSG::convertToStateSet( shared_ptr<AppearanceDat
 
 		// compare
 		osg::Vec4f color_ambient_existing = mat_existing->getAmbient( osg::Material::FRONT_AND_BACK );
-		if( abs(color_ambient_existing.r() - color_ambient_r ) > 0.03 ) break;
-		if( abs(color_ambient_existing.g() - color_ambient_g ) > 0.03 ) break;
-		if( abs(color_ambient_existing.b() - color_ambient_b ) > 0.03 ) break;
-		if( abs(color_ambient_existing.a() - color_ambient_a ) > 0.03 ) break;
+		if( std::abs(color_ambient_existing.r() - color_ambient_r ) > 0.03 ) break;
+		if( std::abs(color_ambient_existing.g() - color_ambient_g ) > 0.03 ) break;
+		if( std::abs(color_ambient_existing.b() - color_ambient_b ) > 0.03 ) break;
+		if( std::abs(color_ambient_existing.a() - color_ambient_a ) > 0.03 ) break;
 
 		osg::Vec4f color_diffuse_existing = mat_existing->getDiffuse( osg::Material::FRONT_AND_BACK );
-		if( abs(color_diffuse_existing.r() - color_diffuse_r ) > 0.03 ) break;
-		if( abs(color_diffuse_existing.g() - color_diffuse_g ) > 0.03 ) break;
-		if( abs(color_diffuse_existing.b() - color_diffuse_b ) > 0.03 ) break;
-		if( abs(color_diffuse_existing.a() - color_diffuse_a ) > 0.03 ) break;
+		if( std::abs(color_diffuse_existing.r() - color_diffuse_r ) > 0.03 ) break;
+		if( std::abs(color_diffuse_existing.g() - color_diffuse_g ) > 0.03 ) break;
+		if( std::abs(color_diffuse_existing.b() - color_diffuse_b ) > 0.03 ) break;
+		if( std::abs(color_diffuse_existing.a() - color_diffuse_a ) > 0.03 ) break;
 
 		osg::Vec4f color_specular_existing = mat_existing->getSpecular( osg::Material::FRONT_AND_BACK );
-		if( abs(color_specular_existing.r() - color_specular_r ) > 0.03 ) break;
-		if( abs(color_specular_existing.g() - color_specular_g ) > 0.03 ) break;
-		if( abs(color_specular_existing.b() - color_specular_b ) > 0.03 ) break;
-		if( abs(color_specular_existing.a() - color_specular_a ) > 0.03 ) break;
+		if( std::abs(color_specular_existing.r() - color_specular_r ) > 0.03 ) break;
+		if( std::abs(color_specular_existing.g() - color_specular_g ) > 0.03 ) break;
+		if( std::abs(color_specular_existing.b() - color_specular_b ) > 0.03 ) break;
+		if( std::abs(color_specular_existing.a() - color_specular_a ) > 0.03 ) break;
 
 		float shininess_existing = mat_existing->getShininess( osg::Material::FRONT_AND_BACK );
-		if( abs(shininess_existing - shininess ) > 0.03 ) break;
+		if( std::abs(shininess_existing - shininess ) > 0.03 ) break;
 
 		bool blend_on_existing = stateset_existing->getMode( GL_BLEND ) == osg::StateAttribute::ON;
 		if( blend_on_existing != set_transparent ) break;
