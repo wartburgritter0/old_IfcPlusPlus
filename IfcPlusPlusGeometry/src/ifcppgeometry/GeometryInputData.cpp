@@ -57,26 +57,26 @@ bool ItemData::isEmpty()
 
 bool isIdentity( const carve::math::Matrix& mat )
 {
-	if( abs(mat._11 -1.0) > 0.00001 )  return false;
-	if( abs(mat._22 -1.0) > 0.00001 )  return false;
-	if( abs(mat._33 -1.0) > 0.00001 )  return false;
-	if( abs(mat._44 -1.0) > 0.00001 )  return false;
+	if( std::abs(mat._11 -1.0) > 0.00001 )  return false;
+	if( std::abs(mat._22 -1.0) > 0.00001 )  return false;
+	if( std::abs(mat._33 -1.0) > 0.00001 )  return false;
+	if( std::abs(mat._44 -1.0) > 0.00001 )  return false;
 	
-	if( abs(mat._12) > 0.00001 )  return false;
-	if( abs(mat._13) > 0.00001 )  return false;
-	if( abs(mat._14) > 0.00001 )  return false;
+	if( std::abs(mat._12) > 0.00001 )  return false;
+	if( std::abs(mat._13) > 0.00001 )  return false;
+	if( std::abs(mat._14) > 0.00001 )  return false;
 	
-	if( abs(mat._21) > 0.00001 )  return false;
-	if( abs(mat._23) > 0.00001 )  return false;
-	if( abs(mat._24) > 0.00001 )  return false;
+	if( std::abs(mat._21) > 0.00001 )  return false;
+	if( std::abs(mat._23) > 0.00001 )  return false;
+	if( std::abs(mat._24) > 0.00001 )  return false;
 	
-	if( abs(mat._31) > 0.00001 )  return false;
-	if( abs(mat._32) > 0.00001 )  return false;
-	if( abs(mat._34) > 0.00001 )  return false;
+	if( std::abs(mat._31) > 0.00001 )  return false;
+	if( std::abs(mat._32) > 0.00001 )  return false;
+	if( std::abs(mat._34) > 0.00001 )  return false;
 
-	if( abs(mat._41) > 0.00001 )  return false;
-	if( abs(mat._42) > 0.00001 )  return false;
-	if( abs(mat._43) > 0.00001 )  return false;
+	if( std::abs(mat._41) > 0.00001 )  return false;
+	if( std::abs(mat._42) > 0.00001 )  return false;
+	if( std::abs(mat._43) > 0.00001 )  return false;
 	return true;
 }
 

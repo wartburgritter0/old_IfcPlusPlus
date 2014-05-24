@@ -18,7 +18,7 @@ void collectAdjacentFacesSameNormal( const carve::mesh::Face<3>* face, const car
 		carve::mesh::Face<3>* adjacent_face = edge_reverse->face;
 		const carve::geom::vector<3>& adjacent_face_normal = adjacent_face->plane.N;
 		const double cos_angle = dot( adjacent_face_normal, normal );
-		if( abs( cos_angle + 1.0 ) < 0.000000001 || abs( cos_angle - 1.0 ) < 0.000000001 )
+		if( std::abs( cos_angle + 1.0 ) < 0.000000001 || std::abs( cos_angle - 1.0 ) < 0.000000001 )
 		{
 			bool already_in_vec = false;
 			for( int i=0; i<vec_faces.size(); ++i )
@@ -53,12 +53,12 @@ void collectFacesOppositeOrientation( const carve::geom::vector<3>& normal, cons
 		carve::mesh::Face<3>* face = vec_faces_in[i];
 		const carve::geom::vector<3>& face_normal = face->plane.N;
 		const double cos_angle = dot( face_normal, normal );
-		//if( abs( cos_angle + 1.0 ) < 0.000000001 || abs( cos_angle - 1.0 ) < 0.000000001 )
-		if( abs( cos_angle + 1.0 ) < 0.000001 )
+		//if( std::abs( cos_angle + 1.0 ) < 0.000000001 || std::abs( cos_angle - 1.0 ) < 0.000000001 )
+		if( std::abs( cos_angle + 1.0 ) < 0.000001 )
 		{
 			vec_opposite_faces.push_back( face );
 		}
-		if( abs( cos_angle - 1.0 ) > 0.0001 )
+		if( std::abs( cos_angle - 1.0 ) > 0.0001 )
 		{
 			int wait=0;
 		}
@@ -74,7 +74,7 @@ void collectFinFaces( const carve::mesh::Face<3>* face, const carve::geom::vecto
 		carve::mesh::Face<3>* adjacent_face = edge_reverse->face;
 		const carve::geom::vector<3>& adjacent_face_normal = adjacent_face->plane.N;
 		const double cos_angle = dot( adjacent_face_normal, normal );
-		if( abs( cos_angle + 1.0 ) < 0.0000001 || abs( cos_angle - 1.0 ) < 0.0000001 )
+		if( std::abs( cos_angle + 1.0 ) < 0.0000001 || std::abs( cos_angle - 1.0 ) < 0.0000001 )
 		{
 			bool already_in_vec = false;
 			for( int i=0; i<vec_faces.size(); ++i )
@@ -171,7 +171,7 @@ void removeFins( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
 				const carve::geom::vector<3>& face_reverse_normal = face->plane.N;
 
 				const double cos_angle = dot( face_normal, face_reverse_normal );
-				if( abs( cos_angle + 1.0 ) < 0.000001 )
+				if( std::abs( cos_angle + 1.0 ) < 0.000001 )
 				{
 					// fin detected
 					// check if all vertices are same
@@ -236,7 +236,7 @@ void removeThinCSGRemainings( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
 		{
 			carve::mesh::Face<3>* face = vec_faces[i2];
 			//const double face_distance_origin = round(face->plane.d/round_distance)*round_distance;
-			const double face_distance_origin = abs(round(face->plane.d*DISTANCE_ROUND_UP)*DISTANCE_ROUND_DOWN);
+			const double face_distance_origin = std::abs(round(face->plane.d*DISTANCE_ROUND_UP)*DISTANCE_ROUND_DOWN);
 			std::vector<carve::mesh::Face<3>* >& vec_faces_same_distance = map_face_distances.insert( std::make_pair( face_distance_origin, std::vector<carve::mesh::Face<3>* >() ) ).first->second;
 			vec_faces_same_distance.push_back( face );
 			set_unhandled_faces.insert( face );
@@ -332,7 +332,7 @@ void removeThinCSGRemainings( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
 					const double face_distance_origin = face->plane.d;
 					//const double opposite_face_distance_origin = round(opposite_face->plane.d*DISTANCE_ROUND_UP)*DISTANCE_ROUND_DOWN;
 					const double opposite_face_distance_origin = opposite_face->plane.d;
-					if( abs(face_distance_origin+opposite_face_distance_origin) > 0.0001 )
+					if( std::abs(face_distance_origin+opposite_face_distance_origin) > 0.0001 )
 					{
 						// faces are not in same plane, but in opposite planes
 						continue;
@@ -340,14 +340,14 @@ void removeThinCSGRemainings( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
 			
 #ifdef _DEBUG
 					const double opposite_direction = dot( opposite_face_normal, face_normal );
-					if( abs( opposite_direction + 1.0 ) > 0.000000001  )
+					if( std::abs( opposite_direction + 1.0 ) > 0.000000001  )
 					{
 						std::cout << "orientation check failed" << std::endl;
 					}
 #endif
 
 					bool create_subtract_poly = false;
-					if( abs(face_distance_origin+opposite_face_distance_origin) > carve::EPSILON )
+					if( std::abs(face_distance_origin+opposite_face_distance_origin) > carve::EPSILON )
 					{
 						create_subtract_poly = true;
 					}
@@ -786,7 +786,7 @@ void removeThinCSGRemainings( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
 		volume_check2 += mesh->volume();
 	}
 
-	if( abs(volume_check - volume_check2) > 0.0001 )
+	if( std::abs(volume_check - volume_check2) > 0.0001 )
 	{
 		std::cout << __FUNC__ << " volume check failed." << std::endl;
 	}
@@ -862,7 +862,7 @@ void retriangulateMeshSet( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
 		volume_check2 += mesh->volume();
 	}
 
-	if( abs(volume_check - volume_check2) > 0.001 )
+	if( std::abs(volume_check - volume_check2) > 0.001 )
 	{
 		std::cout << __FUNC__ << " volume check failed, vol1: " << volume_check << ", vol2: " << volume_check2 << std::endl;
 	}
