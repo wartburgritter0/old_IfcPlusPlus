@@ -39,12 +39,7 @@ $ git checkout remotes/origin/r50linux
 $ git checkout -b r50linux
 $ mkdir build
 $ cd build
-You need to tell IfcPLusPlus where your Carve is. Since CMakeLists.txt is optimized for use of external Carve
-I had to set Carvedirectories even for internal Carve. In my case it was:
-$ cmake \
--D CARVE_SOURCE_DIR=/home/hugo/Documents/projekte--ifc/ifcplusplus/ifcplusplus-code/Carve   \
--D CARVE_BINARY_DIR=/home/hugo/Documents/projekte--ifc/ifcplusplus/ifcplusplus-code/build   \
-../
+$ cmake ../
 $ make
 $ cd Release
 $ ./IfcPlusPlusViewer

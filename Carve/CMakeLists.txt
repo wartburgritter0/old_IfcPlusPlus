@@ -12,15 +12,17 @@ IF(NOT CMAKE_BUILD_TYPE)
 ENDIF(NOT CMAKE_BUILD_TYPE)
 
 
-# Display a message if Carve directories where not specified at cmake run
+# set Carve directories for use of internal carve if not done at startup for external carve
+message(STATUS "-----------------------------------------------------------")
 IF(NOT CARVE_SOURCE_DIR)
-  message(STATUS "Specify the CARVE_SOURCE_DIR at cmake run!")
-  message(STATUS "------------------------------------------")
+  message(STATUS "CARVE_SOURCE_DIR not specified at cmake run! set it to internal carve")
+  set(CARVE_SOURCE_DIR ${IFCPP_SOURCE_DIR}/Carve )
 ENDIF(NOT CARVE_SOURCE_DIR)
 IF(NOT CARVE_BINARY_DIR)
-  message(STATUS "Specify the CARVE_BINARY_DIR at cmake run!")
-  message(STATUS "------------------------------------------")
+  message(STATUS "CARVE_BINARY_DIR not specified at cmake run! set it to current build dir")
+  set(CARVE_BINARY_DIR ${IFCPP_BINARY_DIR})
 ENDIF(NOT CARVE_BINARY_DIR)
+message(STATUS "-----------------------------------------------------------")
 
 INCLUDE_DIRECTORIES(${INCLUDE_DIRECTORIES} ${CARVE_SOURCE_DIR}/src/include)
 
