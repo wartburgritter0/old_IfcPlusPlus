@@ -13,7 +13,8 @@
 
 
 #define _USE_MATH_DEFINES 
-#include <math.h>
+#include <cmath>
+//#include <math.h>
 
 #include "ifcpp/model/shared_ptr.h"
 #include "ifcpp/model/UnitConverter.h"
