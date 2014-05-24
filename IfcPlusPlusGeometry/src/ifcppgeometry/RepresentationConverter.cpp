@@ -550,29 +550,31 @@ void RepresentationConverter::convertIfcGeometricRepresentationItem( const share
 	shared_ptr<IfcAnnotationFillArea> annotation_fill_area = dynamic_pointer_cast<IfcAnnotationFillArea>(geom_item);
 	if( annotation_fill_area )
 	{
-		// convert outer boundary
-		shared_ptr<IfcCurve>& outer_boundary = annotation_fill_area->m_OuterBoundary;
-		std::vector<std::vector<carve::geom::vector<3> > > face_loops;
-		face_loops.push_back( std::vector<carve::geom::vector<3> >() );
-		std::vector<carve::geom::vector<3> >& outer_boundary_loop = face_loops.back();
-		std::vector<carve::geom::vector<3> > segment_start_points;
-		m_curve_converter->convertIfcCurve( outer_boundary, outer_boundary_loop, segment_start_points );
+                if( m_geom_settings->m_show_ifcannotationfillarea )
+                {
+                    // convert outer boundary
+                    shared_ptr<IfcCurve>& outer_boundary = annotation_fill_area->m_OuterBoundary;
+                    std::vector<std::vector<carve::geom::vector<3> > > face_loops;
+                    face_loops.push_back( std::vector<carve::geom::vector<3> >() );
+                    std::vector<carve::geom::vector<3> >& outer_boundary_loop = face_loops.back();
+                    std::vector<carve::geom::vector<3> > segment_start_points;
+                    m_curve_converter->convertIfcCurve( outer_boundary, outer_boundary_loop, segment_start_points );
 
-		// convert inner boundaries
-		std::vector<shared_ptr<IfcCurve> >& vec_inner_boundaries = annotation_fill_area->m_InnerBoundaries;			//optional
-		for( std::vector<shared_ptr<IfcCurve> >::iterator it = vec_inner_boundaries.begin(); it != vec_inner_boundaries.end(); ++it )
-		{
-			shared_ptr<IfcCurve>& inner_boundary = *it;
-			face_loops.push_back( std::vector<carve::geom::vector<3> >() );
-			std::vector<carve::geom::vector<3> >& inner_boundary_loop = face_loops.back();
-			std::vector<carve::geom::vector<3> > segment_start_points;
-			m_curve_converter->convertIfcCurve( inner_boundary, inner_boundary_loop, segment_start_points );
-		}
+                    // convert inner boundaries
+                    std::vector<shared_ptr<IfcCurve> >& vec_inner_boundaries = annotation_fill_area->m_InnerBoundaries;			//optional
+                    for( std::vector<shared_ptr<IfcCurve> >::iterator it = vec_inner_boundaries.begin(); it != vec_inner_boundaries.end(); ++it )
+                    {
+                          shared_ptr<IfcCurve>& inner_boundary = *it;
+                          face_loops.push_back( std::vector<carve::geom::vector<3> >() );
+                          std::vector<carve::geom::vector<3> >& inner_boundary_loop = face_loops.back();
+                          std::vector<carve::geom::vector<3> > segment_start_points;
+                          m_curve_converter->convertIfcCurve( inner_boundary, inner_boundary_loop, segment_start_points );
+                    }
 		
-		PolyInputCache3D poly_cache;
-		GeomUtils::createFace( face_loops, poly_cache, strs_err );
-		item_data->open_polyhedrons.push_back( poly_cache.m_poly_data );
-		
+                    PolyInputCache3D poly_cache;
+                    GeomUtils::createFace( face_loops, poly_cache, strs_err );
+                    item_data->open_polyhedrons.push_back( poly_cache.m_poly_data );
+                }
 		return;
 	}
 	
