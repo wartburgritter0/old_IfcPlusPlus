@@ -145,7 +145,7 @@ void IfcTaskTime::getAttributes( std::vector<std::pair<std::string, shared_ptr<I
 	vec_attributes.push_back( std::make_pair( "LateFinish", m_LateFinish ) );
 	vec_attributes.push_back( std::make_pair( "FreeFloat", m_FreeFloat ) );
 	vec_attributes.push_back( std::make_pair( "TotalFloat", m_TotalFloat ) );
-	vec_attributes.push_back( std::make_pair( "IsCritical", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_IsCritical ) ) ) );
+	vec_attributes.push_back( std::make_pair( "IsCritical", shared_ptr<IfcPPBool>( new IfcPPBool( m_IsCritical ) ) ) );
 	vec_attributes.push_back( std::make_pair( "StatusTime", m_StatusTime ) );
 	vec_attributes.push_back( std::make_pair( "ActualDuration", m_ActualDuration ) );
 	vec_attributes.push_back( std::make_pair( "ActualStart", m_ActualStart ) );
@@ -153,7 +153,7 @@ void IfcTaskTime::getAttributes( std::vector<std::pair<std::string, shared_ptr<I
 	vec_attributes.push_back( std::make_pair( "RemainingTime", m_RemainingTime ) );
 	vec_attributes.push_back( std::make_pair( "Completion", m_Completion ) );
 }
-void IfcTaskTime::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTaskTime::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTaskTime::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -35,7 +35,7 @@ shared_ptr<IfcDynamicViscosityMeasure> IfcDynamicViscosityMeasure::createObjectF
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcDynamicViscosityMeasure>(); }
-	auto type_object = std::make_shared<IfcDynamicViscosityMeasure>();
+	shared_ptr<IfcDynamicViscosityMeasure> type_object( new IfcDynamicViscosityMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

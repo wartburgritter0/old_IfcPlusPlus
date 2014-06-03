@@ -104,7 +104,7 @@ void IfcFanType::getAttributes( std::vector<std::pair<std::string, shared_ptr<If
 	IfcFlowMovingDeviceType::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcFanType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcFanType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcFanType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

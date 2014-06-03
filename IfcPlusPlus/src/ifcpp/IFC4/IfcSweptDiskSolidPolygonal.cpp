@@ -78,7 +78,7 @@ void IfcSweptDiskSolidPolygonal::getAttributes( std::vector<std::pair<std::strin
 	IfcSweptDiskSolid::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "FilletRadius", m_FilletRadius ) );
 }
-void IfcSweptDiskSolidPolygonal::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSweptDiskSolidPolygonal::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSweptDiskSolidPolygonal::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -77,7 +77,7 @@ void IfcTextLiteralWithExtent::getAttributes( std::vector<std::pair<std::string,
 	vec_attributes.push_back( std::make_pair( "Extent", m_Extent ) );
 	vec_attributes.push_back( std::make_pair( "BoxAlignment", m_BoxAlignment ) );
 }
-void IfcTextLiteralWithExtent::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTextLiteralWithExtent::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTextLiteralWithExtent::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -68,7 +68,7 @@ void IfcTextLiteral::getAttributes( std::vector<std::pair<std::string, shared_pt
 	vec_attributes.push_back( std::make_pair( "Placement", m_Placement ) );
 	vec_attributes.push_back( std::make_pair( "Path", m_Path ) );
 }
-void IfcTextLiteral::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTextLiteral::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTextLiteral::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

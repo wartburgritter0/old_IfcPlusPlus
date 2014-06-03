@@ -53,7 +53,7 @@ void IfcPreDefinedTextFont::getAttributes( std::vector<std::pair<std::string, sh
 {
 	IfcPreDefinedItem::getAttributes( vec_attributes );
 }
-void IfcPreDefinedTextFont::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPreDefinedTextFont::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPreDefinedTextFont::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

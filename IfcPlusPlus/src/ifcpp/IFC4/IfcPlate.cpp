@@ -112,7 +112,7 @@ void IfcPlate::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcP
 	IfcBuildingElement::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcPlate::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPlate::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPlate::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

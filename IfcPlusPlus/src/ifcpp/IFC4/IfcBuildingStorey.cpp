@@ -109,7 +109,7 @@ void IfcBuildingStorey::getAttributes( std::vector<std::pair<std::string, shared
 	IfcSpatialStructureElement::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "Elevation", m_Elevation ) );
 }
-void IfcBuildingStorey::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcBuildingStorey::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcBuildingStorey::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

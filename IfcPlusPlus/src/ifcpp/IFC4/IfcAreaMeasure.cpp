@@ -35,7 +35,7 @@ shared_ptr<IfcAreaMeasure> IfcAreaMeasure::createObjectFromStepData( const std::
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcAreaMeasure>(); }
-	auto type_object = std::make_shared<IfcAreaMeasure>();
+	shared_ptr<IfcAreaMeasure> type_object( new IfcAreaMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

@@ -46,7 +46,7 @@ void IfcCurve::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcP
 {
 	IfcGeometricRepresentationItem::getAttributes( vec_attributes );
 }
-void IfcCurve::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCurve::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCurve::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

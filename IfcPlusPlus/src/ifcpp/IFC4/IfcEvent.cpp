@@ -114,7 +114,7 @@ void IfcEvent::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcP
 	vec_attributes.push_back( std::make_pair( "UserDefinedEventTriggerType", m_UserDefinedEventTriggerType ) );
 	vec_attributes.push_back( std::make_pair( "EventOccurenceTime", m_EventOccurenceTime ) );
 }
-void IfcEvent::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcEvent::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcEvent::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

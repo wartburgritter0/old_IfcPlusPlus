@@ -147,8 +147,20 @@ void IfcDocumentInformation::getAttributes( std::vector<std::pair<std::string, s
 	vec_attributes.push_back( std::make_pair( "Confidentiality", m_Confidentiality ) );
 	vec_attributes.push_back( std::make_pair( "Status", m_Status ) );
 }
-void IfcDocumentInformation::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDocumentInformation::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> DocumentInfoForObjects_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_DocumentInfoForObjects_inverse.size(); ++i ) { DocumentInfoForObjects_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelAssociatesDocument>( m_DocumentInfoForObjects_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "DocumentInfoForObjects_inverse", DocumentInfoForObjects_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> HasDocumentReferences_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_HasDocumentReferences_inverse.size(); ++i ) { HasDocumentReferences_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcDocumentReference>( m_HasDocumentReferences_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "HasDocumentReferences_inverse", HasDocumentReferences_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> IsPointedTo_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_IsPointedTo_inverse.size(); ++i ) { IsPointedTo_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcDocumentInformationRelationship>( m_IsPointedTo_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "IsPointedTo_inverse", IsPointedTo_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> IsPointer_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_IsPointer_inverse.size(); ++i ) { IsPointer_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcDocumentInformationRelationship>( m_IsPointer_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "IsPointer_inverse", IsPointer_inverse_vec_obj ) );
 }
 void IfcDocumentInformation::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

@@ -104,7 +104,7 @@ void IfcOutletType::getAttributes( std::vector<std::pair<std::string, shared_ptr
 	IfcFlowTerminalType::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcOutletType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcOutletType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcOutletType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

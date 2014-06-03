@@ -44,7 +44,7 @@ shared_ptr<IfcBooleanOperator> IfcBooleanOperator::createObjectFromStepData( con
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcBooleanOperator>(); }
-	auto type_object = std::make_shared<IfcBooleanOperator>();
+	shared_ptr<IfcBooleanOperator> type_object( new IfcBooleanOperator() );
 	if( _stricmp( arg.c_str(), ".UNION." ) == 0 )
 	{
 		type_object->m_enum = IfcBooleanOperator::ENUM_UNION;

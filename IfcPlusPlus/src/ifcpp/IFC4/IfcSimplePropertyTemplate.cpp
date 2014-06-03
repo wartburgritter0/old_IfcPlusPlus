@@ -116,7 +116,7 @@ void IfcSimplePropertyTemplate::getAttributes( std::vector<std::pair<std::string
 	vec_attributes.push_back( std::make_pair( "Expression", m_Expression ) );
 	vec_attributes.push_back( std::make_pair( "AccessState", m_AccessState ) );
 }
-void IfcSimplePropertyTemplate::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSimplePropertyTemplate::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSimplePropertyTemplate::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

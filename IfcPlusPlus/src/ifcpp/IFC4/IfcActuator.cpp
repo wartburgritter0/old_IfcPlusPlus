@@ -113,7 +113,7 @@ void IfcActuator::getAttributes( std::vector<std::pair<std::string, shared_ptr<I
 	IfcDistributionControlElement::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcActuator::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcActuator::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcActuator::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -17,10 +17,9 @@
 #include <osgViewer/CompositeViewer>
 #include <osgQt/GraphicsWindowQt>
 
-
 #include <QtCore/qglobal.h>
-#include <QtWidgets/qwidget.h>
 #include <QtCore/QTimer>
+#include <qwidget.h>
 
 //\brief class to combine OSG Viewer and Qt widget
 

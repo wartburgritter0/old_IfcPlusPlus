@@ -110,7 +110,7 @@ void IfcFurnitureType::getAttributes( std::vector<std::pair<std::string, shared_
 	vec_attributes.push_back( std::make_pair( "AssemblyPlace", m_AssemblyPlace ) );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcFurnitureType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcFurnitureType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcFurnitureType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

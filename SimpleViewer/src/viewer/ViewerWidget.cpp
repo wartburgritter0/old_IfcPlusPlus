@@ -23,8 +23,8 @@
 #include <osg/LightModel>
 
 #include <QtCore/qglobal.h>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QLabel>
+#include <QVBoxLayout>
+#include <QLabel>
 #include <QtGui/QKeyEvent>
 
 #include <osgQt/GraphicsWindowQt>
@@ -38,7 +38,7 @@ ViewerWidget::ViewerWidget( QWidget* parent) : QWidget(parent)
 	osgViewer::ViewerBase::ThreadingModel threadingModel = osgViewer::ViewerBase::SingleThreaded;
 
     m_viewer.setThreadingModel(threadingModel);
-	m_near_plane = 0.5;
+	m_near_plane = 0.1;
 	m_far_plane = 10000.0;
 	m_projection = PROJECTION_PERSPECTIVE;
 	
@@ -67,8 +67,7 @@ ViewerWidget::ViewerWidget( QWidget* parent) : QWidget(parent)
 	osg::Camera* camera = m_main_view->getCamera();
 	camera->setGraphicsContext( gw );
 	camera->setClearColor( osg::Vec4(0.96f,	0.96f,  0.96f,  1.0f) );
-	camera->setViewport( new osg::Viewport(0, 0, width(), height() ) );
-	camera->setProjectionMatrixAsPerspective(30.0f, static_cast<double>(width())/static_cast<double>(height()), 1.0f, 10000.0f );
+	setProjection( ViewerProjection::PROJECTION_PERSPECTIVE );
 
 	m_main_view->addEventHandler( new osgViewer::StatsHandler );
 
@@ -123,7 +122,7 @@ void ViewerWidget::setProjection( ViewerProjection p )
 	{
 		double near_plane = 0.1;
 		//cam->setComputeNearFarMode(osg::CullSettings::COMPUTE_NEAR_FAR_USING_BOUNDING_VOLUMES);
-		cam->setProjectionMatrixAsPerspective( 90.0, 1.0/ratio, near_plane, m_far_plane );
+		cam->setProjectionMatrixAsPerspective( 45.0, 1.0/ratio, near_plane, m_far_plane );
 	}
 	if( m_hud_camera )
 	{

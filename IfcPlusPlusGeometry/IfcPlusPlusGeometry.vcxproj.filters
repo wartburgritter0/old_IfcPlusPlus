@@ -83,9 +83,6 @@
     <ClInclude Include="src\ifcppgeometry\StylesConverter.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\ifcppgeometry\UnhandledRepresentationException.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\ifcppgeometry\CurveConverter.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -114,6 +111,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\ifcppgeometry\CSG_Adapter.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ifcppgeometry\GeometryException.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

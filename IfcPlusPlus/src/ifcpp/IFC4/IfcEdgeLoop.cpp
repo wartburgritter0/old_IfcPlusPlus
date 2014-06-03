@@ -55,7 +55,7 @@ void IfcEdgeLoop::getAttributes( std::vector<std::pair<std::string, shared_ptr<I
 {
 	IfcLoop::getAttributes( vec_attributes );
 }
-void IfcEdgeLoop::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcEdgeLoop::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcEdgeLoop::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

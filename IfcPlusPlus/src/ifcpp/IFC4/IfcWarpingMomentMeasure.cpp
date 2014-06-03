@@ -36,7 +36,7 @@ shared_ptr<IfcWarpingMomentMeasure> IfcWarpingMomentMeasure::createObjectFromSte
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcWarpingMomentMeasure>(); }
-	auto type_object = std::make_shared<IfcWarpingMomentMeasure>();
+	shared_ptr<IfcWarpingMomentMeasure> type_object( new IfcWarpingMomentMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

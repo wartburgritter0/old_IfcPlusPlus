@@ -40,7 +40,7 @@ shared_ptr<IfcGlobalOrLocalEnum> IfcGlobalOrLocalEnum::createObjectFromStepData(
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcGlobalOrLocalEnum>(); }
-	auto type_object = std::make_shared<IfcGlobalOrLocalEnum>();
+	shared_ptr<IfcGlobalOrLocalEnum> type_object( new IfcGlobalOrLocalEnum() );
 	if( _stricmp( arg.c_str(), ".GLOBAL_COORDS." ) == 0 )
 	{
 		type_object->m_enum = IfcGlobalOrLocalEnum::ENUM_GLOBAL_COORDS;

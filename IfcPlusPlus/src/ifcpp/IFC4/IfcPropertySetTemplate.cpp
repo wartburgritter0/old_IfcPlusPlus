@@ -88,8 +88,11 @@ void IfcPropertySetTemplate::getAttributes( std::vector<std::pair<std::string, s
 	vec_attributes.push_back( std::make_pair( "TemplateType", m_TemplateType ) );
 	vec_attributes.push_back( std::make_pair( "ApplicableEntity", m_ApplicableEntity ) );
 }
-void IfcPropertySetTemplate::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPropertySetTemplate::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> Defines_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_Defines_inverse.size(); ++i ) { Defines_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelDefinesByTemplate>( m_Defines_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "Defines_inverse", Defines_inverse_vec_obj ) );
 }
 void IfcPropertySetTemplate::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

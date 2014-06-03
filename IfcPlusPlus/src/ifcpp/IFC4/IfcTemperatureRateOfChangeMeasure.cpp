@@ -35,7 +35,7 @@ shared_ptr<IfcTemperatureRateOfChangeMeasure> IfcTemperatureRateOfChangeMeasure:
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcTemperatureRateOfChangeMeasure>(); }
-	auto type_object = std::make_shared<IfcTemperatureRateOfChangeMeasure>();
+	shared_ptr<IfcTemperatureRateOfChangeMeasure> type_object( new IfcTemperatureRateOfChangeMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

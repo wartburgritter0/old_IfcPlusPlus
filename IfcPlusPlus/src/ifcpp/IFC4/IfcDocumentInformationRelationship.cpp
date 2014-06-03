@@ -73,7 +73,7 @@ void IfcDocumentInformationRelationship::getAttributes( std::vector<std::pair<st
 	vec_attributes.push_back( std::make_pair( "RelatingDocument", m_RelatingDocument ) );
 	vec_attributes.push_back( std::make_pair( "RelationshipType", m_RelationshipType ) );
 }
-void IfcDocumentInformationRelationship::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDocumentInformationRelationship::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcDocumentInformationRelationship::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

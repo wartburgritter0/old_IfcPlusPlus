@@ -64,7 +64,7 @@ void IfcDerivedUnit::getAttributes( std::vector<std::pair<std::string, shared_pt
 	vec_attributes.push_back( std::make_pair( "UnitType", m_UnitType ) );
 	vec_attributes.push_back( std::make_pair( "UserDefinedType", m_UserDefinedType ) );
 }
-void IfcDerivedUnit::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDerivedUnit::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcDerivedUnit::setInverseCounterparts( shared_ptr<IfcPPEntity> )

@@ -55,7 +55,7 @@ void IfcPlane::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcP
 {
 	IfcElementarySurface::getAttributes( vec_attributes );
 }
-void IfcPlane::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPlane::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPlane::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

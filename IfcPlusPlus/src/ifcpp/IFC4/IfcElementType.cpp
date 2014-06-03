@@ -99,7 +99,7 @@ void IfcElementType::getAttributes( std::vector<std::pair<std::string, shared_pt
 	IfcTypeProduct::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "ElementType", m_ElementType ) );
 }
-void IfcElementType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcElementType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcElementType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

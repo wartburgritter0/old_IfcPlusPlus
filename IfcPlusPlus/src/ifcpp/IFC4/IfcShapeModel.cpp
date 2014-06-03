@@ -71,8 +71,11 @@ void IfcShapeModel::getAttributes( std::vector<std::pair<std::string, shared_ptr
 {
 	IfcRepresentation::getAttributes( vec_attributes );
 }
-void IfcShapeModel::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcShapeModel::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> OfShapeAspect_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_OfShapeAspect_inverse.size(); ++i ) { OfShapeAspect_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcShapeAspect>( m_OfShapeAspect_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "OfShapeAspect_inverse", OfShapeAspect_inverse_vec_obj ) );
 }
 void IfcShapeModel::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

@@ -85,8 +85,14 @@ void IfcLibraryInformation::getAttributes( std::vector<std::pair<std::string, sh
 	vec_attributes.push_back( std::make_pair( "Location", m_Location ) );
 	vec_attributes.push_back( std::make_pair( "Description", m_Description ) );
 }
-void IfcLibraryInformation::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcLibraryInformation::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> LibraryInfoForObjects_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_LibraryInfoForObjects_inverse.size(); ++i ) { LibraryInfoForObjects_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelAssociatesLibrary>( m_LibraryInfoForObjects_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "LibraryInfoForObjects_inverse", LibraryInfoForObjects_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> HasLibraryReferences_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_HasLibraryReferences_inverse.size(); ++i ) { HasLibraryReferences_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcLibraryReference>( m_HasLibraryReferences_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "HasLibraryReferences_inverse", HasLibraryReferences_inverse_vec_obj ) );
 }
 void IfcLibraryInformation::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

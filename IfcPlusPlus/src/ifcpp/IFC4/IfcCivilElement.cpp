@@ -105,7 +105,7 @@ void IfcCivilElement::getAttributes( std::vector<std::pair<std::string, shared_p
 {
 	IfcElement::getAttributes( vec_attributes );
 }
-void IfcCivilElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCivilElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCivilElement::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

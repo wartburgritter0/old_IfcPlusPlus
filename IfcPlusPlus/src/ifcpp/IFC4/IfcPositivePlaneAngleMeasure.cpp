@@ -34,7 +34,7 @@ shared_ptr<IfcPositivePlaneAngleMeasure> IfcPositivePlaneAngleMeasure::createObj
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcPositivePlaneAngleMeasure>(); }
-	auto type_object = std::make_shared<IfcPositivePlaneAngleMeasure>();
+	shared_ptr<IfcPositivePlaneAngleMeasure> type_object( new IfcPositivePlaneAngleMeasure() );
 	// read TYPE
 	type_object->readArgument( arg );
 	return type_object;

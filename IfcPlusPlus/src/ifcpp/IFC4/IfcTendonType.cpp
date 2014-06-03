@@ -121,7 +121,7 @@ void IfcTendonType::getAttributes( std::vector<std::pair<std::string, shared_ptr
 	vec_attributes.push_back( std::make_pair( "CrossSectionArea", m_CrossSectionArea ) );
 	vec_attributes.push_back( std::make_pair( "SheethDiameter", m_SheethDiameter ) );
 }
-void IfcTendonType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTendonType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTendonType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

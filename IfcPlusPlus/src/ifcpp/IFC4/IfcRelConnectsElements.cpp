@@ -85,7 +85,7 @@ void IfcRelConnectsElements::getAttributes( std::vector<std::pair<std::string, s
 	vec_attributes.push_back( std::make_pair( "RelatingElement", m_RelatingElement ) );
 	vec_attributes.push_back( std::make_pair( "RelatedElement", m_RelatedElement ) );
 }
-void IfcRelConnectsElements::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelConnectsElements::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelConnectsElements::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

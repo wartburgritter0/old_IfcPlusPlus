@@ -55,7 +55,7 @@ void IfcPolyLoop::getAttributes( std::vector<std::pair<std::string, shared_ptr<I
 {
 	IfcLoop::getAttributes( vec_attributes );
 }
-void IfcPolyLoop::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPolyLoop::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPolyLoop::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -35,7 +35,7 @@ shared_ptr<IfcSpecificHeatCapacityMeasure> IfcSpecificHeatCapacityMeasure::creat
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcSpecificHeatCapacityMeasure>(); }
-	auto type_object = std::make_shared<IfcSpecificHeatCapacityMeasure>();
+	shared_ptr<IfcSpecificHeatCapacityMeasure> type_object( new IfcSpecificHeatCapacityMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

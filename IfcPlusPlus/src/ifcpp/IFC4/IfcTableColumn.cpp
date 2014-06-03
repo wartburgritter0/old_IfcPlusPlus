@@ -77,7 +77,7 @@ void IfcTableColumn::getAttributes( std::vector<std::pair<std::string, shared_pt
 	vec_attributes.push_back( std::make_pair( "Unit", m_Unit ) );
 	vec_attributes.push_back( std::make_pair( "ReferencePath", m_ReferencePath ) );
 }
-void IfcTableColumn::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTableColumn::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTableColumn::setInverseCounterparts( shared_ptr<IfcPPEntity> )

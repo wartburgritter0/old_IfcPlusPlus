@@ -107,7 +107,7 @@ void IfcFlowStorageDevice::getAttributes( std::vector<std::pair<std::string, sha
 {
 	IfcDistributionFlowElement::getAttributes( vec_attributes );
 }
-void IfcFlowStorageDevice::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcFlowStorageDevice::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcFlowStorageDevice::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

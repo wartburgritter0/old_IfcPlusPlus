@@ -61,9 +61,9 @@ void IfcHalfSpaceSolid::getAttributes( std::vector<std::pair<std::string, shared
 {
 	IfcGeometricRepresentationItem::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "BaseSurface", m_BaseSurface ) );
-	vec_attributes.push_back( std::make_pair( "AgreementFlag", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_AgreementFlag ) ) ) );
+	vec_attributes.push_back( std::make_pair( "AgreementFlag", shared_ptr<IfcPPBool>( new IfcPPBool( m_AgreementFlag ) ) ) );
 }
-void IfcHalfSpaceSolid::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcHalfSpaceSolid::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcHalfSpaceSolid::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

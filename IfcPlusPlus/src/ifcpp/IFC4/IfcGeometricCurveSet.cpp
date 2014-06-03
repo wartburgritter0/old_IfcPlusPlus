@@ -55,7 +55,7 @@ void IfcGeometricCurveSet::getAttributes( std::vector<std::pair<std::string, sha
 {
 	IfcGeometricSet::getAttributes( vec_attributes );
 }
-void IfcGeometricCurveSet::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcGeometricCurveSet::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcGeometricCurveSet::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

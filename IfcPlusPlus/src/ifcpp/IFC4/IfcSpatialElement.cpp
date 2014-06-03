@@ -99,8 +99,17 @@ void IfcSpatialElement::getAttributes( std::vector<std::pair<std::string, shared
 	IfcProduct::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "LongName", m_LongName ) );
 }
-void IfcSpatialElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSpatialElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> ContainsElements_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_ContainsElements_inverse.size(); ++i ) { ContainsElements_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelContainedInSpatialStructure>( m_ContainsElements_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "ContainsElements_inverse", ContainsElements_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> ServicedBySystems_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_ServicedBySystems_inverse.size(); ++i ) { ServicedBySystems_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelServicesBuildings>( m_ServicedBySystems_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "ServicedBySystems_inverse", ServicedBySystems_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> ReferencesElements_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_ReferencesElements_inverse.size(); ++i ) { ReferencesElements_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelReferencedInSpatialStructure>( m_ReferencesElements_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "ReferencesElements_inverse", ReferencesElements_inverse_vec_obj ) );
 }
 void IfcSpatialElement::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

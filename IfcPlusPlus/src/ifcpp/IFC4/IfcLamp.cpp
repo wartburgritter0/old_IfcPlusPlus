@@ -113,7 +113,7 @@ void IfcLamp::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPP
 	IfcFlowTerminal::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcLamp::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcLamp::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcLamp::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

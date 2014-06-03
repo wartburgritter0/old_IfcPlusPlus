@@ -76,7 +76,7 @@ void IfcRectangleProfileDef::getAttributes( std::vector<std::pair<std::string, s
 	vec_attributes.push_back( std::make_pair( "XDim", m_XDim ) );
 	vec_attributes.push_back( std::make_pair( "YDim", m_YDim ) );
 }
-void IfcRectangleProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRectangleProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRectangleProfileDef::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

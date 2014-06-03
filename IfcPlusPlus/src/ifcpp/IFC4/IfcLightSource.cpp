@@ -73,7 +73,7 @@ void IfcLightSource::getAttributes( std::vector<std::pair<std::string, shared_pt
 	vec_attributes.push_back( std::make_pair( "AmbientIntensity", m_AmbientIntensity ) );
 	vec_attributes.push_back( std::make_pair( "Intensity", m_Intensity ) );
 }
-void IfcLightSource::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcLightSource::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcLightSource::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

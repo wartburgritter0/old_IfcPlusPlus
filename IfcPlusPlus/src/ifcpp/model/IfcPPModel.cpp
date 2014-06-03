@@ -1,16 +1,3 @@
-/* -*-c++-*- IfcPlusPlus - www.ifcplusplus.com  - Copyright (C) 2011 Fabian Gerold
- *
- * This library is open source and may be redistributed and/or modified under  
- * the terms of the OpenSceneGraph Public License (OSGPL) version 0.0 or 
- * (at your option) any later version.  The full license is in LICENSE file
- * included with this distribution, and on the openscenegraph.org website.
- * 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
- * OpenSceneGraph Public License for more details.
-*/
-
 #pragma warning( disable: 4996 )
 #include <iostream>
 #include <time.h>
@@ -318,8 +305,8 @@ void IfcPPModel::clearIfcModel()
 	}
 	m_map_entities.clear();
 
-	m_ifc_project = nullptr;
-	m_geom_context_3d = nullptr;
+	m_ifc_project.reset();
+	m_geom_context_3d.reset();
 	m_ifc_schema_version = IFC_VERSION_UNKNOWN;
 	m_IFC_FILE_SCHEMA = "";
 	m_IFC_FILE_NAME = "";
@@ -380,8 +367,8 @@ void IfcPPModel::updateCache()
 
 void IfcPPModel::clearCache()
 {
-	m_ifc_project = nullptr;
-	m_geom_context_3d = nullptr;
+	m_ifc_project.reset();
+	m_geom_context_3d.reset();
 }
 
 void IfcPPModel::resolveInverseAttributes()

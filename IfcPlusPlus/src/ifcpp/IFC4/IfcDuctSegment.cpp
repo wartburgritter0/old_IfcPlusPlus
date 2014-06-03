@@ -113,7 +113,7 @@ void IfcDuctSegment::getAttributes( std::vector<std::pair<std::string, shared_pt
 	IfcFlowSegment::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcDuctSegment::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDuctSegment::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcDuctSegment::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -35,7 +35,7 @@ shared_ptr<IfcElectricCapacitanceMeasure> IfcElectricCapacitanceMeasure::createO
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcElectricCapacitanceMeasure>(); }
-	auto type_object = std::make_shared<IfcElectricCapacitanceMeasure>();
+	shared_ptr<IfcElectricCapacitanceMeasure> type_object( new IfcElectricCapacitanceMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

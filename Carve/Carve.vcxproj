@@ -341,9 +341,11 @@
     <ClInclude Include="src\include\carve\polyline_iter.hpp" />
     <ClInclude Include="src\include\carve\poly_decl.hpp" />
     <ClInclude Include="src\include\carve\poly_impl.hpp" />
+    <ClInclude Include="src\include\carve\rtree.hpp" />
     <ClInclude Include="src\include\carve\triangle_intersection.hpp" />
     <ClInclude Include="src\include\carve\triangulator.hpp" />
     <ClInclude Include="src\include\carve\triangulator_impl.hpp" />
+    <ClInclude Include="src\include\carve\vector.hpp" />
     <ClInclude Include="src\lib\csg_collector.hpp" />
     <ClInclude Include="src\lib\csg_data.hpp" />
     <ClInclude Include="src\lib\csg_detail.hpp" />

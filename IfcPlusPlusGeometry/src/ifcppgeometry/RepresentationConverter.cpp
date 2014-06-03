@@ -80,7 +80,7 @@
 #include "ProfileConverter.h"
 #include "ProfileCache.h"
 #include "StylesConverter.h"
-#include "UnhandledRepresentationException.h"
+#include "GeometryException.h"
 #include "CurveConverter.h"
 #include "SolidModelConverter.h"
 #include "FaceConverter.h"
@@ -118,7 +118,7 @@ void RepresentationConverter::convertStyledItem( const shared_ptr<IfcRepresentat
 #endif
 		std::vector<shared_ptr<AppearanceData> > vec_appearance_data;
 		m_styles_converter->convertIfcStyledItem( styled_item, vec_appearance_data );
-		std::copy( vec_appearance_data.begin(), vec_appearance_data.end(), std::back_inserter( item_data->appearances ) );
+		std::copy( vec_appearance_data.begin(), vec_appearance_data.end(), std::back_inserter( item_data->vec_item_appearances ) );
 		//item_data->appearances.push_back( appearance_data );
 	}
 }
@@ -185,6 +185,7 @@ void RepresentationConverter::convertIfcRepresentation(  const shared_ptr<IfcRep
 			}
 
 			shared_ptr<ShapeInputData> mapped_input_data( new ShapeInputData() );
+			std::copy( item_data->vec_item_appearances.begin(), item_data->vec_item_appearances.end(), std::back_inserter( mapped_input_data->vec_appearances ) );
 			convertIfcRepresentation( mapped_representation, mapped_input_data, strs_err );
 			carve::math::Matrix mapped_pos( map_matrix_target*map_matrix_origin );
 			for( size_t i_item = 0; i_item < mapped_input_data->vec_item_data.size(); ++i_item )
@@ -638,6 +639,45 @@ void RepresentationConverter::subtractOpenings( const shared_ptr<IfcElement>& if
 		}
 	}
 
+	shared_ptr<carve::mesh::MeshSet<3> > unified_opening_meshset;
+	for( int i_opening=0; i_opening<vec_opening_data.size(); ++i_opening )
+	{
+		shared_ptr<ShapeInputData>& opening_representation_data = vec_opening_data[i_opening];
+		int representation_id = -1;
+		if( opening_representation_data->representation )
+		{
+			representation_id = opening_representation_data->representation->getId();
+		}
+
+		std::vector<shared_ptr<ItemData> >& vec_opening_items = opening_representation_data->vec_item_data;
+		for( int i_item=0; i_item<vec_opening_items.size(); ++i_item )
+		{
+			shared_ptr<ItemData>& opening_item_data = vec_opening_items[i_item];
+			opening_item_data->createMeshSetsFromClosedPolyhedrons();
+				
+			std::vector<shared_ptr<carve::mesh::MeshSet<3> > >::iterator it_opening_meshsets = opening_item_data->meshsets.begin();
+			for( ; it_opening_meshsets != opening_item_data->meshsets.end(); ++it_opening_meshsets )
+			{
+				shared_ptr<carve::mesh::MeshSet<3> > opening_meshset = (*it_opening_meshsets);
+
+				if( !unified_opening_meshset )
+				{
+					unified_opening_meshset = opening_meshset;
+					continue;
+				}
+
+				// do the unification
+				shared_ptr<carve::mesh::MeshSet<3> > result;
+				bool csg_op_ok = CSG_Adapter::computeCSG( unified_opening_meshset, opening_meshset, carve::csg::CSG::UNION, product_id, representation_id, strs_err, result );
+				//item_data->m_csg_computed = true;
+				if( csg_op_ok )
+				{
+					unified_opening_meshset = result;
+				}
+			}
+		}
+	}
+
 	std::vector<shared_ptr<ItemData> >& product_items = product_shape->vec_item_data;
 	for( int i_item=0; i_item<product_items.size(); ++i_item )
 	{
@@ -648,42 +688,20 @@ void RepresentationConverter::subtractOpenings( const shared_ptr<IfcElement>& if
 		{
 			shared_ptr<carve::mesh::MeshSet<3> >& product_meshset = item_data->meshsets[i_product_meshset];
 			std::stringstream strs_meshset_err;
-			bool product_meshset_valid_for_csg = ConverterOSG::checkMeshSet( product_meshset.get(), strs_meshset_err, product_id );
+			bool product_meshset_valid_for_csg = CSG_Adapter::checkMeshSetValidAndClosed( product_meshset.get(), strs_meshset_err, product_id );
 			if( !product_meshset_valid_for_csg )
 			{
 				continue;
 			}
 
-			for( int i_opening=0; i_opening<vec_opening_data.size(); ++i_opening )
+
+			// do the subtraction
+			shared_ptr<carve::mesh::MeshSet<3> > result;
+			bool csg_op_ok = CSG_Adapter::computeCSG( product_meshset, unified_opening_meshset, carve::csg::CSG::A_MINUS_B, product_id, -1, strs_err, result );
+			item_data->m_csg_computed = true;
+			if( csg_op_ok )
 			{
-				shared_ptr<ShapeInputData>& opening_representation_data = vec_opening_data[i_opening];
-				int representation_id = -1;
-				if( opening_representation_data->representation )
-				{
-					representation_id = opening_representation_data->representation->getId();
-				}
-
-				std::vector<shared_ptr<ItemData> >& vec_opening_items = opening_representation_data->vec_item_data;
-				for( int i_item=0; i_item<vec_opening_items.size(); ++i_item )
-				{
-					shared_ptr<ItemData>& opening_item_data = vec_opening_items[i_item];
-					opening_item_data->createMeshSetsFromClosedPolyhedrons();
-				
-					std::vector<shared_ptr<carve::mesh::MeshSet<3> > >::iterator it_opening_meshsets = opening_item_data->meshsets.begin();
-					for( ; it_opening_meshsets != opening_item_data->meshsets.end(); ++it_opening_meshsets )
-					{
-						shared_ptr<carve::mesh::MeshSet<3> > opening_meshset = (*it_opening_meshsets);
-
-						// do the subtraction
-						shared_ptr<carve::mesh::MeshSet<3> > result;
-						bool csg_op_ok = CSG_Adapter::computeCSG( product_meshset.get(), opening_meshset.get(), carve::csg::CSG::A_MINUS_B, product_id, representation_id, strs_err, result );
-						item_data->m_csg_computed = true;
-						if( csg_op_ok )
-						{
-							product_meshset = result;
-						}
-					}
-				}
+				product_meshset = result;
 			}
 		}
 	}
@@ -701,8 +719,22 @@ void RepresentationConverter::convertIfcPropertySet( const shared_ptr<IfcPropert
 		shared_ptr<IfcSimpleProperty> simple_property = dynamic_pointer_cast<IfcSimpleProperty>(prop);
 		if( simple_property )
 		{
-			shared_ptr<IfcIdentifier> name = simple_property->m_Name;
+			shared_ptr<IfcIdentifier> property_name = simple_property->m_Name;
+			std::string name_str = property_name->m_value;
+			if( name_str.compare( "LayerName" ) == 0 )
+			{
+				// TODO: implement layers
+			}
 			shared_ptr<IfcText> description = simple_property->m_Description;
+
+
+			shared_ptr<IfcPropertySingleValue> property_single_value = dynamic_pointer_cast<IfcPropertySingleValue>(simple_property);
+			if( property_single_value )
+			{
+				shared_ptr<IfcValue>& nominal_value = property_single_value->m_NominalValue;				//optional
+				shared_ptr<IfcUnit>& unit = property_single_value->m_Unit;						//optional
+
+			}
 
 			//ENTITY IfcSimpleProperty
 			//ABSTRACT SUPERTYPE OF(ONEOF(

@@ -113,7 +113,7 @@ void IfcAlarm::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcP
 	IfcDistributionControlElement::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcAlarm::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcAlarm::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcAlarm::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

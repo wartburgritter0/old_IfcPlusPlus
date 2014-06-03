@@ -80,7 +80,7 @@ void IfcRelConnectsPortToElement::getAttributes( std::vector<std::pair<std::stri
 	vec_attributes.push_back( std::make_pair( "RelatingPort", m_RelatingPort ) );
 	vec_attributes.push_back( std::make_pair( "RelatedElement", m_RelatedElement ) );
 }
-void IfcRelConnectsPortToElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelConnectsPortToElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelConnectsPortToElement::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

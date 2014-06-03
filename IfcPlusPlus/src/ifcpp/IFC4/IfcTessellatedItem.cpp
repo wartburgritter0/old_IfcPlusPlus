@@ -46,7 +46,7 @@ void IfcTessellatedItem::getAttributes( std::vector<std::pair<std::string, share
 {
 	IfcGeometricRepresentationItem::getAttributes( vec_attributes );
 }
-void IfcTessellatedItem::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTessellatedItem::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTessellatedItem::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

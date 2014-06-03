@@ -35,7 +35,7 @@ shared_ptr<IfcElectricConductanceMeasure> IfcElectricConductanceMeasure::createO
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcElectricConductanceMeasure>(); }
-	auto type_object = std::make_shared<IfcElectricConductanceMeasure>();
+	shared_ptr<IfcElectricConductanceMeasure> type_object( new IfcElectricConductanceMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

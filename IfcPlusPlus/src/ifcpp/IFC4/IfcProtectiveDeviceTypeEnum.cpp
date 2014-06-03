@@ -68,7 +68,7 @@ shared_ptr<IfcProtectiveDeviceTypeEnum> IfcProtectiveDeviceTypeEnum::createObjec
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcProtectiveDeviceTypeEnum>(); }
-	auto type_object = std::make_shared<IfcProtectiveDeviceTypeEnum>();
+	shared_ptr<IfcProtectiveDeviceTypeEnum> type_object( new IfcProtectiveDeviceTypeEnum() );
 	if( _stricmp( arg.c_str(), ".CIRCUITBREAKER." ) == 0 )
 	{
 		type_object->m_enum = IfcProtectiveDeviceTypeEnum::ENUM_CIRCUITBREAKER;

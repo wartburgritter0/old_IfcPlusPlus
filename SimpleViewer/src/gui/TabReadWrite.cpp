@@ -13,17 +13,17 @@
 
 #pragma warning( disable: 4996 )
 #include <QtCore/qglobal.h>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QTreeWidget>
-#include <QtWidgets/QFileDialog>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QProgressBar>
-#include <QtWidgets/QLineEdit>
-#include <QtWidgets/QSplitter>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QTextEdit>
+#include <QVBoxLayout>
+#include <QTreeWidget>
+#include <QFileDialog>
+#include <QLabel>
+#include <QComboBox>
+#include <QPushButton>
+#include <QProgressBar>
+#include <QLineEdit>
+#include <QSplitter>
+#include <QApplication>
+#include <QTextEdit>
 #include <QtGui/qevent.h>
 #include <QtCore/QSettings>
 
@@ -263,7 +263,7 @@ void TabReadWrite::slotLoadIfcFile( QString& path_in )
 		m_system->getReaderWriterIFC()->setMessageCallBack( this, &TabReadWrite::slotMessageWrapper );
 		m_system->getReaderWriterIFC()->setErrorCallBack( this, &TabReadWrite::slotErrorWrapper );
 
-		std::string path_str = path_in.toLocal8Bit();
+		std::string path_str = path_in.toLocal8Bit().constData();
 		cmd_load->setFilePath( path_str );
 		m_system->getCommandManager()->executeCommand( cmd_load );
 	}

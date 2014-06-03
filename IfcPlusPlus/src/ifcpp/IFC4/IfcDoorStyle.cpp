@@ -117,10 +117,10 @@ void IfcDoorStyle::getAttributes( std::vector<std::pair<std::string, shared_ptr<
 	IfcTypeProduct::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "OperationType", m_OperationType ) );
 	vec_attributes.push_back( std::make_pair( "ConstructionType", m_ConstructionType ) );
-	vec_attributes.push_back( std::make_pair( "ParameterTakesPrecedence", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_ParameterTakesPrecedence ) ) ) );
-	vec_attributes.push_back( std::make_pair( "Sizeable", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_Sizeable ) ) ) );
+	vec_attributes.push_back( std::make_pair( "ParameterTakesPrecedence", shared_ptr<IfcPPBool>( new IfcPPBool( m_ParameterTakesPrecedence ) ) ) );
+	vec_attributes.push_back( std::make_pair( "Sizeable", shared_ptr<IfcPPBool>( new IfcPPBool( m_Sizeable ) ) ) );
 }
-void IfcDoorStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDoorStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcDoorStyle::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

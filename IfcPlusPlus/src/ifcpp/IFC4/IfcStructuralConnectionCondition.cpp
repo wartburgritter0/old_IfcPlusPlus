@@ -53,7 +53,7 @@ void IfcStructuralConnectionCondition::getAttributes( std::vector<std::pair<std:
 {
 	vec_attributes.push_back( std::make_pair( "Name", m_Name ) );
 }
-void IfcStructuralConnectionCondition::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralConnectionCondition::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcStructuralConnectionCondition::setInverseCounterparts( shared_ptr<IfcPPEntity> )

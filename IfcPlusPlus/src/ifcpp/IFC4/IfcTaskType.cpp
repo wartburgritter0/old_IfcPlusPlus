@@ -108,7 +108,7 @@ void IfcTaskType::getAttributes( std::vector<std::pair<std::string, shared_ptr<I
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 	vec_attributes.push_back( std::make_pair( "WorkMethod", m_WorkMethod ) );
 }
-void IfcTaskType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTaskType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTaskType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

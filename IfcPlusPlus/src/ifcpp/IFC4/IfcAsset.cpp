@@ -131,7 +131,7 @@ void IfcAsset::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcP
 	vec_attributes.push_back( std::make_pair( "IncorporationDate", m_IncorporationDate ) );
 	vec_attributes.push_back( std::make_pair( "DepreciatedValue", m_DepreciatedValue ) );
 }
-void IfcAsset::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcAsset::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcAsset::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

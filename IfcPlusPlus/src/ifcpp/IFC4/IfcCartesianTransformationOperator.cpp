@@ -71,9 +71,9 @@ void IfcCartesianTransformationOperator::getAttributes( std::vector<std::pair<st
 	vec_attributes.push_back( std::make_pair( "Axis1", m_Axis1 ) );
 	vec_attributes.push_back( std::make_pair( "Axis2", m_Axis2 ) );
 	vec_attributes.push_back( std::make_pair( "LocalOrigin", m_LocalOrigin ) );
-	vec_attributes.push_back( std::make_pair( "Scale", shared_ptr<IfcPPAttributeObjectDouble>( new  IfcPPAttributeObjectDouble( m_Scale ) ) ) );
+	vec_attributes.push_back( std::make_pair( "Scale", shared_ptr<IfcPPReal>( new IfcPPReal( m_Scale ) ) ) );
 }
-void IfcCartesianTransformationOperator::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCartesianTransformationOperator::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCartesianTransformationOperator::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

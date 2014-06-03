@@ -56,7 +56,7 @@ shared_ptr<IfcElectricDistributionBoardTypeEnum> IfcElectricDistributionBoardTyp
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcElectricDistributionBoardTypeEnum>(); }
-	auto type_object = std::make_shared<IfcElectricDistributionBoardTypeEnum>();
+	shared_ptr<IfcElectricDistributionBoardTypeEnum> type_object( new IfcElectricDistributionBoardTypeEnum() );
 	if( _stricmp( arg.c_str(), ".CONSUMERUNIT." ) == 0 )
 	{
 		type_object->m_enum = IfcElectricDistributionBoardTypeEnum::ENUM_CONSUMERUNIT;

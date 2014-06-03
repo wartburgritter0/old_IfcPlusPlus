@@ -53,7 +53,7 @@ void IfcTextureCoordinate::getAttributes( std::vector<std::pair<std::string, sha
 {
 	IfcPresentationItem::getAttributes( vec_attributes );
 }
-void IfcTextureCoordinate::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTextureCoordinate::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTextureCoordinate::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

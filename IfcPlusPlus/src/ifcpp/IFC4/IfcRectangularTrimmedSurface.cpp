@@ -88,10 +88,10 @@ void IfcRectangularTrimmedSurface::getAttributes( std::vector<std::pair<std::str
 	vec_attributes.push_back( std::make_pair( "V1", m_V1 ) );
 	vec_attributes.push_back( std::make_pair( "U2", m_U2 ) );
 	vec_attributes.push_back( std::make_pair( "V2", m_V2 ) );
-	vec_attributes.push_back( std::make_pair( "Usense", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_Usense ) ) ) );
-	vec_attributes.push_back( std::make_pair( "Vsense", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_Vsense ) ) ) );
+	vec_attributes.push_back( std::make_pair( "Usense", shared_ptr<IfcPPBool>( new IfcPPBool( m_Usense ) ) ) );
+	vec_attributes.push_back( std::make_pair( "Vsense", shared_ptr<IfcPPBool>( new IfcPPBool( m_Vsense ) ) ) );
 }
-void IfcRectangularTrimmedSurface::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRectangularTrimmedSurface::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRectangularTrimmedSurface::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

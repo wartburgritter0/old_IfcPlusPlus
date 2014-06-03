@@ -52,7 +52,7 @@ shared_ptr<IfcActionTypeEnum> IfcActionTypeEnum::createObjectFromStepData( const
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcActionTypeEnum>(); }
-	auto type_object = std::make_shared<IfcActionTypeEnum>();
+	shared_ptr<IfcActionTypeEnum> type_object( new IfcActionTypeEnum() );
 	if( _stricmp( arg.c_str(), ".PERMANENT_G." ) == 0 )
 	{
 		type_object->m_enum = IfcActionTypeEnum::ENUM_PERMANENT_G;

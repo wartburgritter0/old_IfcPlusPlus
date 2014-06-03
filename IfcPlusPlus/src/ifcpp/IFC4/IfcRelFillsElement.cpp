@@ -80,7 +80,7 @@ void IfcRelFillsElement::getAttributes( std::vector<std::pair<std::string, share
 	vec_attributes.push_back( std::make_pair( "RelatingOpeningElement", m_RelatingOpeningElement ) );
 	vec_attributes.push_back( std::make_pair( "RelatedBuildingElement", m_RelatedBuildingElement ) );
 }
-void IfcRelFillsElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelFillsElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelFillsElement::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

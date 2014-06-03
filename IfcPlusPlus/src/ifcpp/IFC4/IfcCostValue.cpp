@@ -96,7 +96,7 @@ void IfcCostValue::getAttributes( std::vector<std::pair<std::string, shared_ptr<
 {
 	IfcAppliedValue::getAttributes( vec_attributes );
 }
-void IfcCostValue::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCostValue::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCostValue::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

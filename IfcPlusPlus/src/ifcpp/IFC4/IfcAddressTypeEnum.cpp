@@ -52,7 +52,7 @@ shared_ptr<IfcAddressTypeEnum> IfcAddressTypeEnum::createObjectFromStepData( con
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcAddressTypeEnum>(); }
-	auto type_object = std::make_shared<IfcAddressTypeEnum>();
+	shared_ptr<IfcAddressTypeEnum> type_object( new IfcAddressTypeEnum() );
 	if( _stricmp( arg.c_str(), ".OFFICE." ) == 0 )
 	{
 		type_object->m_enum = IfcAddressTypeEnum::ENUM_OFFICE;

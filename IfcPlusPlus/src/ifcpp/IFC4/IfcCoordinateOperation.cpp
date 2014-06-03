@@ -59,7 +59,7 @@ void IfcCoordinateOperation::getAttributes( std::vector<std::pair<std::string, s
 	vec_attributes.push_back( std::make_pair( "SourceCRS", m_SourceCRS ) );
 	vec_attributes.push_back( std::make_pair( "TargetCRS", m_TargetCRS ) );
 }
-void IfcCoordinateOperation::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCoordinateOperation::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCoordinateOperation::setInverseCounterparts( shared_ptr<IfcPPEntity> )

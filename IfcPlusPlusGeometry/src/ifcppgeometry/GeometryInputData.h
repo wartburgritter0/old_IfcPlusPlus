@@ -63,7 +63,7 @@ public:
 	std::vector<shared_ptr<carve::input::PolyhedronData> >	open_or_closed_polyhedrons;
 	std::vector<shared_ptr<carve::input::PolylineSetData> > polylines;
 	std::vector<shared_ptr<carve::mesh::MeshSet<3> > >		meshsets;
-	std::vector<shared_ptr<AppearanceData> >				appearances;
+	std::vector<shared_ptr<AppearanceData> >				vec_item_appearances;
 	std::vector<shared_ptr<TextItemData> >					vec_text_literals;
 	bool													m_csg_computed;
 
@@ -108,6 +108,7 @@ class PolyInputCache3D
 public:
 	PolyInputCache3D();
 	int addPoint( const carve::geom::vector<3>& v );
+	int addPointPrecise( const carve::geom::vector<3>& v );
 	shared_ptr<carve::input::PolyhedronData> m_poly_data;
 	std::map<double, std::map<double, std::map<double, int> > > existing_vertices_coords;
 	std::map<double, int>::iterator it_find_z;

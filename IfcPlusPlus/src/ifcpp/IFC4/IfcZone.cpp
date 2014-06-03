@@ -87,7 +87,7 @@ void IfcZone::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPP
 	IfcSystem::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "LongName", m_LongName ) );
 }
-void IfcZone::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcZone::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcZone::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

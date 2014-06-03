@@ -46,7 +46,7 @@ void IfcSolidModel::getAttributes( std::vector<std::pair<std::string, shared_ptr
 {
 	IfcGeometricRepresentationItem::getAttributes( vec_attributes );
 }
-void IfcSolidModel::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSolidModel::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSolidModel::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -69,7 +69,7 @@ void IfcSlippageConnectionCondition::getAttributes( std::vector<std::pair<std::s
 	vec_attributes.push_back( std::make_pair( "SlippageY", m_SlippageY ) );
 	vec_attributes.push_back( std::make_pair( "SlippageZ", m_SlippageZ ) );
 }
-void IfcSlippageConnectionCondition::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSlippageConnectionCondition::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSlippageConnectionCondition::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

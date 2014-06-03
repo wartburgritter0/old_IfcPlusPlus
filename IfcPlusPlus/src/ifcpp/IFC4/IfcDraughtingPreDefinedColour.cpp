@@ -53,7 +53,7 @@ void IfcDraughtingPreDefinedColour::getAttributes( std::vector<std::pair<std::st
 {
 	IfcPreDefinedColour::getAttributes( vec_attributes );
 }
-void IfcDraughtingPreDefinedColour::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDraughtingPreDefinedColour::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcDraughtingPreDefinedColour::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

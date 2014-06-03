@@ -110,7 +110,7 @@ void IfcReinforcingElement::getAttributes( std::vector<std::pair<std::string, sh
 	IfcElementComponent::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "SteelGrade", m_SteelGrade ) );
 }
-void IfcReinforcingElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcReinforcingElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcReinforcingElement::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

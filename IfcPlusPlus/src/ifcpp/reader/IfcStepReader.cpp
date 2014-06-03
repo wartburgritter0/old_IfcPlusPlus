@@ -37,7 +37,7 @@ void applyBackwardCompatibility( shared_ptr<IfcPPModel>& ifc_model, IfcPPEntityE
 void applyBackwardCompatibility( std::string& keyword, std::string& step_line );
 shared_ptr<IfcPPObject> createIfcPPType( const IfcPPTypeEnum type_enum, const std::string& arg, const std::map<int,shared_ptr<IfcPPEntity> >& map_entities );
 IfcPPEntity* createIfcPPEntity( const IfcPPEntityEnum entity_enum );
-inline void findEndOfString( char*& stream_pos );
+void findEndOfString( char*& stream_pos );
 
 IfcPPTypeEnum findTypeEnumForString( const std::string& type_name )
 {
@@ -887,6 +887,9 @@ void applyBackwardCompatibility( shared_ptr<IfcPPModel>& ifc_model, IfcPPEntityE
 			// R
 		case IFCRAMPFLIGHT:
 			while( args.size() < 9 ) {	args.push_back( "$" );	}
+			break;
+		case IFCREINFORCINGMESH:
+			while( args.size() < 18 ) {	args.push_back( "$" );	}
 			break;
 
 			// S

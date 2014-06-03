@@ -75,7 +75,7 @@ void IfcCircleHollowProfileDef::getAttributes( std::vector<std::pair<std::string
 	IfcCircleProfileDef::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "WallThickness", m_WallThickness ) );
 }
-void IfcCircleHollowProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCircleHollowProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCircleHollowProfileDef::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

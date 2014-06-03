@@ -93,8 +93,17 @@ void IfcProcess::getAttributes( std::vector<std::pair<std::string, shared_ptr<If
 	vec_attributes.push_back( std::make_pair( "Identification", m_Identification ) );
 	vec_attributes.push_back( std::make_pair( "LongDescription", m_LongDescription ) );
 }
-void IfcProcess::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcProcess::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> IsPredecessorTo_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_IsPredecessorTo_inverse.size(); ++i ) { IsPredecessorTo_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelSequence>( m_IsPredecessorTo_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "IsPredecessorTo_inverse", IsPredecessorTo_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> IsSuccessorFrom_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_IsSuccessorFrom_inverse.size(); ++i ) { IsSuccessorFrom_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelSequence>( m_IsSuccessorFrom_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "IsSuccessorFrom_inverse", IsSuccessorFrom_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> OperatesOn_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_OperatesOn_inverse.size(); ++i ) { OperatesOn_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelAssignsToProcess>( m_OperatesOn_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "OperatesOn_inverse", OperatesOn_inverse_vec_obj ) );
 }
 void IfcProcess::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

@@ -76,9 +76,9 @@ void IfcCurveStyle::getAttributes( std::vector<std::pair<std::string, shared_ptr
 	vec_attributes.push_back( std::make_pair( "CurveFont", m_CurveFont ) );
 	vec_attributes.push_back( std::make_pair( "CurveWidth", m_CurveWidth ) );
 	vec_attributes.push_back( std::make_pair( "CurveColour", m_CurveColour ) );
-	vec_attributes.push_back( std::make_pair( "ModelOrDraughting", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_ModelOrDraughting ) ) ) );
+	vec_attributes.push_back( std::make_pair( "ModelOrDraughting", shared_ptr<IfcPPBool>( new IfcPPBool( m_ModelOrDraughting ) ) ) );
 }
-void IfcCurveStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCurveStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCurveStyle::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -52,7 +52,7 @@ shared_ptr<IfcWorkScheduleTypeEnum> IfcWorkScheduleTypeEnum::createObjectFromSte
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcWorkScheduleTypeEnum>(); }
-	auto type_object = std::make_shared<IfcWorkScheduleTypeEnum>();
+	shared_ptr<IfcWorkScheduleTypeEnum> type_object( new IfcWorkScheduleTypeEnum() );
 	if( _stricmp( arg.c_str(), ".ACTUAL." ) == 0 )
 	{
 		type_object->m_enum = IfcWorkScheduleTypeEnum::ENUM_ACTUAL;

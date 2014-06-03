@@ -111,7 +111,7 @@ void IfcConstructionMaterialResource::getAttributes( std::vector<std::pair<std::
 	IfcConstructionResource::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcConstructionMaterialResource::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcConstructionMaterialResource::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcConstructionMaterialResource::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

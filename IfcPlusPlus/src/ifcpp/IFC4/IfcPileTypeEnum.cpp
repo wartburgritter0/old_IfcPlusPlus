@@ -64,7 +64,7 @@ shared_ptr<IfcPileTypeEnum> IfcPileTypeEnum::createObjectFromStepData( const std
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcPileTypeEnum>(); }
-	auto type_object = std::make_shared<IfcPileTypeEnum>();
+	shared_ptr<IfcPileTypeEnum> type_object( new IfcPileTypeEnum() );
 	if( _stricmp( arg.c_str(), ".BORED." ) == 0 )
 	{
 		type_object->m_enum = IfcPileTypeEnum::ENUM_BORED;

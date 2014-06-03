@@ -36,7 +36,7 @@ shared_ptr<IfcRotationalStiffnessMeasure> IfcRotationalStiffnessMeasure::createO
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcRotationalStiffnessMeasure>(); }
-	auto type_object = std::make_shared<IfcRotationalStiffnessMeasure>();
+	shared_ptr<IfcRotationalStiffnessMeasure> type_object( new IfcRotationalStiffnessMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

@@ -311,7 +311,7 @@
     <ClInclude Include="src\ifcppgeometry\RepresentationConverter.h" />
     <ClInclude Include="src\ifcppgeometry\SolidModelConverter.h" />
     <ClInclude Include="src\ifcppgeometry\StylesConverter.h" />
-    <ClInclude Include="src\ifcppgeometry\UnhandledRepresentationException.h" />
+    <ClInclude Include="src\ifcppgeometry\GeometryException.h" />
     <ClInclude Include="src\ifcppgeometry\ProfileCache.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

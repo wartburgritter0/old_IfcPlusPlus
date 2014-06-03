@@ -55,7 +55,7 @@ void IfcPolyline::getAttributes( std::vector<std::pair<std::string, shared_ptr<I
 {
 	IfcBoundedCurve::getAttributes( vec_attributes );
 }
-void IfcPolyline::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPolyline::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPolyline::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

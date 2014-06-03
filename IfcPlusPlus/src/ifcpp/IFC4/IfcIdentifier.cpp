@@ -35,7 +35,7 @@ shared_ptr<IfcIdentifier> IfcIdentifier::createObjectFromStepData( const std::st
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcIdentifier>(); }
-	auto type_object = std::make_shared<IfcIdentifier>();
+	shared_ptr<IfcIdentifier> type_object( new IfcIdentifier() );
 	type_object->readArgument( arg );
 	return type_object;
 }

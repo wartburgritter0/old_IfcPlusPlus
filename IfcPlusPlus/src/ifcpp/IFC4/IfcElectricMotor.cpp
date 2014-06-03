@@ -113,7 +113,7 @@ void IfcElectricMotor::getAttributes( std::vector<std::pair<std::string, shared_
 	IfcEnergyConversionDevice::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcElectricMotor::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcElectricMotor::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcElectricMotor::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

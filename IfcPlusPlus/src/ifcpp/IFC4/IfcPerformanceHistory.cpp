@@ -97,7 +97,7 @@ void IfcPerformanceHistory::getAttributes( std::vector<std::pair<std::string, sh
 	vec_attributes.push_back( std::make_pair( "LifeCyclePhase", m_LifeCyclePhase ) );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcPerformanceHistory::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPerformanceHistory::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPerformanceHistory::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

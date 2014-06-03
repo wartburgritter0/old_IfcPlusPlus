@@ -103,7 +103,7 @@ void IfcDoorPanelProperties::getAttributes( std::vector<std::pair<std::string, s
 	vec_attributes.push_back( std::make_pair( "PanelPosition", m_PanelPosition ) );
 	vec_attributes.push_back( std::make_pair( "ShapeAspectStyle", m_ShapeAspectStyle ) );
 }
-void IfcDoorPanelProperties::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDoorPanelProperties::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcDoorPanelProperties::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

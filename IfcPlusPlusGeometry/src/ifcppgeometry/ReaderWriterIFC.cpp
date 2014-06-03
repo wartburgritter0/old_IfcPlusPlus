@@ -56,7 +56,7 @@
 
 #include "GeometrySettings.h"
 #include "GeomUtils.h"
-#include "UnhandledRepresentationException.h"
+#include "GeometryException.h"
 #include "RepresentationConverter.h"
 #include "PlacementConverter.h"
 #include "SolidModelConverter.h"
@@ -329,6 +329,12 @@ void ReaderWriterIFC::createGeometry()
 			{
 				convertIfcProduct( product, product_shape );
 			}
+#ifdef _DEBUG
+			catch( DebugBreakException& dbge )
+			{
+				throw dbge;
+			}
+#endif
 			catch( IfcPPException& e)
 			{
 				thread_err << e.what();
@@ -337,12 +343,6 @@ void ReaderWriterIFC::createGeometry()
 			{
 				thread_err << e.str();
 			}
-#ifdef _DEBUG
-			catch( DebugBreakException& dbge )
-			{
-				throw dbge;
-			}
-#endif
 			catch( std::exception& e )
 			{
 				thread_err << e.what();
@@ -666,7 +666,7 @@ void ReaderWriterIFC::convertIfcProduct( const shared_ptr<IfcProduct>& product, 
 			shared_ptr<carve::mesh::MeshSet<3> >& item_meshset = (*it_meshsets);
 			if( item_data->m_csg_computed )
 			{
-				CSG_Adapter::simplifyMesh( item_meshset );
+				//CSG_Adapter::simplifyMesh( item_meshset );
 			}
 			osg::ref_ptr<osg::Geode> geode_result = new osg::Geode();
 			ConverterOSG::drawMeshSet( item_meshset.get(), geode_result );
@@ -712,11 +712,11 @@ void ReaderWriterIFC::convertIfcProduct( const shared_ptr<IfcProduct>& product, 
 		}
 
 		// apply statesets if there are any
-		if( item_data->appearances.size() > 0 )
+		if( item_data->vec_item_appearances.size() > 0 )
 		{
-			for( int i_appearance=0; i_appearance<item_data->appearances.size(); ++i_appearance )
+			for( int i_appearance=0; i_appearance<item_data->vec_item_appearances.size(); ++i_appearance )
 			{
-				shared_ptr<AppearanceData>& appearance = item_data->appearances[i_appearance];
+				shared_ptr<AppearanceData>& appearance = item_data->vec_item_appearances[i_appearance];
 				
 				osg::StateSet* item_stateset =  AppearanceManagerOSG::convertToStateSet( appearance );
 				if( item_stateset != nullptr )

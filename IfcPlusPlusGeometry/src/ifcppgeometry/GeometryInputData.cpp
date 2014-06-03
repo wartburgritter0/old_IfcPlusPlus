@@ -38,7 +38,7 @@ void ItemData::addItemData( shared_ptr<ItemData>& other )
 	std::copy( other->open_or_closed_polyhedrons.begin(),	other->open_or_closed_polyhedrons.end(),	std::back_inserter( open_or_closed_polyhedrons ) );
 	std::copy( other->polylines.begin(),					other->polylines.end(),						std::back_inserter( polylines ) );
 	std::copy( other->meshsets.begin(),						other->meshsets.end(),						std::back_inserter( meshsets ) );
-	std::copy( other->appearances.begin(),					other->appearances.end(),					std::back_inserter( appearances ) );
+	std::copy( other->vec_item_appearances.begin(),			other->vec_item_appearances.end(),			std::back_inserter( vec_item_appearances ) );
 	m_csg_computed = other->m_csg_computed || m_csg_computed;
 }
 
@@ -49,7 +49,7 @@ bool ItemData::isEmpty()
 	if( open_or_closed_polyhedrons.size() > 0 ) { return false; }
 	if( polylines.size() > 0 )					{ return false; }
 	if( meshsets.size() > 0 )					{ return false; }
-	if( appearances.size() > 0 )				{ return false; }
+	if( vec_item_appearances.size() > 0 )		{ return false; }
 	if( vec_text_literals.size() > 0 )			{ return false; }
 
 	return true;
@@ -57,26 +57,26 @@ bool ItemData::isEmpty()
 
 bool isIdentity( const carve::math::Matrix& mat )
 {
-	if( abs(mat._11 -1.0) > 0.00001 )  return false;
-	if( abs(mat._22 -1.0) > 0.00001 )  return false;
-	if( abs(mat._33 -1.0) > 0.00001 )  return false;
-	if( abs(mat._44 -1.0) > 0.00001 )  return false;
+	if( std::abs(mat._11 -1.0) > 0.00001 )  return false;
+	if( std::abs(mat._22 -1.0) > 0.00001 )  return false;
+	if( std::abs(mat._33 -1.0) > 0.00001 )  return false;
+	if( std::abs(mat._44 -1.0) > 0.00001 )  return false;
 	
-	if( abs(mat._12) > 0.00001 )  return false;
-	if( abs(mat._13) > 0.00001 )  return false;
-	if( abs(mat._14) > 0.00001 )  return false;
+	if( std::abs(mat._12) > 0.00001 )  return false;
+	if( std::abs(mat._13) > 0.00001 )  return false;
+	if( std::abs(mat._14) > 0.00001 )  return false;
 	
-	if( abs(mat._21) > 0.00001 )  return false;
-	if( abs(mat._23) > 0.00001 )  return false;
-	if( abs(mat._24) > 0.00001 )  return false;
+	if( std::abs(mat._21) > 0.00001 )  return false;
+	if( std::abs(mat._23) > 0.00001 )  return false;
+	if( std::abs(mat._24) > 0.00001 )  return false;
 	
-	if( abs(mat._31) > 0.00001 )  return false;
-	if( abs(mat._32) > 0.00001 )  return false;
-	if( abs(mat._34) > 0.00001 )  return false;
+	if( std::abs(mat._31) > 0.00001 )  return false;
+	if( std::abs(mat._32) > 0.00001 )  return false;
+	if( std::abs(mat._34) > 0.00001 )  return false;
 
-	if( abs(mat._41) > 0.00001 )  return false;
-	if( abs(mat._42) > 0.00001 )  return false;
-	if( abs(mat._43) > 0.00001 )  return false;
+	if( std::abs(mat._41) > 0.00001 )  return false;
+	if( std::abs(mat._42) > 0.00001 )  return false;
+	if( std::abs(mat._43) > 0.00001 )  return false;
 	return true;
 }
 
@@ -86,7 +86,7 @@ void ItemData::applyPosition( const carve::math::Matrix& mat )
 {
 	if( isIdentity( mat ) )
 	{
-		//return;
+		return;
 	}
 	for( size_t i=0; i<open_polyhedrons.size(); ++i )
 	{
@@ -187,8 +187,8 @@ shared_ptr<ItemData> ItemData::getDeepCopy()
 		copy_item->polylines.push_back( shared_ptr<carve::input::PolylineSetData>( new carve::input::PolylineSetData( *(polyline_data.get()) ) ) );
 	}
 
-	std::copy( appearances.begin(),			appearances.end(),			std::back_inserter( copy_item->appearances ) );
-	std::copy( vec_text_literals.begin(),	vec_text_literals.end(),	std::back_inserter( copy_item->vec_text_literals ) );
+	std::copy( vec_item_appearances.begin(),	vec_item_appearances.end(),		std::back_inserter( copy_item->vec_item_appearances ) );
+	std::copy( vec_text_literals.begin(),		vec_text_literals.end(),		std::back_inserter( copy_item->vec_text_literals ) );
 
 	return copy_item;
 }
@@ -213,27 +213,46 @@ void ShapeInputData::deepCopyFrom( shared_ptr<ShapeInputData>& other )
 	//addInputData( other );
 }
 
-
-#define ROUND_IFC_COORDINATES_UP 10000.0
-#define ROUND_IFC_COORDINATES_DOWN 0.0001
-
 // PolyInputCache
 PolyInputCache3D::PolyInputCache3D()
 {
 	m_poly_data = shared_ptr<carve::input::PolyhedronData>( new carve::input::PolyhedronData() );
 }
 
-int PolyInputCache3D::addPoint( const carve::geom::vector<3>& v )
+
+#define ROUND_POLY_COORDINATES_UP 100000.0
+#define ROUND_POLY_COORDINATES_DOWN 0.00001
+int PolyInputCache3D::addPointPrecise( const carve::geom::vector<3>& v )
 {
-#ifdef ROUND_IFC_COORDINATES
-	const double vertex_x = round(v.x*ROUND_IFC_COORDINATES_UP)*ROUND_IFC_COORDINATES_DOWN;
-	const double vertex_y = round(v.y*ROUND_IFC_COORDINATES_UP)*ROUND_IFC_COORDINATES_DOWN;
-	const double vertex_z = round(v.z*ROUND_IFC_COORDINATES_UP)*ROUND_IFC_COORDINATES_DOWN;
-#else
 	const double vertex_x = v.x;
 	const double vertex_y = v.y;
 	const double vertex_z = v.z;
-#endif
+
+	//  return a pair, with its member pair::first set to an iterator pointing to either the newly inserted element or to the element with an equivalent key in the map
+	std::map<double, std::map<double, int> >& map_y_index = existing_vertices_coords.insert( std::make_pair(vertex_x, std::map<double, std::map<double, int> >() ) ).first->second;
+	std::map<double, int>& map_z_index = map_y_index.insert( std::make_pair( vertex_y, std::map<double, int>() ) ).first->second;
+
+	it_find_z = map_z_index.find( vertex_z );
+	if( it_find_z != map_z_index.end() )
+	{
+		// vertex already exists in polyhedron. return its index
+		int vertex_index = it_find_z->second;
+		return vertex_index;
+	}
+	else
+	{
+		// add point to polyhedron
+		int vertex_index = m_poly_data->addVertex( v );
+		map_z_index[vertex_z] = vertex_index;
+		return vertex_index;
+	}
+}
+
+int PolyInputCache3D::addPoint( const carve::geom::vector<3>& v )
+{
+	const double vertex_x = round(v.x*ROUND_POLY_COORDINATES_UP)*ROUND_POLY_COORDINATES_DOWN;
+	const double vertex_y = round(v.y*ROUND_POLY_COORDINATES_UP)*ROUND_POLY_COORDINATES_DOWN;
+	const double vertex_z = round(v.z*ROUND_POLY_COORDINATES_UP)*ROUND_POLY_COORDINATES_DOWN;
 
 	//  return a pair, with its member pair::first set to an iterator pointing to either the newly inserted element or to the element with an equivalent key in the map
 	std::map<double, std::map<double, int> >& map_y_index = existing_vertices_coords.insert( std::make_pair(vertex_x, std::map<double, std::map<double, int> >() ) ).first->second;

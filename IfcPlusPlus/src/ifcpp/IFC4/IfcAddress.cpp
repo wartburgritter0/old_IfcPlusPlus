@@ -67,8 +67,14 @@ void IfcAddress::getAttributes( std::vector<std::pair<std::string, shared_ptr<If
 	vec_attributes.push_back( std::make_pair( "Description", m_Description ) );
 	vec_attributes.push_back( std::make_pair( "UserDefinedPurpose", m_UserDefinedPurpose ) );
 }
-void IfcAddress::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcAddress::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> OfPerson_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_OfPerson_inverse.size(); ++i ) { OfPerson_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcPerson>( m_OfPerson_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "OfPerson_inverse", OfPerson_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> OfOrganization_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_OfOrganization_inverse.size(); ++i ) { OfOrganization_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcOrganization>( m_OfOrganization_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "OfOrganization_inverse", OfOrganization_inverse_vec_obj ) );
 }
 void IfcAddress::setInverseCounterparts( shared_ptr<IfcPPEntity> )
 {

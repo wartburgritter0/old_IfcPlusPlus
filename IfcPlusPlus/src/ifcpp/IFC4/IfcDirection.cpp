@@ -54,7 +54,7 @@ void IfcDirection::getAttributes( std::vector<std::pair<std::string, shared_ptr<
 {
 	IfcGeometricRepresentationItem::getAttributes( vec_attributes );
 }
-void IfcDirection::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDirection::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcDirection::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

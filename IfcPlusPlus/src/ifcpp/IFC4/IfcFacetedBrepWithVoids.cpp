@@ -59,7 +59,7 @@ void IfcFacetedBrepWithVoids::getAttributes( std::vector<std::pair<std::string, 
 {
 	IfcFacetedBrep::getAttributes( vec_attributes );
 }
-void IfcFacetedBrepWithVoids::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcFacetedBrepWithVoids::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcFacetedBrepWithVoids::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

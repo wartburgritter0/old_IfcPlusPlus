@@ -94,8 +94,11 @@ void IfcProduct::getAttributes( std::vector<std::pair<std::string, shared_ptr<If
 	vec_attributes.push_back( std::make_pair( "ObjectPlacement", m_ObjectPlacement ) );
 	vec_attributes.push_back( std::make_pair( "Representation", m_Representation ) );
 }
-void IfcProduct::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcProduct::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> ReferencedBy_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_ReferencedBy_inverse.size(); ++i ) { ReferencedBy_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelAssignsToProduct>( m_ReferencedBy_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "ReferencedBy_inverse", ReferencedBy_inverse_vec_obj ) );
 }
 void IfcProduct::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

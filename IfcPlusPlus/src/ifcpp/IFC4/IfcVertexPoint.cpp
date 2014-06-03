@@ -56,7 +56,7 @@ void IfcVertexPoint::getAttributes( std::vector<std::pair<std::string, shared_pt
 	IfcVertex::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "VertexGeometry", m_VertexGeometry ) );
 }
-void IfcVertexPoint::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcVertexPoint::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcVertexPoint::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

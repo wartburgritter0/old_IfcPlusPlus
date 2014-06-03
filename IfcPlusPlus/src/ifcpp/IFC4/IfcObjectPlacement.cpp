@@ -45,8 +45,14 @@ void IfcObjectPlacement::readStepArguments( const std::vector<std::string>& args
 void IfcObjectPlacement::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
 {
 }
-void IfcObjectPlacement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcObjectPlacement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> PlacesObject_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_PlacesObject_inverse.size(); ++i ) { PlacesObject_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcProduct>( m_PlacesObject_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "PlacesObject_inverse", PlacesObject_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> ReferencedByPlacements_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_ReferencedByPlacements_inverse.size(); ++i ) { ReferencedByPlacements_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcLocalPlacement>( m_ReferencedByPlacements_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "ReferencedByPlacements_inverse", ReferencedByPlacements_inverse_vec_obj ) );
 }
 void IfcObjectPlacement::setInverseCounterparts( shared_ptr<IfcPPEntity> )
 {

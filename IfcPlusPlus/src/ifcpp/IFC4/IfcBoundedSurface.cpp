@@ -46,7 +46,7 @@ void IfcBoundedSurface::getAttributes( std::vector<std::pair<std::string, shared
 {
 	IfcSurface::getAttributes( vec_attributes );
 }
-void IfcBoundedSurface::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcBoundedSurface::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcBoundedSurface::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

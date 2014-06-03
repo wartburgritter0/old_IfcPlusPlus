@@ -70,7 +70,7 @@ void IfcProfileProperties::getAttributes( std::vector<std::pair<std::string, sha
 	IfcExtendedProperties::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "ProfileDefinition", m_ProfileDefinition ) );
 }
-void IfcProfileProperties::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcProfileProperties::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcProfileProperties::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

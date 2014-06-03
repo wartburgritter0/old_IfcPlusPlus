@@ -791,5 +791,5 @@ IfcPPEntity* createIfcPPEntity( const IfcPPEntityEnum entity_enum )
 
 		default: throw IfcPPException("given IfcPPEntityEnum not valid");
 	}
-	return 0;
+	return nullptr;
 }

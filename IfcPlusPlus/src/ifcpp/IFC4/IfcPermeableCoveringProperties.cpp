@@ -102,7 +102,7 @@ void IfcPermeableCoveringProperties::getAttributes( std::vector<std::pair<std::s
 	vec_attributes.push_back( std::make_pair( "FrameThickness", m_FrameThickness ) );
 	vec_attributes.push_back( std::make_pair( "ShapeAspectStyle", m_ShapeAspectStyle ) );
 }
-void IfcPermeableCoveringProperties::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPermeableCoveringProperties::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPermeableCoveringProperties::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

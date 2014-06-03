@@ -104,8 +104,11 @@ void IfcStructuralActivity::getAttributes( std::vector<std::pair<std::string, sh
 	vec_attributes.push_back( std::make_pair( "AppliedLoad", m_AppliedLoad ) );
 	vec_attributes.push_back( std::make_pair( "GlobalOrLocal", m_GlobalOrLocal ) );
 }
-void IfcStructuralActivity::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralActivity::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> AssignedToStructuralItem_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_AssignedToStructuralItem_inverse.size(); ++i ) { AssignedToStructuralItem_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelConnectsStructuralActivity>( m_AssignedToStructuralItem_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "AssignedToStructuralItem_inverse", AssignedToStructuralItem_inverse_vec_obj ) );
 }
 void IfcStructuralActivity::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

@@ -11,11 +11,14 @@
  * OpenSceneGraph Public License for more details.
 */
 
+#include <string.h>
 #include "IfcPPException.h"
 #include "ifcpp/writer/WriterUtil.h"
 #include "IfcPPObject.h"
 
-
+IfcPPBool::IfcPPBool(){}
+IfcPPBool::IfcPPBool( bool value ) : m_value(value) {}
+IfcPPBool::~IfcPPBool(){}
 void IfcPPBool::readArgument( const std::string& attribute_value )
 {
 	if( _stricmp( attribute_value.c_str(), ".F." ) == 0 )
@@ -28,6 +31,9 @@ void IfcPPBool::readArgument( const std::string& attribute_value )
 	}
 }
 
+IfcPPLogical::IfcPPLogical(){}
+IfcPPLogical::IfcPPLogical( LogicalEnum value ) : m_value(value) {}
+IfcPPLogical::~IfcPPLogical(){}
 void IfcPPLogical::readArgument( const std::string& attribute_value )
 {
 	if( _stricmp( attribute_value.c_str(), ".F." ) == 0 )
@@ -44,20 +50,42 @@ void IfcPPLogical::readArgument( const std::string& attribute_value )
 	}
 }
 
+IfcPPInt::IfcPPInt(){}
+IfcPPInt::IfcPPInt( int value ) : m_value(value) {}
+IfcPPInt::~IfcPPInt(){}
 void IfcPPInt::readArgument( const std::string& attribute_value )
 {
 	m_value = atoi( attribute_value.c_str() );
 }
 
+
+IfcPPReal::IfcPPReal(){}
+IfcPPReal::IfcPPReal( double value ) : m_value(value) {}
+IfcPPReal::~IfcPPReal(){}
 void IfcPPReal::readArgument( const std::string& attribute_value )
 {
 	m_value = atof( attribute_value.c_str() );
 }
 
+IfcPPString::IfcPPString(){}
+IfcPPString::IfcPPString( std::string& value ) : m_value(value) {}
+IfcPPString::~IfcPPString(){}
 void IfcPPString::readArgument( const std::string& attribute_value )
 {
-	m_value = attribute_value.c_str();
+	if( attribute_value.size() < 2 )
+	{
+		m_value = attribute_value.c_str();
+		return;
+	}
+	if( attribute_value[0] == '\'' && attribute_value[attribute_value.size()-1] == '\'' )
+	{
+		m_value = attribute_value.substr( 1, attribute_value.size()-2 ).c_str();
+	}
 }
+
+
+
+
 
 // ENTITY
 IfcPPEntity::IfcPPEntity() : m_id(-1)

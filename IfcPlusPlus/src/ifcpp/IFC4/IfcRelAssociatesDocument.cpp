@@ -81,7 +81,7 @@ void IfcRelAssociatesDocument::getAttributes( std::vector<std::pair<std::string,
 	IfcRelAssociates::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "RelatingDocument", m_RelatingDocument ) );
 }
-void IfcRelAssociatesDocument::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelAssociatesDocument::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelAssociatesDocument::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

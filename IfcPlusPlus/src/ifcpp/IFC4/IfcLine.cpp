@@ -62,7 +62,7 @@ void IfcLine::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPP
 	vec_attributes.push_back( std::make_pair( "Pnt", m_Pnt ) );
 	vec_attributes.push_back( std::make_pair( "Dir", m_Dir ) );
 }
-void IfcLine::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcLine::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcLine::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

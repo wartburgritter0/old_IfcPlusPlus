@@ -85,7 +85,7 @@ void IfcRelConnectsPorts::getAttributes( std::vector<std::pair<std::string, shar
 	vec_attributes.push_back( std::make_pair( "RelatedPort", m_RelatedPort ) );
 	vec_attributes.push_back( std::make_pair( "RealizingElement", m_RealizingElement ) );
 }
-void IfcRelConnectsPorts::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelConnectsPorts::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelConnectsPorts::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

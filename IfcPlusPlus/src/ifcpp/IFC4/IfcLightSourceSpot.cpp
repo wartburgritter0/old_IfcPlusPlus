@@ -114,7 +114,7 @@ void IfcLightSourceSpot::getAttributes( std::vector<std::pair<std::string, share
 	vec_attributes.push_back( std::make_pair( "SpreadAngle", m_SpreadAngle ) );
 	vec_attributes.push_back( std::make_pair( "BeamWidthAngle", m_BeamWidthAngle ) );
 }
-void IfcLightSourceSpot::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcLightSourceSpot::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcLightSourceSpot::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

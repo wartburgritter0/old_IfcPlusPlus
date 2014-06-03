@@ -92,8 +92,11 @@ void IfcStructuralItem::getAttributes( std::vector<std::pair<std::string, shared
 {
 	IfcProduct::getAttributes( vec_attributes );
 }
-void IfcStructuralItem::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralItem::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> AssignedStructuralActivity_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_AssignedStructuralActivity_inverse.size(); ++i ) { AssignedStructuralActivity_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelConnectsStructuralActivity>( m_AssignedStructuralActivity_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "AssignedStructuralActivity_inverse", AssignedStructuralActivity_inverse_vec_obj ) );
 }
 void IfcStructuralItem::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

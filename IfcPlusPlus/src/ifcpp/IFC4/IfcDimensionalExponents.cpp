@@ -81,15 +81,15 @@ void IfcDimensionalExponents::readStepArguments( const std::vector<std::string>&
 }
 void IfcDimensionalExponents::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
 {
-	vec_attributes.push_back( std::make_pair( "LengthExponent", shared_ptr<IfcPPAttributeObjectInt>( new  IfcPPAttributeObjectInt( m_LengthExponent ) ) ) );
-	vec_attributes.push_back( std::make_pair( "MassExponent", shared_ptr<IfcPPAttributeObjectInt>( new  IfcPPAttributeObjectInt( m_MassExponent ) ) ) );
-	vec_attributes.push_back( std::make_pair( "TimeExponent", shared_ptr<IfcPPAttributeObjectInt>( new  IfcPPAttributeObjectInt( m_TimeExponent ) ) ) );
-	vec_attributes.push_back( std::make_pair( "ElectricCurrentExponent", shared_ptr<IfcPPAttributeObjectInt>( new  IfcPPAttributeObjectInt( m_ElectricCurrentExponent ) ) ) );
-	vec_attributes.push_back( std::make_pair( "ThermodynamicTemperatureExponent", shared_ptr<IfcPPAttributeObjectInt>( new  IfcPPAttributeObjectInt( m_ThermodynamicTemperatureExponent ) ) ) );
-	vec_attributes.push_back( std::make_pair( "AmountOfSubstanceExponent", shared_ptr<IfcPPAttributeObjectInt>( new  IfcPPAttributeObjectInt( m_AmountOfSubstanceExponent ) ) ) );
-	vec_attributes.push_back( std::make_pair( "LuminousIntensityExponent", shared_ptr<IfcPPAttributeObjectInt>( new  IfcPPAttributeObjectInt( m_LuminousIntensityExponent ) ) ) );
+	vec_attributes.push_back( std::make_pair( "LengthExponent", shared_ptr<IfcPPInt>( new IfcPPInt( m_LengthExponent ) ) ) );
+	vec_attributes.push_back( std::make_pair( "MassExponent", shared_ptr<IfcPPInt>( new IfcPPInt( m_MassExponent ) ) ) );
+	vec_attributes.push_back( std::make_pair( "TimeExponent", shared_ptr<IfcPPInt>( new IfcPPInt( m_TimeExponent ) ) ) );
+	vec_attributes.push_back( std::make_pair( "ElectricCurrentExponent", shared_ptr<IfcPPInt>( new IfcPPInt( m_ElectricCurrentExponent ) ) ) );
+	vec_attributes.push_back( std::make_pair( "ThermodynamicTemperatureExponent", shared_ptr<IfcPPInt>( new IfcPPInt( m_ThermodynamicTemperatureExponent ) ) ) );
+	vec_attributes.push_back( std::make_pair( "AmountOfSubstanceExponent", shared_ptr<IfcPPInt>( new IfcPPInt( m_AmountOfSubstanceExponent ) ) ) );
+	vec_attributes.push_back( std::make_pair( "LuminousIntensityExponent", shared_ptr<IfcPPInt>( new IfcPPInt( m_LuminousIntensityExponent ) ) ) );
 }
-void IfcDimensionalExponents::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDimensionalExponents::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcDimensionalExponents::setInverseCounterparts( shared_ptr<IfcPPEntity> )

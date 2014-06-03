@@ -108,7 +108,7 @@ void IfcCostSchedule::getAttributes( std::vector<std::pair<std::string, shared_p
 	vec_attributes.push_back( std::make_pair( "SubmittedOn", m_SubmittedOn ) );
 	vec_attributes.push_back( std::make_pair( "UpdateDate", m_UpdateDate ) );
 }
-void IfcCostSchedule::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCostSchedule::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCostSchedule::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

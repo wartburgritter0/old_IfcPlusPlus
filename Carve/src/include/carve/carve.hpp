@@ -47,7 +47,9 @@
 #include <list>
 #include <sstream>
 #include <iomanip>
-
+#include <stdint.h>
+#include <stddef.h>
+#include <algorithm>
 #include <carve/collection.hpp>
 
 #include <carve/util.hpp>

@@ -113,7 +113,7 @@ void IfcElectricTimeControl::getAttributes( std::vector<std::pair<std::string, s
 	IfcFlowController::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcElectricTimeControl::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcElectricTimeControl::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcElectricTimeControl::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

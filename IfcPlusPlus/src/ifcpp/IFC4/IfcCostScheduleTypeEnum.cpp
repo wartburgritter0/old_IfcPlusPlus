@@ -68,7 +68,7 @@ shared_ptr<IfcCostScheduleTypeEnum> IfcCostScheduleTypeEnum::createObjectFromSte
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcCostScheduleTypeEnum>(); }
-	auto type_object = std::make_shared<IfcCostScheduleTypeEnum>();
+	shared_ptr<IfcCostScheduleTypeEnum> type_object( new IfcCostScheduleTypeEnum() );
 	if( _stricmp( arg.c_str(), ".BUDGET." ) == 0 )
 	{
 		type_object->m_enum = IfcCostScheduleTypeEnum::ENUM_BUDGET;

@@ -37,6 +37,9 @@ public:
 class IfcPPBool : virtual public IfcPPObject
 {
 public:
+	IfcPPBool();
+	IfcPPBool( bool value );
+	~IfcPPBool();
 	virtual const char* classname() const { return "IfcPPBool"; }
 	void readArgument( const std::string& attribute_value );
 	bool m_value;
@@ -45,6 +48,9 @@ public:
 class IfcPPLogical : virtual public IfcPPObject
 {
 public:
+	IfcPPLogical();
+	IfcPPLogical( LogicalEnum value );
+	~IfcPPLogical();
 	virtual const char* classname() const { return "IfcPPLogical"; }
 	void readArgument( const std::string& attribute_value );
 	LogicalEnum m_value;
@@ -53,6 +59,9 @@ public:
 class IfcPPInt : virtual public IfcPPObject
 {
 public:
+	IfcPPInt();
+	IfcPPInt( int value );
+	~IfcPPInt();
 	virtual const char* classname() const { return "IfcPPInt"; }
 	void readArgument( const std::string& attribute_value );
 	int m_value;
@@ -61,6 +70,9 @@ public:
 class IfcPPReal : virtual public IfcPPObject
 {
 public:
+	IfcPPReal();
+	IfcPPReal( double value );
+	~IfcPPReal();
 	virtual const char* classname() const { return "IfcPPReal"; }
 	void readArgument( const std::string& attribute_value );
 	double m_value;
@@ -69,6 +81,9 @@ public:
 class IfcPPString : virtual public IfcPPObject
 {
 public:
+	IfcPPString();
+	IfcPPString( std::string& value );
+	~IfcPPString();
 	virtual const char* classname() const { return "IfcPPString"; }
 	void readArgument( const std::string& attribute_value );
 	std::string m_value;

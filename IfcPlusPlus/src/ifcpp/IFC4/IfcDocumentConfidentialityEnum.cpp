@@ -56,7 +56,7 @@ shared_ptr<IfcDocumentConfidentialityEnum> IfcDocumentConfidentialityEnum::creat
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcDocumentConfidentialityEnum>(); }
-	auto type_object = std::make_shared<IfcDocumentConfidentialityEnum>();
+	shared_ptr<IfcDocumentConfidentialityEnum> type_object( new IfcDocumentConfidentialityEnum() );
 	if( _stricmp( arg.c_str(), ".PUBLIC." ) == 0 )
 	{
 		type_object->m_enum = IfcDocumentConfidentialityEnum::ENUM_PUBLIC;

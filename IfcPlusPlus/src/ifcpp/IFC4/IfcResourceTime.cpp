@@ -132,7 +132,7 @@ void IfcResourceTime::getAttributes( std::vector<std::pair<std::string, shared_p
 	vec_attributes.push_back( std::make_pair( "ScheduleFinish", m_ScheduleFinish ) );
 	vec_attributes.push_back( std::make_pair( "ScheduleContour", m_ScheduleContour ) );
 	vec_attributes.push_back( std::make_pair( "LevelingDelay", m_LevelingDelay ) );
-	vec_attributes.push_back( std::make_pair( "IsOverAllocated", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_IsOverAllocated ) ) ) );
+	vec_attributes.push_back( std::make_pair( "IsOverAllocated", shared_ptr<IfcPPBool>( new IfcPPBool( m_IsOverAllocated ) ) ) );
 	vec_attributes.push_back( std::make_pair( "StatusTime", m_StatusTime ) );
 	vec_attributes.push_back( std::make_pair( "ActualWork", m_ActualWork ) );
 	vec_attributes.push_back( std::make_pair( "ActualUsage", m_ActualUsage ) );
@@ -142,7 +142,7 @@ void IfcResourceTime::getAttributes( std::vector<std::pair<std::string, shared_p
 	vec_attributes.push_back( std::make_pair( "RemainingUsage", m_RemainingUsage ) );
 	vec_attributes.push_back( std::make_pair( "Completion", m_Completion ) );
 }
-void IfcResourceTime::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcResourceTime::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcResourceTime::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

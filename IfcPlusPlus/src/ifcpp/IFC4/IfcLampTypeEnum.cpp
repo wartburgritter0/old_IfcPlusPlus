@@ -76,7 +76,7 @@ shared_ptr<IfcLampTypeEnum> IfcLampTypeEnum::createObjectFromStepData( const std
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcLampTypeEnum>(); }
-	auto type_object = std::make_shared<IfcLampTypeEnum>();
+	shared_ptr<IfcLampTypeEnum> type_object( new IfcLampTypeEnum() );
 	if( _stricmp( arg.c_str(), ".COMPACTFLUORESCENT." ) == 0 )
 	{
 		type_object->m_enum = IfcLampTypeEnum::ENUM_COMPACTFLUORESCENT;

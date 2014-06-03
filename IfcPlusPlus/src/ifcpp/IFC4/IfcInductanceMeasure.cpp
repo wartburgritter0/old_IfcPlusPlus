@@ -35,7 +35,7 @@ shared_ptr<IfcInductanceMeasure> IfcInductanceMeasure::createObjectFromStepData(
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcInductanceMeasure>(); }
-	auto type_object = std::make_shared<IfcInductanceMeasure>();
+	shared_ptr<IfcInductanceMeasure> type_object( new IfcInductanceMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

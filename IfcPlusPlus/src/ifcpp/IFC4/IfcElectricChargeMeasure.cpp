@@ -35,7 +35,7 @@ shared_ptr<IfcElectricChargeMeasure> IfcElectricChargeMeasure::createObjectFromS
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcElectricChargeMeasure>(); }
-	auto type_object = std::make_shared<IfcElectricChargeMeasure>();
+	shared_ptr<IfcElectricChargeMeasure> type_object( new IfcElectricChargeMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

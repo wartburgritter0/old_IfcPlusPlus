@@ -117,8 +117,14 @@ void IfcSpace::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcP
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 	vec_attributes.push_back( std::make_pair( "ElevationWithFlooring", m_ElevationWithFlooring ) );
 }
-void IfcSpace::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSpace::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> HasCoverings_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_HasCoverings_inverse.size(); ++i ) { HasCoverings_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelCoversSpaces>( m_HasCoverings_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "HasCoverings_inverse", HasCoverings_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> BoundedBy_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_BoundedBy_inverse.size(); ++i ) { BoundedBy_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelSpaceBoundary>( m_BoundedBy_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "BoundedBy_inverse", BoundedBy_inverse_vec_obj ) );
 }
 void IfcSpace::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

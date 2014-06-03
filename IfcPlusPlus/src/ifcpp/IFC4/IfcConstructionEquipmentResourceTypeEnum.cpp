@@ -72,7 +72,7 @@ shared_ptr<IfcConstructionEquipmentResourceTypeEnum> IfcConstructionEquipmentRes
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcConstructionEquipmentResourceTypeEnum>(); }
-	auto type_object = std::make_shared<IfcConstructionEquipmentResourceTypeEnum>();
+	shared_ptr<IfcConstructionEquipmentResourceTypeEnum> type_object( new IfcConstructionEquipmentResourceTypeEnum() );
 	if( _stricmp( arg.c_str(), ".DEMOLISHING." ) == 0 )
 	{
 		type_object->m_enum = IfcConstructionEquipmentResourceTypeEnum::ENUM_DEMOLISHING;

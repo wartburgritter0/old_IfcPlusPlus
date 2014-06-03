@@ -71,7 +71,7 @@ void IfcBlock::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcP
 	vec_attributes.push_back( std::make_pair( "YLength", m_YLength ) );
 	vec_attributes.push_back( std::make_pair( "ZLength", m_ZLength ) );
 }
-void IfcBlock::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcBlock::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcBlock::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

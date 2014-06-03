@@ -35,7 +35,7 @@ shared_ptr<IfcThermodynamicTemperatureMeasure> IfcThermodynamicTemperatureMeasur
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcThermodynamicTemperatureMeasure>(); }
-	auto type_object = std::make_shared<IfcThermodynamicTemperatureMeasure>();
+	shared_ptr<IfcThermodynamicTemperatureMeasure> type_object( new IfcThermodynamicTemperatureMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

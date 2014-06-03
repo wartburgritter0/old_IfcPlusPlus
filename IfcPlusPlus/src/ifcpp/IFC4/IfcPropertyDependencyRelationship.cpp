@@ -74,7 +74,7 @@ void IfcPropertyDependencyRelationship::getAttributes( std::vector<std::pair<std
 	vec_attributes.push_back( std::make_pair( "DependantProperty", m_DependantProperty ) );
 	vec_attributes.push_back( std::make_pair( "Expression", m_Expression ) );
 }
-void IfcPropertyDependencyRelationship::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPropertyDependencyRelationship::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPropertyDependencyRelationship::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

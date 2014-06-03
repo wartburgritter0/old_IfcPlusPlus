@@ -120,7 +120,7 @@ void IfcRationalBSplineSurfaceWithKnots::getAttributes( std::vector<std::pair<st
 {
 	IfcBSplineSurfaceWithKnots::getAttributes( vec_attributes );
 }
-void IfcRationalBSplineSurfaceWithKnots::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRationalBSplineSurfaceWithKnots::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRationalBSplineSurfaceWithKnots::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -36,7 +36,7 @@ shared_ptr<IfcParameterValue> IfcParameterValue::createObjectFromStepData( const
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcParameterValue>(); }
-	auto type_object = std::make_shared<IfcParameterValue>();
+	shared_ptr<IfcParameterValue> type_object( new IfcParameterValue() );
 	type_object->readArgument( arg );
 	return type_object;
 }

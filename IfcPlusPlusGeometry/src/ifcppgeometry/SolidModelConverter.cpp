@@ -57,7 +57,7 @@
 #include "GeomUtils.h"
 #include "CSG_Adapter.h"
 #include "DebugViewerCallback.h"
-#include "UnhandledRepresentationException.h"
+#include "GeometryException.h"
 #include "RepresentationConverter.h"
 #include "SolidModelConverter.h"
 
@@ -397,7 +397,7 @@ void SolidModelConverter::convertIfcExtrudedAreaSolid( const shared_ptr<IfcExtru
 #ifdef _DEBUG
 	shared_ptr<carve::mesh::MeshSet<3> > mesh_set( poly_data->createMesh(carve::input::opts()) );
 	std::stringstream strs_err_meshset;
-	bool poly_ok = ConverterOSG::checkMeshSet( mesh_set.get(), strs_err_meshset, -1 );
+	bool poly_ok = CSG_Adapter::checkMeshSetValidAndClosed( mesh_set.get(), strs_err_meshset, -1 );
 
 	if( !poly_ok )
 	{
@@ -557,7 +557,7 @@ void SolidModelConverter::convertIfcRevolvedAreaSolid( const shared_ptr<IfcRevol
 	if( revolution_angle < -M_PI*2 ) revolution_angle = M_PI*2;
 
 	// TODO: calculate num segments according to length/width/height ratio and overall size of the object
-	int num_segments = m_geom_settings->m_num_vertices_per_circle*(abs(revolution_angle)/(2.0*M_PI));
+	int num_segments = m_geom_settings->m_num_vertices_per_circle*(std::abs(revolution_angle)/(2.0*M_PI));
 	if( num_segments < 6 )
 	{
 		num_segments = 6;
@@ -657,7 +657,7 @@ void SolidModelConverter::convertIfcRevolvedAreaSolid( const shared_ptr<IfcRevol
 		carve::geom::vector<3> pc( carve::geom::VECTOR( v_c.v[0],	v_c.v[1],	v_c.v[2] ) );
 
 		double A = 0.5*(cross( pa-pb, pa-pc ).length());
-		if( abs(A) < 0.000000001 )
+		if( std::abs(A) < 0.000000001 )
 		{
 			std::cout << "area < 0.000000001\n" << std::endl;
 		}
@@ -703,7 +703,7 @@ void SolidModelConverter::convertIfcRevolvedAreaSolid( const shared_ptr<IfcRevol
 	{
 		std::cout << __FUNC__ << ": mesh_set->meshes.size() != 1" << std::endl;
 	}
-	bool meshset_ok = ConverterOSG::checkMeshSet( mesh_set.get(), strs_err, -1 );
+	bool meshset_ok = CSG_Adapter::checkMeshSetValidAndClosed( mesh_set.get(), strs_err, -1 );
 
 	if( !meshset_ok )
 	{
@@ -747,6 +747,18 @@ void SolidModelConverter::convertIfcBooleanResult( const shared_ptr<IfcBooleanRe
 			strs_err << __FUNC__ << ": invalid IfcBooleanOperator" << std::endl;
 		}
 
+		int id1 = 0;
+		if( dynamic_pointer_cast<IfcPPEntity>( ifc_first_operand ) )
+		{
+			id1 = dynamic_pointer_cast<IfcPPEntity>( ifc_first_operand )->getId();
+		}
+
+		int id2 = 0;
+		if( dynamic_pointer_cast<IfcPPEntity>( ifc_second_operand ) )
+		{
+			id2 = dynamic_pointer_cast<IfcPPEntity>( ifc_second_operand )->getId();
+		}
+
 		// convert the first operand
 		shared_ptr<ItemData> first_operand_data( new ItemData() );
 		shared_ptr<ItemData> empty_operand;
@@ -757,7 +769,7 @@ void SolidModelConverter::convertIfcBooleanResult( const shared_ptr<IfcBooleanRe
 		shared_ptr<ItemData> second_operand_data( new ItemData() );
 		convertIfcBooleanOperand( ifc_second_operand, second_operand_data, first_operand_data, strs_err );
 		second_operand_data->createMeshSetsFromClosedPolyhedrons();
-
+		
 		// for every first operand polyhedrons, apply all second operand polyhedrons
 		std::vector<shared_ptr<carve::mesh::MeshSet<3> > >::iterator it_first_operands;
 		for( it_first_operands=first_operand_data->meshsets.begin(); it_first_operands!=first_operand_data->meshsets.end(); ++it_first_operands )
@@ -768,25 +780,14 @@ void SolidModelConverter::convertIfcBooleanResult( const shared_ptr<IfcBooleanRe
 			for( it_second_operands=second_operand_data->meshsets.begin(); it_second_operands!=second_operand_data->meshsets.end(); ++it_second_operands )
 			{
 				shared_ptr<carve::mesh::MeshSet<3> >& second_operand_meshset = (*it_second_operands);
-
-				int id1 = 0;
-				if( dynamic_pointer_cast<IfcPPEntity>( ifc_first_operand ) )
-				{
-					id1 = dynamic_pointer_cast<IfcPPEntity>( ifc_first_operand )->getId();
-				}
-				int id2 = 0;
-				if( dynamic_pointer_cast<IfcPPEntity>( ifc_second_operand ) )
-				{
-					id2 = dynamic_pointer_cast<IfcPPEntity>( ifc_second_operand )->getId();
-				}
-
 				shared_ptr<carve::mesh::MeshSet<3> > result;
-				bool csg_op_ok = CSG_Adapter::computeCSG( first_operand_meshset.get(), second_operand_meshset.get(), csg_operation, id1, id2, strs_err, result );
-				item_data->m_csg_computed = true;
+				bool csg_op_ok = CSG_Adapter::computeCSG( first_operand_meshset, second_operand_meshset, csg_operation, id1, id2, strs_err, result );
+				
 				if( csg_op_ok )
 				{
 					first_operand_meshset = result;
 				}
+				item_data->m_csg_computed = true;
 			}
 		}
 
@@ -1198,7 +1199,7 @@ void SolidModelConverter::convertIfcBooleanOperand( const shared_ptr<IfcBooleanO
 
 		// check dimenstions of other operand
 		double extrusion_depth = HALF_SPACE_BOX_SIZE;
-		carve::geom::vector<3> other_operand_pos = base_surface_position;
+		//carve::geom::vector<3> other_operand_pos = base_surface_position;
 		if( other_operand )
 		{
 			carve::geom::aabb<3> aabb;
@@ -1220,7 +1221,7 @@ void SolidModelConverter::convertIfcBooleanOperand( const shared_ptr<IfcBooleanO
 			carve::geom::vector<3>& aabb_extent = aabb.extent;
 			double max_extent = std::max( aabb_extent.x, std::max( aabb_extent.y, aabb_extent.z ) );
 			extrusion_depth = 2.0*max_extent;
-			other_operand_pos = aabb.pos;
+			//other_operand_pos = aabb.pos;
 		}
 
 		shared_ptr<IfcPolygonalBoundedHalfSpace> polygonal_half_space = dynamic_pointer_cast<IfcPolygonalBoundedHalfSpace>(half_space_solid);
@@ -1249,10 +1250,10 @@ void SolidModelConverter::convertIfcBooleanOperand( const shared_ptr<IfcBooleanO
 			ProfileConverter::deleteLastPointIfEqualToFirst( polygonal_boundary );
 			ProfileConverter::simplifyPath( polygonal_boundary );
 
-			if( other_operand )
-			{
-				extrusion_depth = extrusion_depth*2.0;
-			}
+			//if( other_operand )
+			//{
+			//	extrusion_depth = extrusion_depth*2.0;
+			//}
 			carve::geom::vector<3> solid_extrusion_direction = boundary_plane_normal;
 			double agreement_check = dot( base_surface_plane.N, boundary_plane_normal );
 			if( agreement_check > 0 )

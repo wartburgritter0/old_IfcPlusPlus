@@ -134,7 +134,7 @@ void IfcDoor::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPP
 	vec_attributes.push_back( std::make_pair( "OperationType", m_OperationType ) );
 	vec_attributes.push_back( std::make_pair( "UserDefinedOperationType", m_UserDefinedOperationType ) );
 }
-void IfcDoor::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDoor::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcDoor::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

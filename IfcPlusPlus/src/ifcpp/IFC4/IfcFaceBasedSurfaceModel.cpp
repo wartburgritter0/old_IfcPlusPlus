@@ -55,7 +55,7 @@ void IfcFaceBasedSurfaceModel::getAttributes( std::vector<std::pair<std::string,
 {
 	IfcGeometricRepresentationItem::getAttributes( vec_attributes );
 }
-void IfcFaceBasedSurfaceModel::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcFaceBasedSurfaceModel::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcFaceBasedSurfaceModel::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -35,7 +35,7 @@ shared_ptr<IfcCurvatureMeasure> IfcCurvatureMeasure::createObjectFromStepData( c
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcCurvatureMeasure>(); }
-	auto type_object = std::make_shared<IfcCurvatureMeasure>();
+	shared_ptr<IfcCurvatureMeasure> type_object( new IfcCurvatureMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

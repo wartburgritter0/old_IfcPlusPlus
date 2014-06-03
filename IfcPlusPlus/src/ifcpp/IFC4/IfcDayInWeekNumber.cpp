@@ -34,7 +34,7 @@ shared_ptr<IfcDayInWeekNumber> IfcDayInWeekNumber::createObjectFromStepData( con
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcDayInWeekNumber>(); }
-	auto type_object = std::make_shared<IfcDayInWeekNumber>();
+	shared_ptr<IfcDayInWeekNumber> type_object( new IfcDayInWeekNumber() );
 	type_object->readArgument( arg );
 	return type_object;
 }

@@ -34,7 +34,7 @@ shared_ptr<IfcNonNegativeLengthMeasure> IfcNonNegativeLengthMeasure::createObjec
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcNonNegativeLengthMeasure>(); }
-	auto type_object = std::make_shared<IfcNonNegativeLengthMeasure>();
+	shared_ptr<IfcNonNegativeLengthMeasure> type_object( new IfcNonNegativeLengthMeasure() );
 	// read TYPE
 	type_object->readArgument( arg );
 	return type_object;

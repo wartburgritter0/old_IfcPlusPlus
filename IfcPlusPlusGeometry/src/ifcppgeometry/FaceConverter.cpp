@@ -40,7 +40,7 @@
 #include "ifcpp/model/IfcPPException.h"
 #include "GeometrySettings.h"
 #include "GeomUtils.h"
-#include "UnhandledRepresentationException.h"
+#include "GeometryException.h"
 #include "ProfileConverter.h"
 #include "PlacementConverter.h"
 #include "CurveConverter.h"

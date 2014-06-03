@@ -12,8 +12,8 @@
 */
 
 #include <QtCore/qglobal.h>
-#include <QtWidgets/QBoxLayout>
-#include <QtWidgets/QMessageBox>
+#include <QBoxLayout>
+#include <QMessageBox>
 
 #include <QtGui/QKeyEvent>
 #include <QtCore/qfile.h>

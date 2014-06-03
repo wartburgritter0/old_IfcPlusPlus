@@ -35,7 +35,7 @@ shared_ptr<IfcSolidAngleMeasure> IfcSolidAngleMeasure::createObjectFromStepData(
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcSolidAngleMeasure>(); }
-	auto type_object = std::make_shared<IfcSolidAngleMeasure>();
+	shared_ptr<IfcSolidAngleMeasure> type_object( new IfcSolidAngleMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

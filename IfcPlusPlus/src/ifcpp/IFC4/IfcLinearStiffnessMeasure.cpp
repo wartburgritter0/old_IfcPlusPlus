@@ -36,7 +36,7 @@ shared_ptr<IfcLinearStiffnessMeasure> IfcLinearStiffnessMeasure::createObjectFro
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcLinearStiffnessMeasure>(); }
-	auto type_object = std::make_shared<IfcLinearStiffnessMeasure>();
+	shared_ptr<IfcLinearStiffnessMeasure> type_object( new IfcLinearStiffnessMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

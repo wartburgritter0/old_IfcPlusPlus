@@ -35,7 +35,7 @@ shared_ptr<IfcAmountOfSubstanceMeasure> IfcAmountOfSubstanceMeasure::createObjec
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcAmountOfSubstanceMeasure>(); }
-	auto type_object = std::make_shared<IfcAmountOfSubstanceMeasure>();
+	shared_ptr<IfcAmountOfSubstanceMeasure> type_object( new IfcAmountOfSubstanceMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

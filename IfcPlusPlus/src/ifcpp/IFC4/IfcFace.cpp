@@ -56,8 +56,11 @@ void IfcFace::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPP
 {
 	IfcTopologicalRepresentationItem::getAttributes( vec_attributes );
 }
-void IfcFace::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcFace::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> HasTextureMaps_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_HasTextureMaps_inverse.size(); ++i ) { HasTextureMaps_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcTextureMap>( m_HasTextureMaps_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "HasTextureMaps_inverse", HasTextureMaps_inverse_vec_obj ) );
 }
 void IfcFace::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

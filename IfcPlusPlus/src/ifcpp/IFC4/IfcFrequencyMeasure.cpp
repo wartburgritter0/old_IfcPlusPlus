@@ -35,7 +35,7 @@ shared_ptr<IfcFrequencyMeasure> IfcFrequencyMeasure::createObjectFromStepData( c
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcFrequencyMeasure>(); }
-	auto type_object = std::make_shared<IfcFrequencyMeasure>();
+	shared_ptr<IfcFrequencyMeasure> type_object( new IfcFrequencyMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

@@ -59,7 +59,7 @@ void IfcTextStyleForDefinedFont::getAttributes( std::vector<std::pair<std::strin
 	vec_attributes.push_back( std::make_pair( "Colour", m_Colour ) );
 	vec_attributes.push_back( std::make_pair( "BackgroundColour", m_BackgroundColour ) );
 }
-void IfcTextStyleForDefinedFont::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTextStyleForDefinedFont::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTextStyleForDefinedFont::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

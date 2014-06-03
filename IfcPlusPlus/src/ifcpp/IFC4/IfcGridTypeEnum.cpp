@@ -56,7 +56,7 @@ shared_ptr<IfcGridTypeEnum> IfcGridTypeEnum::createObjectFromStepData( const std
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcGridTypeEnum>(); }
-	auto type_object = std::make_shared<IfcGridTypeEnum>();
+	shared_ptr<IfcGridTypeEnum> type_object( new IfcGridTypeEnum() );
 	if( _stricmp( arg.c_str(), ".RECTANGULAR." ) == 0 )
 	{
 		type_object->m_enum = IfcGridTypeEnum::ENUM_RECTANGULAR;

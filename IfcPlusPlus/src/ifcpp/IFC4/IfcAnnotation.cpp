@@ -92,8 +92,11 @@ void IfcAnnotation::getAttributes( std::vector<std::pair<std::string, shared_ptr
 {
 	IfcProduct::getAttributes( vec_attributes );
 }
-void IfcAnnotation::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcAnnotation::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> ContainedInStructure_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_ContainedInStructure_inverse.size(); ++i ) { ContainedInStructure_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelContainedInSpatialStructure>( m_ContainedInStructure_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "ContainedInStructure_inverse", ContainedInStructure_inverse_vec_obj ) );
 }
 void IfcAnnotation::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

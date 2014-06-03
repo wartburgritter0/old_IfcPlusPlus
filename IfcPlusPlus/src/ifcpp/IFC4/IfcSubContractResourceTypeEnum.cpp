@@ -48,7 +48,7 @@ shared_ptr<IfcSubContractResourceTypeEnum> IfcSubContractResourceTypeEnum::creat
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcSubContractResourceTypeEnum>(); }
-	auto type_object = std::make_shared<IfcSubContractResourceTypeEnum>();
+	shared_ptr<IfcSubContractResourceTypeEnum> type_object( new IfcSubContractResourceTypeEnum() );
 	if( _stricmp( arg.c_str(), ".PURCHASE." ) == 0 )
 	{
 		type_object->m_enum = IfcSubContractResourceTypeEnum::ENUM_PURCHASE;

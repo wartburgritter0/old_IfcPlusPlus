@@ -74,7 +74,7 @@ void IfcPropertySingleValue::getAttributes( std::vector<std::pair<std::string, s
 	vec_attributes.push_back( std::make_pair( "NominalValue", m_NominalValue ) );
 	vec_attributes.push_back( std::make_pair( "Unit", m_Unit ) );
 }
-void IfcPropertySingleValue::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPropertySingleValue::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPropertySingleValue::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

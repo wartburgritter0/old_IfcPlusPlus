@@ -111,7 +111,7 @@ void IfcWallElementedCase::getAttributes( std::vector<std::pair<std::string, sha
 {
 	IfcWall::getAttributes( vec_attributes );
 }
-void IfcWallElementedCase::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcWallElementedCase::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcWallElementedCase::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

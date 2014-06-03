@@ -73,7 +73,7 @@ void IfcReparametrisedCompositeCurveSegment::getAttributes( std::vector<std::pai
 	IfcCompositeCurveSegment::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "ParamLength", m_ParamLength ) );
 }
-void IfcReparametrisedCompositeCurveSegment::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcReparametrisedCompositeCurveSegment::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcReparametrisedCompositeCurveSegment::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

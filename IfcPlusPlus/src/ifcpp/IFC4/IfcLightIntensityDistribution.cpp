@@ -58,7 +58,7 @@ void IfcLightIntensityDistribution::getAttributes( std::vector<std::pair<std::st
 {
 	vec_attributes.push_back( std::make_pair( "LightDistributionCurve", m_LightDistributionCurve ) );
 }
-void IfcLightIntensityDistribution::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcLightIntensityDistribution::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcLightIntensityDistribution::setInverseCounterparts( shared_ptr<IfcPPEntity> )

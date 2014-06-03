@@ -69,7 +69,7 @@ void IfcSurfaceStyleLighting::getAttributes( std::vector<std::pair<std::string, 
 	vec_attributes.push_back( std::make_pair( "TransmissionColour", m_TransmissionColour ) );
 	vec_attributes.push_back( std::make_pair( "ReflectanceColour", m_ReflectanceColour ) );
 }
-void IfcSurfaceStyleLighting::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSurfaceStyleLighting::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSurfaceStyleLighting::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

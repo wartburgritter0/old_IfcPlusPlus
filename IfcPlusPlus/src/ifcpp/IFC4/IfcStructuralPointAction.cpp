@@ -108,7 +108,7 @@ void IfcStructuralPointAction::getAttributes( std::vector<std::pair<std::string,
 {
 	IfcStructuralAction::getAttributes( vec_attributes );
 }
-void IfcStructuralPointAction::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralPointAction::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcStructuralPointAction::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

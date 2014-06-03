@@ -69,7 +69,7 @@ void IfcStructuralLoadTemperature::getAttributes( std::vector<std::pair<std::str
 	vec_attributes.push_back( std::make_pair( "DeltaTY", m_DeltaTY ) );
 	vec_attributes.push_back( std::make_pair( "DeltaTZ", m_DeltaTZ ) );
 }
-void IfcStructuralLoadTemperature::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralLoadTemperature::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcStructuralLoadTemperature::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

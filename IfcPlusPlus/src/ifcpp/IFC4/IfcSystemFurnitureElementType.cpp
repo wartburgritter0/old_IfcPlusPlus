@@ -104,7 +104,7 @@ void IfcSystemFurnitureElementType::getAttributes( std::vector<std::pair<std::st
 	IfcFurnishingElementType::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcSystemFurnitureElementType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSystemFurnitureElementType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSystemFurnitureElementType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

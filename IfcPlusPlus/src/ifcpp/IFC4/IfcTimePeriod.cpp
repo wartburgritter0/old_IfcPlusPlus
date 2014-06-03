@@ -58,7 +58,7 @@ void IfcTimePeriod::getAttributes( std::vector<std::pair<std::string, shared_ptr
 	vec_attributes.push_back( std::make_pair( "StartTime", m_StartTime ) );
 	vec_attributes.push_back( std::make_pair( "EndTime", m_EndTime ) );
 }
-void IfcTimePeriod::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTimePeriod::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTimePeriod::setInverseCounterparts( shared_ptr<IfcPPEntity> )

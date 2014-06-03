@@ -76,9 +76,9 @@ void IfcTextStyle::getAttributes( std::vector<std::pair<std::string, shared_ptr<
 	vec_attributes.push_back( std::make_pair( "TextCharacterAppearance", m_TextCharacterAppearance ) );
 	vec_attributes.push_back( std::make_pair( "TextStyle", m_TextStyle ) );
 	vec_attributes.push_back( std::make_pair( "TextFontStyle", m_TextFontStyle ) );
-	vec_attributes.push_back( std::make_pair( "ModelOrDraughting", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_ModelOrDraughting ) ) ) );
+	vec_attributes.push_back( std::make_pair( "ModelOrDraughting", shared_ptr<IfcPPBool>( new IfcPPBool( m_ModelOrDraughting ) ) ) );
 }
-void IfcTextStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTextStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTextStyle::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

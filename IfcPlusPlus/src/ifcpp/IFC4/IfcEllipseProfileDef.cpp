@@ -76,7 +76,7 @@ void IfcEllipseProfileDef::getAttributes( std::vector<std::pair<std::string, sha
 	vec_attributes.push_back( std::make_pair( "SemiAxis1", m_SemiAxis1 ) );
 	vec_attributes.push_back( std::make_pair( "SemiAxis2", m_SemiAxis2 ) );
 }
-void IfcEllipseProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcEllipseProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcEllipseProfileDef::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

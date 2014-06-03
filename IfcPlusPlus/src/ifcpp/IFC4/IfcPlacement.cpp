@@ -56,7 +56,7 @@ void IfcPlacement::getAttributes( std::vector<std::pair<std::string, shared_ptr<
 	IfcGeometricRepresentationItem::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "Location", m_Location ) );
 }
-void IfcPlacement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPlacement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPlacement::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -115,7 +115,7 @@ void IfcTendonAnchor::getAttributes( std::vector<std::pair<std::string, shared_p
 	IfcReinforcingElement::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcTendonAnchor::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTendonAnchor::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTendonAnchor::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

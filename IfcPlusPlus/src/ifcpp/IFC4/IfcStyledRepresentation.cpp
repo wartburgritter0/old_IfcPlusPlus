@@ -70,7 +70,7 @@ void IfcStyledRepresentation::getAttributes( std::vector<std::pair<std::string, 
 {
 	IfcStyleModel::getAttributes( vec_attributes );
 }
-void IfcStyledRepresentation::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStyledRepresentation::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcStyledRepresentation::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -35,7 +35,7 @@ shared_ptr<IfcElectricVoltageMeasure> IfcElectricVoltageMeasure::createObjectFro
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcElectricVoltageMeasure>(); }
-	auto type_object = std::make_shared<IfcElectricVoltageMeasure>();
+	shared_ptr<IfcElectricVoltageMeasure> type_object( new IfcElectricVoltageMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

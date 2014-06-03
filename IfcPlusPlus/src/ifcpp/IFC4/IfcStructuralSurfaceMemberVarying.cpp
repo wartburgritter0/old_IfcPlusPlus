@@ -103,7 +103,7 @@ void IfcStructuralSurfaceMemberVarying::getAttributes( std::vector<std::pair<std
 {
 	IfcStructuralSurfaceMember::getAttributes( vec_attributes );
 }
-void IfcStructuralSurfaceMemberVarying::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralSurfaceMemberVarying::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcStructuralSurfaceMemberVarying::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

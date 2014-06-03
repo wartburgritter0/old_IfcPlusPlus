@@ -52,7 +52,7 @@ shared_ptr<IfcRailingTypeEnum> IfcRailingTypeEnum::createObjectFromStepData( con
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcRailingTypeEnum>(); }
-	auto type_object = std::make_shared<IfcRailingTypeEnum>();
+	shared_ptr<IfcRailingTypeEnum> type_object( new IfcRailingTypeEnum() );
 	if( _stricmp( arg.c_str(), ".HANDRAIL." ) == 0 )
 	{
 		type_object->m_enum = IfcRailingTypeEnum::ENUM_HANDRAIL;

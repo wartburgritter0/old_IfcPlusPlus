@@ -98,7 +98,7 @@ void IfcRecurrencePattern::getAttributes( std::vector<std::pair<std::string, sha
 	vec_attributes.push_back( std::make_pair( "Interval", m_Interval ) );
 	vec_attributes.push_back( std::make_pair( "Occurrences", m_Occurrences ) );
 }
-void IfcRecurrencePattern::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRecurrencePattern::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRecurrencePattern::setInverseCounterparts( shared_ptr<IfcPPEntity> )

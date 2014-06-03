@@ -105,9 +105,9 @@ void IfcFeatureElementAddition::getAttributes( std::vector<std::pair<std::string
 {
 	IfcFeatureElement::getAttributes( vec_attributes );
 }
-void IfcFeatureElementAddition::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcFeatureElementAddition::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
-	vec_attributes.push_back( std::make_pair( "ProjectsElements_inverse", shared_ptr<IfcPPEntity>( m_ProjectsElements_inverse ) ) );
+	vec_attributes_inverse.push_back( std::make_pair( "ProjectsElements_inverse", shared_ptr<IfcPPEntity>( m_ProjectsElements_inverse ) ) );
 }
 void IfcFeatureElementAddition::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

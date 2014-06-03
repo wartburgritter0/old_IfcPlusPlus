@@ -82,9 +82,9 @@ void removeDuplicates( std::vector<std::vector<carve::geom::vector<2> > >&	paths
 			for( ; it_loop != loop.end(); ++it_loop )
 			{
 				carve::geom::vector<2>& current_point = (*it_loop);
-				if( abs(current_point.x - previous_point.x ) < 0.00001 )
+				if( std::abs(current_point.x - previous_point.x ) < 0.00001 )
 				{
-					if( abs(current_point.y - previous_point.y ) < 0.00001 )
+					if( std::abs(current_point.y - previous_point.y ) < 0.00001 )
 					{
 						it_loop = loop.erase( it_loop );
 						previous_point = (*it_loop);
@@ -168,19 +168,19 @@ void ProfileConverter::addAvoidingDuplicates( const std::vector<carve::geom::vec
 		const carve::geom::vector<2> & point_previous = polygon[i-1];
 		
 		// omit duplicate points
-		if( abs(point.x - point_previous.x) > 0.00001 )
+		if( std::abs(point.x - point_previous.x) > 0.00001 )
 		{
 			polygon_add.push_back( point );
 			continue;
 		}
 		
-		if( abs(point.y - point_previous.y) > 0.00001 )
+		if( std::abs(point.y - point_previous.y) > 0.00001 )
 		{
 			polygon_add.push_back( point );
 			continue;
 		}
 
-		//if( abs(point.z - point_previous.z) > 0.00001 )
+		//if( std::abs(point.z - point_previous.z) > 0.00001 )
 		//{
 		//	polygon_add.push_back( point );
 		//	continue;
@@ -1108,11 +1108,11 @@ void ProfileConverter::deleteLastPointIfEqualToFirst( std::vector<carve::geom::v
 		carve::geom::vector<2> & first = coords.front();
 		carve::geom::vector<2> & last = coords.back();
 
-		if( abs(first.x-last.x) < 0.00000001 )
+		if( std::abs(first.x-last.x) < 0.00000001 )
 		{
-			if( abs(first.y-last.y) < 0.00000001 )
+			if( std::abs(first.y-last.y) < 0.00000001 )
 			{
-				//if( abs(first.z-last.z) < 0.00000001 )
+				//if( std::abs(first.z-last.z) < 0.00000001 )
 				{
 					coords.pop_back();
 					continue;
@@ -1158,8 +1158,8 @@ void ProfileConverter::simplifyPath( std::vector<carve::geom::vector<2> >& path 
 		segment1.normalize();
 		carve::geom::vector<2> segment2 = next - current;
 		segment2.normalize();
-		double angle = abs( segment1.x*segment2.x + segment1.y*segment2.y);
-		if( abs(angle-1) < 0.00001 )
+		double angle = std::abs( segment1.x*segment2.x + segment1.y*segment2.y);
+		if( std::abs(angle-1) < 0.00001 )
 		{
 			// points are colinear, current point can be removed
 			path.erase( path.begin() + i );
@@ -1183,8 +1183,8 @@ void ProfileConverter::simplifyPath( std::vector<carve::geom::vector<2> >& path 
 			first_segment.normalize();
 			carve::geom::vector<2> last_segment = last - path[path.size()-2];
 			last_segment.normalize();
-			double angle = abs( first_segment.x*last_segment.x + first_segment.y*last_segment.y);
-			if( abs(angle-1) < 0.00001 )
+			double angle = std::abs( first_segment.x*last_segment.x + first_segment.y*last_segment.y);
+			if( std::abs(angle-1) < 0.00001 )
 			{
 				// remove first and last point
 				path.erase( path.begin() );
@@ -1199,7 +1199,7 @@ void ProfileConverter::addArc( std::vector<carve::geom::vector<2> >& coords, dou
 {
 	if( num_segments < 0 )
 	{
-		num_segments = (int) (abs(opening_angle)/(2.0*M_PI)*m_geom_settings->m_num_vertices_per_circle); // TODO: adapt to model size and complexity
+		num_segments = (int) (std::abs(opening_angle)/(2.0*M_PI)*m_geom_settings->m_num_vertices_per_circle); // TODO: adapt to model size and complexity
 	}
 
 	if( num_segments < m_geom_settings->m_min_num_vertices_per_arc )
@@ -1223,7 +1223,7 @@ void ProfileConverter::addArc( std::vector<carve::geom::vector<2> >& coords, dou
 
 void ProfileConverter::addArcWithEndPoint( std::vector<carve::geom::vector<2> >& coords, double radius, double start_angle, double opening_angle, double xM, double yM ) const
 {
-	int num_segments = (int) (abs(opening_angle)/(2.0*M_PI)*m_geom_settings->m_num_vertices_per_circle); // TODO: adapt to model size and complexity
+	int num_segments = (int) (std::abs(opening_angle)/(2.0*M_PI)*m_geom_settings->m_num_vertices_per_circle); // TODO: adapt to model size and complexity
 
 	if( num_segments < m_geom_settings->m_min_num_vertices_per_arc )
 	{

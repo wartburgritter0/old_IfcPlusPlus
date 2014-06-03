@@ -113,7 +113,7 @@ void IfcAirTerminalBox::getAttributes( std::vector<std::pair<std::string, shared
 	IfcFlowController::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcAirTerminalBox::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcAirTerminalBox::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcAirTerminalBox::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

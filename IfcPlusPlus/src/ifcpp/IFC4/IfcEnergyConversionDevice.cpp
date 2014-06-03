@@ -107,7 +107,7 @@ void IfcEnergyConversionDevice::getAttributes( std::vector<std::pair<std::string
 {
 	IfcDistributionFlowElement::getAttributes( vec_attributes );
 }
-void IfcEnergyConversionDevice::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcEnergyConversionDevice::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcEnergyConversionDevice::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

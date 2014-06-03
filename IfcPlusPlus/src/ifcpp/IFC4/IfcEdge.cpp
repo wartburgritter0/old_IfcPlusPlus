@@ -61,7 +61,7 @@ void IfcEdge::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPP
 	vec_attributes.push_back( std::make_pair( "EdgeStart", m_EdgeStart ) );
 	vec_attributes.push_back( std::make_pair( "EdgeEnd", m_EdgeEnd ) );
 }
-void IfcEdge::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcEdge::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcEdge::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

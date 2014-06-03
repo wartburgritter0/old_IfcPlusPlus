@@ -79,7 +79,7 @@ void IfcRelAssociatesApproval::getAttributes( std::vector<std::pair<std::string,
 	IfcRelAssociates::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "RelatingApproval", m_RelatingApproval ) );
 }
-void IfcRelAssociatesApproval::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelAssociatesApproval::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelAssociatesApproval::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

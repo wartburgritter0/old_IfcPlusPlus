@@ -68,7 +68,7 @@ void IfcRelDecomposes::getAttributes( std::vector<std::pair<std::string, shared_
 {
 	IfcRelationship::getAttributes( vec_attributes );
 }
-void IfcRelDecomposes::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelDecomposes::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelDecomposes::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

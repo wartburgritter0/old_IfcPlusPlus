@@ -35,7 +35,7 @@ shared_ptr<IfcSpecularRoughness> IfcSpecularRoughness::createObjectFromStepData(
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcSpecularRoughness>(); }
-	auto type_object = std::make_shared<IfcSpecularRoughness>();
+	shared_ptr<IfcSpecularRoughness> type_object( new IfcSpecularRoughness() );
 	type_object->readArgument( arg );
 	return type_object;
 }

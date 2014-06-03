@@ -82,7 +82,7 @@ void IfcSectionReinforcementProperties::getAttributes( std::vector<std::pair<std
 	vec_attributes.push_back( std::make_pair( "ReinforcementRole", m_ReinforcementRole ) );
 	vec_attributes.push_back( std::make_pair( "SectionDefinition", m_SectionDefinition ) );
 }
-void IfcSectionReinforcementProperties::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSectionReinforcementProperties::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSectionReinforcementProperties::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -70,7 +70,7 @@ void IfcCoordinateReferenceSystem::getAttributes( std::vector<std::pair<std::str
 	vec_attributes.push_back( std::make_pair( "GeodeticDatum", m_GeodeticDatum ) );
 	vec_attributes.push_back( std::make_pair( "VerticalDatum", m_VerticalDatum ) );
 }
-void IfcCoordinateReferenceSystem::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCoordinateReferenceSystem::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCoordinateReferenceSystem::setInverseCounterparts( shared_ptr<IfcPPEntity> )

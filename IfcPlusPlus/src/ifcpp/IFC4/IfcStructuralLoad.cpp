@@ -53,7 +53,7 @@ void IfcStructuralLoad::getAttributes( std::vector<std::pair<std::string, shared
 {
 	vec_attributes.push_back( std::make_pair( "Name", m_Name ) );
 }
-void IfcStructuralLoad::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralLoad::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcStructuralLoad::setInverseCounterparts( shared_ptr<IfcPPEntity> )

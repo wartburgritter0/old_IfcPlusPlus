@@ -79,7 +79,7 @@ void IfcPhysicalComplexQuantity::getAttributes( std::vector<std::pair<std::strin
 	vec_attributes.push_back( std::make_pair( "Quality", m_Quality ) );
 	vec_attributes.push_back( std::make_pair( "Usage", m_Usage ) );
 }
-void IfcPhysicalComplexQuantity::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPhysicalComplexQuantity::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPhysicalComplexQuantity::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

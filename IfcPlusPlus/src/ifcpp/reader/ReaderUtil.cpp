@@ -18,10 +18,13 @@
 #include <cmath>
 #endif
 #include <limits>
-#include <codecvt>
 
 #include "ifcpp/model/IfcPPException.h"
 #include "ReaderUtil.h"
+
+#ifndef CP_UTF8
+#define CP_UTF8 65001
+#endif
 
 
 static short HexD(unsigned char mc)
@@ -547,7 +550,7 @@ void readStringList( const std::string& str, std::vector<std::string>& vec )
 	}
 }
 
-inline void findEndOfString( char*& stream_pos )
+void findEndOfString( char*& stream_pos )
 {
 	++stream_pos;
 	char* pos_begin = stream_pos;
@@ -679,11 +682,13 @@ void decodeArgumentStrings( std::vector<std::string>& entity_arguments )
 										
 								if( char_ascii < 0)
 								{
+#ifdef _MSC_VER
 									//we got a multibyte character here
 									char buf[2];
 									int len = WideCharToMultiByte(CP_UTF8, 0, &wc, 1, buf, 2, nullptr, nullptr);
 									arg_str_new+= buf[0];
 									arg_str_new+= buf[1];
+#endif
 								}
 								else
 								{
@@ -719,10 +724,12 @@ void decodeArgumentStrings( std::vector<std::string>& entity_arguments )
 										if( char_ascii < 0 )
 										{
 											//we got a multibyte character here
+#ifdef _MSC_VER
 											char buf[2];
 											int len = WideCharToMultiByte(CP_UTF8, 0, &wc, 1, buf, 2, nullptr, nullptr);
 											arg_str_new+= buf[0];
 											arg_str_new+= buf[1];
+#endif
 										}
 										else
 										{
@@ -756,6 +763,7 @@ void decodeArgumentStrings( std::vector<std::string>& entity_arguments )
 	}
 }
 
+#ifdef _MSC_VER
 void decodeArgumentStrings( std::vector<std::string>& entity_arguments, std::vector<std::wstring>& args_out )
 {
 	std::vector<std::string>::iterator it = entity_arguments.begin();
@@ -885,6 +893,7 @@ void decodeArgumentStrings( std::vector<std::string>& entity_arguments, std::vec
 		args_out.push_back( arg_str_new );
 	}
 }
+#endif
 
 // @brief split one string into a vector of argument strings
 // caution: when using OpenMP, this method runs in parallel threads

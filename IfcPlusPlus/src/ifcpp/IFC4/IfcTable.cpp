@@ -63,7 +63,7 @@ void IfcTable::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcP
 {
 	vec_attributes.push_back( std::make_pair( "Name", m_Name ) );
 }
-void IfcTable::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTable::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTable::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

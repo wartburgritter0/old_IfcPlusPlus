@@ -35,7 +35,7 @@ shared_ptr<IfcMassPerLengthMeasure> IfcMassPerLengthMeasure::createObjectFromSte
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcMassPerLengthMeasure>(); }
-	auto type_object = std::make_shared<IfcMassPerLengthMeasure>();
+	shared_ptr<IfcMassPerLengthMeasure> type_object( new IfcMassPerLengthMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

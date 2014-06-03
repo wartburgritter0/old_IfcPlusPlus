@@ -79,7 +79,7 @@ void IfcRoundedRectangleProfileDef::getAttributes( std::vector<std::pair<std::st
 	IfcRectangleProfileDef::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "RoundingRadius", m_RoundingRadius ) );
 }
-void IfcRoundedRectangleProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRoundedRectangleProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRoundedRectangleProfileDef::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

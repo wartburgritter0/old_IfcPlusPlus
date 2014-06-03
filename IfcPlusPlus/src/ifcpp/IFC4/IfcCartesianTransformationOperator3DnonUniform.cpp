@@ -82,10 +82,10 @@ void IfcCartesianTransformationOperator3DnonUniform::readStepArguments( const st
 void IfcCartesianTransformationOperator3DnonUniform::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
 {
 	IfcCartesianTransformationOperator3D::getAttributes( vec_attributes );
-	vec_attributes.push_back( std::make_pair( "Scale2", shared_ptr<IfcPPAttributeObjectDouble>( new  IfcPPAttributeObjectDouble( m_Scale2 ) ) ) );
-	vec_attributes.push_back( std::make_pair( "Scale3", shared_ptr<IfcPPAttributeObjectDouble>( new  IfcPPAttributeObjectDouble( m_Scale3 ) ) ) );
+	vec_attributes.push_back( std::make_pair( "Scale2", shared_ptr<IfcPPReal>( new IfcPPReal( m_Scale2 ) ) ) );
+	vec_attributes.push_back( std::make_pair( "Scale3", shared_ptr<IfcPPReal>( new IfcPPReal( m_Scale3 ) ) ) );
 }
-void IfcCartesianTransformationOperator3DnonUniform::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCartesianTransformationOperator3DnonUniform::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCartesianTransformationOperator3DnonUniform::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
