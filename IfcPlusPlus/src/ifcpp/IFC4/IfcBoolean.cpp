@@ -48,7 +48,7 @@ shared_ptr<IfcBoolean> IfcBoolean::createObjectFromStepData( const std::string& 
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcBoolean>(); }
-	auto type_object = std::make_shared<IfcBoolean>();
+	shared_ptr<IfcBoolean> type_object( new IfcBoolean() );
 	type_object->readArgument( arg );
 	return type_object;
 }

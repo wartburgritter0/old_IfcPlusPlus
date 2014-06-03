@@ -35,7 +35,7 @@ shared_ptr<IfcThermalResistanceMeasure> IfcThermalResistanceMeasure::createObjec
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcThermalResistanceMeasure>(); }
-	auto type_object = std::make_shared<IfcThermalResistanceMeasure>();
+	shared_ptr<IfcThermalResistanceMeasure> type_object( new IfcThermalResistanceMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

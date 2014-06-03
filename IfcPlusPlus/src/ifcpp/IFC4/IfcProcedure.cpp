@@ -97,7 +97,7 @@ void IfcProcedure::getAttributes( std::vector<std::pair<std::string, shared_ptr<
 	IfcProcess::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcProcedure::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcProcedure::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcProcedure::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

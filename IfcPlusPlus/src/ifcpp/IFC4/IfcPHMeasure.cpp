@@ -35,7 +35,7 @@ shared_ptr<IfcPHMeasure> IfcPHMeasure::createObjectFromStepData( const std::stri
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcPHMeasure>(); }
-	auto type_object = std::make_shared<IfcPHMeasure>();
+	shared_ptr<IfcPHMeasure> type_object( new IfcPHMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

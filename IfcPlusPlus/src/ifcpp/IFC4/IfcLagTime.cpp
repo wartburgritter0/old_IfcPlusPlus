@@ -74,7 +74,7 @@ void IfcLagTime::getAttributes( std::vector<std::pair<std::string, shared_ptr<If
 	vec_attributes.push_back( std::make_pair( "LagValue", m_LagValue ) );
 	vec_attributes.push_back( std::make_pair( "DurationType", m_DurationType ) );
 }
-void IfcLagTime::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcLagTime::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcLagTime::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -122,7 +122,7 @@ void IfcMechanicalFastener::getAttributes( std::vector<std::pair<std::string, sh
 	vec_attributes.push_back( std::make_pair( "NominalLength", m_NominalLength ) );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcMechanicalFastener::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcMechanicalFastener::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcMechanicalFastener::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

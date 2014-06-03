@@ -113,7 +113,7 @@ void IfcSolarDevice::getAttributes( std::vector<std::pair<std::string, shared_pt
 	IfcEnergyConversionDevice::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcSolarDevice::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSolarDevice::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSolarDevice::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -52,7 +52,7 @@ void IfcMaterialList::readStepArguments( const std::vector<std::string>& args, c
 void IfcMaterialList::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
 {
 }
-void IfcMaterialList::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcMaterialList::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcMaterialList::setInverseCounterparts( shared_ptr<IfcPPEntity> )

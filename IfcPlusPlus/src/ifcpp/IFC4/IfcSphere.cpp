@@ -61,7 +61,7 @@ void IfcSphere::getAttributes( std::vector<std::pair<std::string, shared_ptr<Ifc
 	IfcCsgPrimitive3D::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "Radius", m_Radius ) );
 }
-void IfcSphere::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSphere::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSphere::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

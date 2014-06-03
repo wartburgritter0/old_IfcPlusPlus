@@ -34,7 +34,7 @@ shared_ptr<IfcCompoundPlaneAngleMeasure> IfcCompoundPlaneAngleMeasure::createObj
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcCompoundPlaneAngleMeasure>(); }
-	auto type_object = std::make_shared<IfcCompoundPlaneAngleMeasure>();
+	shared_ptr<IfcCompoundPlaneAngleMeasure> type_object( new IfcCompoundPlaneAngleMeasure() );
 	readIntList(  arg, type_object->m_vec );
 	return type_object;
 }

@@ -99,7 +99,7 @@ void IfcRationalBSplineCurveWithKnots::getAttributes( std::vector<std::pair<std:
 {
 	IfcBSplineCurveWithKnots::getAttributes( vec_attributes );
 }
-void IfcRationalBSplineCurveWithKnots::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRationalBSplineCurveWithKnots::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRationalBSplineCurveWithKnots::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

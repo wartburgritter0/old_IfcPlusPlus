@@ -75,7 +75,7 @@ void IfcConversionBasedUnitWithOffset::getAttributes( std::vector<std::pair<std:
 	IfcConversionBasedUnit::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "ConversionOffset", m_ConversionOffset ) );
 }
-void IfcConversionBasedUnitWithOffset::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcConversionBasedUnitWithOffset::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcConversionBasedUnitWithOffset::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

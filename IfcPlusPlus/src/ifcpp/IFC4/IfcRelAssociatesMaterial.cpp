@@ -81,7 +81,7 @@ void IfcRelAssociatesMaterial::getAttributes( std::vector<std::pair<std::string,
 	IfcRelAssociates::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "RelatingMaterial", m_RelatingMaterial ) );
 }
-void IfcRelAssociatesMaterial::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelAssociatesMaterial::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelAssociatesMaterial::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

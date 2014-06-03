@@ -35,7 +35,7 @@ shared_ptr<IfcLinearMomentMeasure> IfcLinearMomentMeasure::createObjectFromStepD
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcLinearMomentMeasure>(); }
-	auto type_object = std::make_shared<IfcLinearMomentMeasure>();
+	shared_ptr<IfcLinearMomentMeasure> type_object( new IfcLinearMomentMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

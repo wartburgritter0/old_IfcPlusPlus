@@ -70,7 +70,7 @@ void IfcSIUnit::getAttributes( std::vector<std::pair<std::string, shared_ptr<Ifc
 	vec_attributes.push_back( std::make_pair( "Prefix", m_Prefix ) );
 	vec_attributes.push_back( std::make_pair( "Name", m_Name ) );
 }
-void IfcSIUnit::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSIUnit::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSIUnit::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

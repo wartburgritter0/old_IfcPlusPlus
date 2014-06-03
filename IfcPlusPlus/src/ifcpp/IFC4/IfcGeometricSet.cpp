@@ -58,7 +58,7 @@ void IfcGeometricSet::getAttributes( std::vector<std::pair<std::string, shared_p
 	std::copy( m_Elements.begin(), m_Elements.end(), std::back_inserter( Elements_vec_object->m_vec ) );
 	vec_attributes.push_back( std::make_pair( "Elements", Elements_vec_object ) );
 }
-void IfcGeometricSet::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcGeometricSet::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcGeometricSet::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

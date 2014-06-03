@@ -35,7 +35,7 @@ shared_ptr<IfcMassMeasure> IfcMassMeasure::createObjectFromStepData( const std::
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcMassMeasure>(); }
-	auto type_object = std::make_shared<IfcMassMeasure>();
+	shared_ptr<IfcMassMeasure> type_object( new IfcMassMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

@@ -16,8 +16,8 @@
 #ifdef _DEBUG
 
 #include <QtCore/qglobal.h>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QLabel>
+#include <QMainWindow>
+#include <QLabel>
 
 #include <osg/Group>
 #include <osg/Vec4>

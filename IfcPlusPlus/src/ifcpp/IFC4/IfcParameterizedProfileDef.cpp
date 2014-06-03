@@ -66,7 +66,7 @@ void IfcParameterizedProfileDef::getAttributes( std::vector<std::pair<std::strin
 	IfcProfileDef::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "Position", m_Position ) );
 }
-void IfcParameterizedProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcParameterizedProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcParameterizedProfileDef::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

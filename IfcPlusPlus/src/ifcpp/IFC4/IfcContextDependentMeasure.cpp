@@ -35,7 +35,7 @@ shared_ptr<IfcContextDependentMeasure> IfcContextDependentMeasure::createObjectF
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcContextDependentMeasure>(); }
-	auto type_object = std::make_shared<IfcContextDependentMeasure>();
+	shared_ptr<IfcContextDependentMeasure> type_object( new IfcContextDependentMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

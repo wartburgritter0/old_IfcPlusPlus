@@ -67,7 +67,7 @@ void IfcAdvancedFace::getAttributes( std::vector<std::pair<std::string, shared_p
 {
 	IfcFaceSurface::getAttributes( vec_attributes );
 }
-void IfcAdvancedFace::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcAdvancedFace::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcAdvancedFace::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

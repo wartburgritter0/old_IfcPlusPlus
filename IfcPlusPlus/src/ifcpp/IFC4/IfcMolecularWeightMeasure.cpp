@@ -35,7 +35,7 @@ shared_ptr<IfcMolecularWeightMeasure> IfcMolecularWeightMeasure::createObjectFro
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcMolecularWeightMeasure>(); }
-	auto type_object = std::make_shared<IfcMolecularWeightMeasure>();
+	shared_ptr<IfcMolecularWeightMeasure> type_object( new IfcMolecularWeightMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

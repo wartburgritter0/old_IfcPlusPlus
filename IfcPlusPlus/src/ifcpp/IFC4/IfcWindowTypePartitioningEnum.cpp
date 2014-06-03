@@ -76,7 +76,7 @@ shared_ptr<IfcWindowTypePartitioningEnum> IfcWindowTypePartitioningEnum::createO
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcWindowTypePartitioningEnum>(); }
-	auto type_object = std::make_shared<IfcWindowTypePartitioningEnum>();
+	shared_ptr<IfcWindowTypePartitioningEnum> type_object( new IfcWindowTypePartitioningEnum() );
 	if( _stricmp( arg.c_str(), ".SINGLE_PANEL." ) == 0 )
 	{
 		type_object->m_enum = IfcWindowTypePartitioningEnum::ENUM_SINGLE_PANEL;

@@ -61,11 +61,11 @@ void IfcTableRow::getAttributes( std::vector<std::pair<std::string, shared_ptr<I
 	shared_ptr<IfcPPAttributeObjectVector> RowCells_vec_object( new  IfcPPAttributeObjectVector() );
 	std::copy( m_RowCells.begin(), m_RowCells.end(), std::back_inserter( RowCells_vec_object->m_vec ) );
 	vec_attributes.push_back( std::make_pair( "RowCells", RowCells_vec_object ) );
-	vec_attributes.push_back( std::make_pair( "IsHeading", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_IsHeading ) ) ) );
+	vec_attributes.push_back( std::make_pair( "IsHeading", shared_ptr<IfcPPBool>( new IfcPPBool( m_IsHeading ) ) ) );
 }
-void IfcTableRow::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTableRow::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
-	vec_attributes.push_back( std::make_pair( "OfTable_inverse", shared_ptr<IfcPPEntity>( m_OfTable_inverse ) ) );
+	vec_attributes_inverse.push_back( std::make_pair( "OfTable_inverse", shared_ptr<IfcPPEntity>( m_OfTable_inverse ) ) );
 }
 void IfcTableRow::setInverseCounterparts( shared_ptr<IfcPPEntity> )
 {

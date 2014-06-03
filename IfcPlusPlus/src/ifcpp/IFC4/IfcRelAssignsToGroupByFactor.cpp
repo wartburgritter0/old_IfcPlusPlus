@@ -89,7 +89,7 @@ void IfcRelAssignsToGroupByFactor::getAttributes( std::vector<std::pair<std::str
 	IfcRelAssignsToGroup::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "Factor", m_Factor ) );
 }
-void IfcRelAssignsToGroupByFactor::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelAssignsToGroupByFactor::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelAssignsToGroupByFactor::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

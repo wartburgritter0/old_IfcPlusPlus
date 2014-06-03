@@ -35,7 +35,7 @@ shared_ptr<IfcMassDensityMeasure> IfcMassDensityMeasure::createObjectFromStepDat
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcMassDensityMeasure>(); }
-	auto type_object = std::make_shared<IfcMassDensityMeasure>();
+	shared_ptr<IfcMassDensityMeasure> type_object( new IfcMassDensityMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

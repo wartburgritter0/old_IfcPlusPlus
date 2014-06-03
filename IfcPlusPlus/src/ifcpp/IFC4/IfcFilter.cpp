@@ -113,7 +113,7 @@ void IfcFilter::getAttributes( std::vector<std::pair<std::string, shared_ptr<Ifc
 	IfcFlowTreatmentDevice::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcFilter::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcFilter::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcFilter::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

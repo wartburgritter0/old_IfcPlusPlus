@@ -101,8 +101,23 @@ void IfcApproval::getAttributes( std::vector<std::pair<std::string, shared_ptr<I
 	vec_attributes.push_back( std::make_pair( "RequestingApproval", m_RequestingApproval ) );
 	vec_attributes.push_back( std::make_pair( "GivingApproval", m_GivingApproval ) );
 }
-void IfcApproval::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcApproval::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> HasExternalReferences_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_HasExternalReferences_inverse.size(); ++i ) { HasExternalReferences_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcExternalReferenceRelationship>( m_HasExternalReferences_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "HasExternalReferences_inverse", HasExternalReferences_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> ApprovedObjects_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_ApprovedObjects_inverse.size(); ++i ) { ApprovedObjects_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelAssociatesApproval>( m_ApprovedObjects_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "ApprovedObjects_inverse", ApprovedObjects_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> ApprovedResources_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_ApprovedResources_inverse.size(); ++i ) { ApprovedResources_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcResourceApprovalRelationship>( m_ApprovedResources_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "ApprovedResources_inverse", ApprovedResources_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> IsRelatedWith_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_IsRelatedWith_inverse.size(); ++i ) { IsRelatedWith_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcApprovalRelationship>( m_IsRelatedWith_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "IsRelatedWith_inverse", IsRelatedWith_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> Relates_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_Relates_inverse.size(); ++i ) { Relates_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcApprovalRelationship>( m_Relates_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "Relates_inverse", Relates_inverse_vec_obj ) );
 }
 void IfcApproval::setInverseCounterparts( shared_ptr<IfcPPEntity> )
 {

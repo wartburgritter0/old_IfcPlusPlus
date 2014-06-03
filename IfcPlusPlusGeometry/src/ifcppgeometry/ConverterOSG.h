@@ -29,7 +29,6 @@ public:
 	static void drawMeshSet(	const carve::mesh::MeshSet<3>* mesh_set,			osg::Geode* geode, bool add_color_array = false );
 	static void drawPolyhedron( const carve::poly::Polyhedron* polyhedron,			osg::Geode* geode, bool add_color_array = false );
 	static void drawPolyline(	const carve::input::PolylineSetData* polyline_data, osg::Geode* geode, bool add_color_array = false );
-	static bool checkMeshSet(	const carve::mesh::MeshSet<3>* mesh_set, std::stringstream& err_poly, int entity_id );
 	static double computeSurfaceAreaOfGroup( const osg::Group* grp );
 };
 

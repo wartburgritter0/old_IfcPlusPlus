@@ -62,7 +62,7 @@ void IfcPcurve::getAttributes( std::vector<std::pair<std::string, shared_ptr<Ifc
 	vec_attributes.push_back( std::make_pair( "BasisSurface", m_BasisSurface ) );
 	vec_attributes.push_back( std::make_pair( "ReferenceCurve", m_ReferenceCurve ) );
 }
-void IfcPcurve::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPcurve::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPcurve::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -87,7 +87,7 @@ void IfcComplexPropertyTemplate::getAttributes( std::vector<std::pair<std::strin
 	vec_attributes.push_back( std::make_pair( "UsageName", m_UsageName ) );
 	vec_attributes.push_back( std::make_pair( "TemplateType", m_TemplateType ) );
 }
-void IfcComplexPropertyTemplate::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcComplexPropertyTemplate::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcComplexPropertyTemplate::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

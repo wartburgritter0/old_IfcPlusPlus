@@ -107,8 +107,11 @@ void IfcDistributionControlElement::getAttributes( std::vector<std::pair<std::st
 {
 	IfcDistributionElement::getAttributes( vec_attributes );
 }
-void IfcDistributionControlElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDistributionControlElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> AssignedToFlowElement_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_AssignedToFlowElement_inverse.size(); ++i ) { AssignedToFlowElement_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelFlowControlElements>( m_AssignedToFlowElement_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "AssignedToFlowElement_inverse", AssignedToFlowElement_inverse_vec_obj ) );
 }
 void IfcDistributionControlElement::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

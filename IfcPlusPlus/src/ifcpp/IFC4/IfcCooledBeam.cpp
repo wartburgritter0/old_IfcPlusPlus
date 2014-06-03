@@ -113,7 +113,7 @@ void IfcCooledBeam::getAttributes( std::vector<std::pair<std::string, shared_ptr
 	IfcEnergyConversionDevice::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcCooledBeam::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCooledBeam::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCooledBeam::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -53,7 +53,7 @@ void IfcPreDefinedCurveFont::getAttributes( std::vector<std::pair<std::string, s
 {
 	IfcPreDefinedItem::getAttributes( vec_attributes );
 }
-void IfcPreDefinedCurveFont::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPreDefinedCurveFont::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPreDefinedCurveFont::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

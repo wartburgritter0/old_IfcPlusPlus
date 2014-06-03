@@ -68,10 +68,16 @@ void IfcTessellatedFaceSet::getAttributes( std::vector<std::pair<std::string, sh
 {
 	IfcTessellatedItem::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "Coordinates", m_Coordinates ) );
-	vec_attributes.push_back( std::make_pair( "Closed", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_Closed ) ) ) );
+	vec_attributes.push_back( std::make_pair( "Closed", shared_ptr<IfcPPBool>( new IfcPPBool( m_Closed ) ) ) );
 }
-void IfcTessellatedFaceSet::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTessellatedFaceSet::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> HasColours_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_HasColours_inverse.size(); ++i ) { HasColours_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcIndexedColourMap>( m_HasColours_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "HasColours_inverse", HasColours_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> HasTextures_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_HasTextures_inverse.size(); ++i ) { HasTextures_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcIndexedTextureMap>( m_HasTextures_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "HasTextures_inverse", HasTextures_inverse_vec_obj ) );
 }
 void IfcTessellatedFaceSet::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

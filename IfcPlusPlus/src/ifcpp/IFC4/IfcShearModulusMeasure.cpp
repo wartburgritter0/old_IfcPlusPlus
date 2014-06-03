@@ -35,7 +35,7 @@ shared_ptr<IfcShearModulusMeasure> IfcShearModulusMeasure::createObjectFromStepD
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcShearModulusMeasure>(); }
-	auto type_object = std::make_shared<IfcShearModulusMeasure>();
+	shared_ptr<IfcShearModulusMeasure> type_object( new IfcShearModulusMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

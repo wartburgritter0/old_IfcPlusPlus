@@ -98,7 +98,7 @@ void IfcRegularTimeSeries::getAttributes( std::vector<std::pair<std::string, sha
 	IfcTimeSeries::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "TimeStep", m_TimeStep ) );
 }
-void IfcRegularTimeSeries::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRegularTimeSeries::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRegularTimeSeries::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

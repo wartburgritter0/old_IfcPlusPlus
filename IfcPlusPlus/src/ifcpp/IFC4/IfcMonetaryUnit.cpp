@@ -53,7 +53,7 @@ void IfcMonetaryUnit::getAttributes( std::vector<std::pair<std::string, shared_p
 {
 	vec_attributes.push_back( std::make_pair( "Currency", m_Currency ) );
 }
-void IfcMonetaryUnit::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcMonetaryUnit::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcMonetaryUnit::setInverseCounterparts( shared_ptr<IfcPPEntity> )

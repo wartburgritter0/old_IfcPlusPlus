@@ -35,7 +35,7 @@ shared_ptr<IfcMoistureDiffusivityMeasure> IfcMoistureDiffusivityMeasure::createO
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcMoistureDiffusivityMeasure>(); }
-	auto type_object = std::make_shared<IfcMoistureDiffusivityMeasure>();
+	shared_ptr<IfcMoistureDiffusivityMeasure> type_object( new IfcMoistureDiffusivityMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

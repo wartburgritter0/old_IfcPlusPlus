@@ -40,7 +40,7 @@ shared_ptr<IfcProjectionElementTypeEnum> IfcProjectionElementTypeEnum::createObj
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcProjectionElementTypeEnum>(); }
-	auto type_object = std::make_shared<IfcProjectionElementTypeEnum>();
+	shared_ptr<IfcProjectionElementTypeEnum> type_object( new IfcProjectionElementTypeEnum() );
 	if( _stricmp( arg.c_str(), ".USERDEFINED." ) == 0 )
 	{
 		type_object->m_enum = IfcProjectionElementTypeEnum::ENUM_USERDEFINED;

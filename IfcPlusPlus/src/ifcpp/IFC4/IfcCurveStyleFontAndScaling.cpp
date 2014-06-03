@@ -66,7 +66,7 @@ void IfcCurveStyleFontAndScaling::getAttributes( std::vector<std::pair<std::stri
 	vec_attributes.push_back( std::make_pair( "CurveFont", m_CurveFont ) );
 	vec_attributes.push_back( std::make_pair( "CurveFontScaling", m_CurveFontScaling ) );
 }
-void IfcCurveStyleFontAndScaling::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCurveStyleFontAndScaling::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCurveStyleFontAndScaling::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

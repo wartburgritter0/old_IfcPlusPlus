@@ -66,7 +66,7 @@ void IfcRightCircularCylinder::getAttributes( std::vector<std::pair<std::string,
 	vec_attributes.push_back( std::make_pair( "Height", m_Height ) );
 	vec_attributes.push_back( std::make_pair( "Radius", m_Radius ) );
 }
-void IfcRightCircularCylinder::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRightCircularCylinder::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRightCircularCylinder::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

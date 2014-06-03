@@ -106,8 +106,11 @@ void IfcDistributionElement::getAttributes( std::vector<std::pair<std::string, s
 {
 	IfcElement::getAttributes( vec_attributes );
 }
-void IfcDistributionElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDistributionElement::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> HasPorts_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_HasPorts_inverse.size(); ++i ) { HasPorts_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelConnectsPortToElement>( m_HasPorts_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "HasPorts_inverse", HasPorts_inverse_vec_obj ) );
 }
 void IfcDistributionElement::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

@@ -79,7 +79,7 @@ void IfcRelDefinesByTemplate::getAttributes( std::vector<std::pair<std::string, 
 	IfcRelDefines::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "RelatingTemplate", m_RelatingTemplate ) );
 }
-void IfcRelDefinesByTemplate::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelDefinesByTemplate::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelDefinesByTemplate::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

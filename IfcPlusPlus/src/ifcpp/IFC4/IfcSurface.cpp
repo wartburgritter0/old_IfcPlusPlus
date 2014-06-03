@@ -46,7 +46,7 @@ void IfcSurface::getAttributes( std::vector<std::pair<std::string, shared_ptr<If
 {
 	IfcGeometricRepresentationItem::getAttributes( vec_attributes );
 }
-void IfcSurface::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSurface::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSurface::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

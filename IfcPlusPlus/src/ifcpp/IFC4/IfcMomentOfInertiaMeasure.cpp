@@ -35,7 +35,7 @@ shared_ptr<IfcMomentOfInertiaMeasure> IfcMomentOfInertiaMeasure::createObjectFro
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcMomentOfInertiaMeasure>(); }
-	auto type_object = std::make_shared<IfcMomentOfInertiaMeasure>();
+	shared_ptr<IfcMomentOfInertiaMeasure> type_object( new IfcMomentOfInertiaMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

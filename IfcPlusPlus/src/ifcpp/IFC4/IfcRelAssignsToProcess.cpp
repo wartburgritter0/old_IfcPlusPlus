@@ -92,7 +92,7 @@ void IfcRelAssignsToProcess::getAttributes( std::vector<std::pair<std::string, s
 	vec_attributes.push_back( std::make_pair( "RelatingProcess", m_RelatingProcess ) );
 	vec_attributes.push_back( std::make_pair( "QuantityInProcess", m_QuantityInProcess ) );
 }
-void IfcRelAssignsToProcess::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelAssignsToProcess::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelAssignsToProcess::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

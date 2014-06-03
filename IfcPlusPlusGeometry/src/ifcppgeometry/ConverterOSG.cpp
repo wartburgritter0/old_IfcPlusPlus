@@ -449,171 +449,7 @@ void ConverterOSG::drawPolyline( const carve::input::PolylineSetData* polyline_d
 
 //#define THOROUGH_MESHSET_CHECK
 
-bool ConverterOSG::checkMeshSet( const carve::mesh::MeshSet<3>* mesh_set, std::stringstream& err_poly, int entity_id )
-{
-	// check opening polyhedron
-	if( !mesh_set )
-	{
-#ifdef _DEBUG
-		std::cout << "MeshSet of entity #" << entity_id << " not valid" << std::endl;
-#endif
-		return false;
-	}
-	if( mesh_set->meshes.size() == 0 )
-	{
-#ifdef _DEBUG
-		std::cout << "MeshSet of entity #" << entity_id << " has no meshes" << std::endl;
-#endif
-		return false;
-	}
 
-	std::stringstream err;
-	bool meshes_closed = true;
-	for (size_t i = 0; i < mesh_set->meshes.size(); ++i)
-	{
-		carve::mesh::Mesh<3>* mesh_i = mesh_set->meshes[i];
-
-		if( mesh_i->isNegative() )
-		{
-			mesh_i->invert();
-			if( mesh_i->isNegative() )
-			{
-				mesh_i->recalc();
-				mesh_i->calcOrientation();
-				if( mesh_i->isNegative() )
-				{
-					err << "mesh_set->meshes[" << i << "]->isNegative() " << std::endl;
-				}
-			}
-		}
-
-		if( !mesh_i->isClosed() )
-		{
-			meshes_closed = false;
-		}
-
-
-
-		
-		//for( int j=0; j<vec_faces.size(); ++j )
-		//{
-		//	carve::mesh::Face<3>* face = vec_faces[j];
-
-		//	carve::mesh::Edge<3>* edge = face->edge;
-		//	do
-		//	{
-		//		double length2 = (edge->v2()->v - edge->v1()->v).length2();
-		//		if( length2 < 0.0000001 )
-		//		{
-		//			//carve::mesh::Edge<3>* edge_back = edge->prev;
-		//			edge = edge->removeEdge();
-		//			continue;
-		//			// start over
-		//			//edge = face->edge;
-		//			//
-		//		}
-		//		edge = edge->next;
-		//	} while (edge != face->edge);
-		//}
-
-		//mesh_i->cacheEdges();
-
-
-#ifdef THOROUGH_MESHSET_CHECK
-
-		std::vector<carve::mesh::Face<3>* >& vec_faces = mesh_i->faces;
-		for( int j=0; j<vec_faces.size(); ++j )
-		{
-			carve::mesh::Face<3>* face = vec_faces[j];
-
-			// TODO: if quad, check if it is flat
-
-			carve::geom::vector<3>& face_normal = face->plane.N;
-			//carve::geom::vector<3>& face_centroid = face->centroid;
-			carve::geom::vector<3>& point_on_face = face->edge->v1()->v;
-			carve::geom::linesegment<3> face_linesegment( point_on_face, point_on_face + face_normal*10000 );
-			int intersect_face_count = 0;
-			int intersect_vertex_count = 0;
-			int intersect_edge_count = 0;
-
-			for( int j_other=0; j_other<vec_faces.size(); ++j_other )
-			{
-				if( j == j_other )
-				{
-					// don't intersect face with itself
-					continue;
-				}
-				carve::mesh::Face<3>* other_face = vec_faces[j_other];
-
-				carve::geom::vector<3> intersection_point;
-				carve::IntersectionClass intersection_result = other_face->lineSegmentIntersection( face_linesegment, intersection_point );
-
-				double intersection_distance = DBL_MAX;
-
-				if( intersection_result > 0 )
-				{
-					if( intersection_result == carve::INTERSECT_FACE )
-					{
-						++intersect_face_count;
-					}
-					else if( intersection_result == carve::INTERSECT_VERTEX )
-					{
-						++intersect_vertex_count;
-					}
-					else if( intersection_result == carve::INTERSECT_EDGE )
-					{
-						++intersect_edge_count;
-					}
-				}
-			}
-			if( intersect_face_count > 0 )
-			{
-				if( intersect_face_count%2 == 1 )
-				{
-					if( intersect_vertex_count == 0 )
-					{
-						err_poly << "face normal pointing inside" << std::endl;
-						return false;
-					}
-				}
-			}
-		}
-#endif
-	}
-
-	if( !meshes_closed )
-	{
-		err << "mesh_set not closed" << std::endl;
-	}
-
-#ifdef _DEBUG
-	if( meshes_closed )
-	{
-		// check volume
-		double object_volume = 0;
-		for( size_t kk = 0; kk < mesh_set->meshes.size(); ++kk )
-		{
-			carve::mesh::Mesh<3>* mesh = mesh_set->meshes[kk];
-			double mesh_volume = mesh->volume();
-			object_volume += mesh_volume;
-		}
-		if( object_volume <= 0 )
-		{
-			err << "object_volume <= 0" << std::endl;
-		}
-	}
-#endif
-
-	if( err.tellp() > 0 )
-	{
-#ifdef _DEBUG
-		err_poly << "MeshSet of entity #" << entity_id << " has problems:" << std::endl;
-		err_poly << err.str().c_str();
-#endif
-		return false;
-	}
-	return true;
-}
 
 double ConverterOSG::computeSurfaceAreaOfGroup( const osg::Group* grp )
 {
@@ -825,25 +661,25 @@ osg::StateSet* AppearanceManagerOSG::convertToStateSet( shared_ptr<AppearanceDat
 
 		// compare
 		osg::Vec4f color_ambient_existing = mat_existing->getAmbient( osg::Material::FRONT_AND_BACK );
-		if( abs(color_ambient_existing.r() - color_ambient_r ) > 0.03 ) break;
-		if( abs(color_ambient_existing.g() - color_ambient_g ) > 0.03 ) break;
-		if( abs(color_ambient_existing.b() - color_ambient_b ) > 0.03 ) break;
-		if( abs(color_ambient_existing.a() - color_ambient_a ) > 0.03 ) break;
+		if( fabs(color_ambient_existing.r() - color_ambient_r ) > 0.03 ) break;
+		if( fabs(color_ambient_existing.g() - color_ambient_g ) > 0.03 ) break;
+		if( fabs(color_ambient_existing.b() - color_ambient_b ) > 0.03 ) break;
+		if( fabs(color_ambient_existing.a() - color_ambient_a ) > 0.03 ) break;
 
 		osg::Vec4f color_diffuse_existing = mat_existing->getDiffuse( osg::Material::FRONT_AND_BACK );
-		if( abs(color_diffuse_existing.r() - color_diffuse_r ) > 0.03 ) break;
-		if( abs(color_diffuse_existing.g() - color_diffuse_g ) > 0.03 ) break;
-		if( abs(color_diffuse_existing.b() - color_diffuse_b ) > 0.03 ) break;
-		if( abs(color_diffuse_existing.a() - color_diffuse_a ) > 0.03 ) break;
+		if( fabs(color_diffuse_existing.r() - color_diffuse_r ) > 0.03 ) break;
+		if( fabs(color_diffuse_existing.g() - color_diffuse_g ) > 0.03 ) break;
+		if( fabs(color_diffuse_existing.b() - color_diffuse_b ) > 0.03 ) break;
+		if( fabs(color_diffuse_existing.a() - color_diffuse_a ) > 0.03 ) break;
 
 		osg::Vec4f color_specular_existing = mat_existing->getSpecular( osg::Material::FRONT_AND_BACK );
-		if( abs(color_specular_existing.r() - color_specular_r ) > 0.03 ) break;
-		if( abs(color_specular_existing.g() - color_specular_g ) > 0.03 ) break;
-		if( abs(color_specular_existing.b() - color_specular_b ) > 0.03 ) break;
-		if( abs(color_specular_existing.a() - color_specular_a ) > 0.03 ) break;
+		if( fabs(color_specular_existing.r() - color_specular_r ) > 0.03 ) break;
+		if( fabs(color_specular_existing.g() - color_specular_g ) > 0.03 ) break;
+		if( fabs(color_specular_existing.b() - color_specular_b ) > 0.03 ) break;
+		if( fabs(color_specular_existing.a() - color_specular_a ) > 0.03 ) break;
 
 		float shininess_existing = mat_existing->getShininess( osg::Material::FRONT_AND_BACK );
-		if( abs(shininess_existing - shininess ) > 0.03 ) break;
+		if( fabs(shininess_existing - shininess ) > 0.03 ) break;
 
 		bool blend_on_existing = stateset_existing->getMode( GL_BLEND ) == osg::StateAttribute::ON;
 		if( blend_on_existing != set_transparent ) break;

@@ -35,7 +35,7 @@ shared_ptr<IfcNumericMeasure> IfcNumericMeasure::createObjectFromStepData( const
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcNumericMeasure>(); }
-	auto type_object = std::make_shared<IfcNumericMeasure>();
+	shared_ptr<IfcNumericMeasure> type_object( new IfcNumericMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

@@ -83,7 +83,7 @@ void IfcSurfaceCurveSweptAreaSolid::getAttributes( std::vector<std::pair<std::st
 	vec_attributes.push_back( std::make_pair( "EndParam", m_EndParam ) );
 	vec_attributes.push_back( std::make_pair( "ReferenceSurface", m_ReferenceSurface ) );
 }
-void IfcSurfaceCurveSweptAreaSolid::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSurfaceCurveSweptAreaSolid::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSurfaceCurveSweptAreaSolid::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

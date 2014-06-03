@@ -131,7 +131,7 @@ void IfcSite::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPP
 	vec_attributes.push_back( std::make_pair( "LandTitleNumber", m_LandTitleNumber ) );
 	vec_attributes.push_back( std::make_pair( "SiteAddress", m_SiteAddress ) );
 }
-void IfcSite::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSite::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSite::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

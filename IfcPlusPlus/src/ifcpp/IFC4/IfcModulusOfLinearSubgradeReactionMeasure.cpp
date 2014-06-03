@@ -36,7 +36,7 @@ shared_ptr<IfcModulusOfLinearSubgradeReactionMeasure> IfcModulusOfLinearSubgrade
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcModulusOfLinearSubgradeReactionMeasure>(); }
-	auto type_object = std::make_shared<IfcModulusOfLinearSubgradeReactionMeasure>();
+	shared_ptr<IfcModulusOfLinearSubgradeReactionMeasure> type_object( new IfcModulusOfLinearSubgradeReactionMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

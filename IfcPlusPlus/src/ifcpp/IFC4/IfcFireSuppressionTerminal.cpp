@@ -113,7 +113,7 @@ void IfcFireSuppressionTerminal::getAttributes( std::vector<std::pair<std::strin
 	IfcFlowTerminal::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcFireSuppressionTerminal::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcFireSuppressionTerminal::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcFireSuppressionTerminal::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

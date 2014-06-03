@@ -85,7 +85,7 @@ void IfcBoundaryNodeConditionWarping::getAttributes( std::vector<std::pair<std::
 	IfcBoundaryNodeCondition::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "WarpingStiffness", m_WarpingStiffness ) );
 }
-void IfcBoundaryNodeConditionWarping::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcBoundaryNodeConditionWarping::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcBoundaryNodeConditionWarping::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -12,6 +12,7 @@
 #include <osgDB/Registry>
 #include <osg/Switch>
 #include <osgUtil/Optimizer>
+#include <osgUtil/SmoothingVisitor>
 
 #include <ifcpp/model/shared_ptr.h>
 #include <ifcpp/model/IfcPPObject.h>

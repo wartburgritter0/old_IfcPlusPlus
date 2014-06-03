@@ -59,7 +59,7 @@ void IfcConnectionPointGeometry::getAttributes( std::vector<std::pair<std::strin
 	vec_attributes.push_back( std::make_pair( "PointOnRelatingElement", m_PointOnRelatingElement ) );
 	vec_attributes.push_back( std::make_pair( "PointOnRelatedElement", m_PointOnRelatedElement ) );
 }
-void IfcConnectionPointGeometry::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcConnectionPointGeometry::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcConnectionPointGeometry::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

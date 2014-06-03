@@ -99,8 +99,11 @@ void IfcStructuralConnection::getAttributes( std::vector<std::pair<std::string, 
 	IfcStructuralItem::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "AppliedCondition", m_AppliedCondition ) );
 }
-void IfcStructuralConnection::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralConnection::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> ConnectsStructuralMembers_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_ConnectsStructuralMembers_inverse.size(); ++i ) { ConnectsStructuralMembers_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelConnectsStructuralMember>( m_ConnectsStructuralMembers_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "ConnectsStructuralMembers_inverse", ConnectsStructuralMembers_inverse_vec_obj ) );
 }
 void IfcStructuralConnection::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

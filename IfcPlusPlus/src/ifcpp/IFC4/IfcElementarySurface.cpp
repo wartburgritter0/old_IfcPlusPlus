@@ -56,7 +56,7 @@ void IfcElementarySurface::getAttributes( std::vector<std::pair<std::string, sha
 	IfcSurface::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "Position", m_Position ) );
 }
-void IfcElementarySurface::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcElementarySurface::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcElementarySurface::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

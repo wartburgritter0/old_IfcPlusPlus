@@ -79,7 +79,7 @@ void IfcFillAreaStyleHatching::getAttributes( std::vector<std::pair<std::string,
 	vec_attributes.push_back( std::make_pair( "PatternStart", m_PatternStart ) );
 	vec_attributes.push_back( std::make_pair( "HatchLineAngle", m_HatchLineAngle ) );
 }
-void IfcFillAreaStyleHatching::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcFillAreaStyleHatching::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcFillAreaStyleHatching::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

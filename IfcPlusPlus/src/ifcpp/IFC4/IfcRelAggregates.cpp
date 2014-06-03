@@ -78,7 +78,7 @@ void IfcRelAggregates::getAttributes( std::vector<std::pair<std::string, shared_
 	IfcRelDecomposes::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "RelatingObject", m_RelatingObject ) );
 }
-void IfcRelAggregates::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelAggregates::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelAggregates::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

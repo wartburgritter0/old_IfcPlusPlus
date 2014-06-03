@@ -87,8 +87,11 @@ void IfcActor::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcP
 	IfcObject::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "TheActor", m_TheActor ) );
 }
-void IfcActor::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcActor::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> IsActingUpon_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_IsActingUpon_inverse.size(); ++i ) { IsActingUpon_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelAssignsToActor>( m_IsActingUpon_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "IsActingUpon_inverse", IsActingUpon_inverse_vec_obj ) );
 }
 void IfcActor::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

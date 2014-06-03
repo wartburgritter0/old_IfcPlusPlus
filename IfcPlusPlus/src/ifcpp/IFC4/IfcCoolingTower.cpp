@@ -113,7 +113,7 @@ void IfcCoolingTower::getAttributes( std::vector<std::pair<std::string, shared_p
 	IfcEnergyConversionDevice::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcCoolingTower::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCoolingTower::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCoolingTower::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

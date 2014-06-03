@@ -116,7 +116,7 @@ shared_ptr<IfcLaborResourceTypeEnum> IfcLaborResourceTypeEnum::createObjectFromS
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcLaborResourceTypeEnum>(); }
-	auto type_object = std::make_shared<IfcLaborResourceTypeEnum>();
+	shared_ptr<IfcLaborResourceTypeEnum> type_object( new IfcLaborResourceTypeEnum() );
 	if( _stricmp( arg.c_str(), ".ADMINISTRATION." ) == 0 )
 	{
 		type_object->m_enum = IfcLaborResourceTypeEnum::ENUM_ADMINISTRATION;

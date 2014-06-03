@@ -84,7 +84,7 @@ shared_ptr<IfcObjectiveEnum> IfcObjectiveEnum::createObjectFromStepData( const s
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcObjectiveEnum>(); }
-	auto type_object = std::make_shared<IfcObjectiveEnum>();
+	shared_ptr<IfcObjectiveEnum> type_object( new IfcObjectiveEnum() );
 	if( _stricmp( arg.c_str(), ".CODECOMPLIANCE." ) == 0 )
 	{
 		type_object->m_enum = IfcObjectiveEnum::ENUM_CODECOMPLIANCE;

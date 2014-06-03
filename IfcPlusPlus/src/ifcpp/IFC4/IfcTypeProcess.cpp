@@ -100,8 +100,11 @@ void IfcTypeProcess::getAttributes( std::vector<std::pair<std::string, shared_pt
 	vec_attributes.push_back( std::make_pair( "LongDescription", m_LongDescription ) );
 	vec_attributes.push_back( std::make_pair( "ProcessType", m_ProcessType ) );
 }
-void IfcTypeProcess::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTypeProcess::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> OperatesOn_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_OperatesOn_inverse.size(); ++i ) { OperatesOn_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelAssignsToProcess>( m_OperatesOn_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "OperatesOn_inverse", OperatesOn_inverse_vec_obj ) );
 }
 void IfcTypeProcess::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

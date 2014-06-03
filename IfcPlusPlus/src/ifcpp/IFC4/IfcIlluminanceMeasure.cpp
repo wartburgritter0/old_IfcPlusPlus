@@ -35,7 +35,7 @@ shared_ptr<IfcIlluminanceMeasure> IfcIlluminanceMeasure::createObjectFromStepDat
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcIlluminanceMeasure>(); }
-	auto type_object = std::make_shared<IfcIlluminanceMeasure>();
+	shared_ptr<IfcIlluminanceMeasure> type_object( new IfcIlluminanceMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

@@ -17,7 +17,7 @@
 #include "ifcpp/model/shared_ptr.h"
 
 #include <QtCore/qglobal.h>
-#include <QtWidgets/qwidget.h>
+#include <qwidget.h>
 
 class QTextEdit;
 class QProgressBar;

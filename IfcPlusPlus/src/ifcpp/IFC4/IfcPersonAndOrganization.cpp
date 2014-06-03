@@ -64,7 +64,7 @@ void IfcPersonAndOrganization::getAttributes( std::vector<std::pair<std::string,
 	vec_attributes.push_back( std::make_pair( "ThePerson", m_ThePerson ) );
 	vec_attributes.push_back( std::make_pair( "TheOrganization", m_TheOrganization ) );
 }
-void IfcPersonAndOrganization::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPersonAndOrganization::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPersonAndOrganization::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

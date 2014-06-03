@@ -35,7 +35,7 @@ shared_ptr<IfcForceMeasure> IfcForceMeasure::createObjectFromStepData( const std
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcForceMeasure>(); }
-	auto type_object = std::make_shared<IfcForceMeasure>();
+	shared_ptr<IfcForceMeasure> type_object( new IfcForceMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

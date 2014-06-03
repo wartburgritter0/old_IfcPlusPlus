@@ -93,14 +93,14 @@ void IfcBSplineSurface::readStepArguments( const std::vector<std::string>& args,
 void IfcBSplineSurface::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
 {
 	IfcBoundedSurface::getAttributes( vec_attributes );
-	vec_attributes.push_back( std::make_pair( "UDegree", shared_ptr<IfcPPAttributeObjectInt>( new  IfcPPAttributeObjectInt( m_UDegree ) ) ) );
-	vec_attributes.push_back( std::make_pair( "VDegree", shared_ptr<IfcPPAttributeObjectInt>( new  IfcPPAttributeObjectInt( m_VDegree ) ) ) );
+	vec_attributes.push_back( std::make_pair( "UDegree", shared_ptr<IfcPPInt>( new IfcPPInt( m_UDegree ) ) ) );
+	vec_attributes.push_back( std::make_pair( "VDegree", shared_ptr<IfcPPInt>( new IfcPPInt( m_VDegree ) ) ) );
 	vec_attributes.push_back( std::make_pair( "SurfaceForm", m_SurfaceForm ) );
-	vec_attributes.push_back( std::make_pair( "UClosed", shared_ptr<IfcPPAttributeObjectLogical>( new  IfcPPAttributeObjectLogical( m_UClosed ) ) ) );
-	vec_attributes.push_back( std::make_pair( "VClosed", shared_ptr<IfcPPAttributeObjectLogical>( new  IfcPPAttributeObjectLogical( m_VClosed ) ) ) );
-	vec_attributes.push_back( std::make_pair( "SelfIntersect", shared_ptr<IfcPPAttributeObjectLogical>( new  IfcPPAttributeObjectLogical( m_SelfIntersect ) ) ) );
+	vec_attributes.push_back( std::make_pair( "UClosed", shared_ptr<IfcPPLogical>( new IfcPPLogical( m_UClosed ) ) ) );
+	vec_attributes.push_back( std::make_pair( "VClosed", shared_ptr<IfcPPLogical>( new IfcPPLogical( m_VClosed ) ) ) );
+	vec_attributes.push_back( std::make_pair( "SelfIntersect", shared_ptr<IfcPPLogical>( new IfcPPLogical( m_SelfIntersect ) ) ) );
 }
-void IfcBSplineSurface::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcBSplineSurface::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcBSplineSurface::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

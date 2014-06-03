@@ -96,8 +96,11 @@ void IfcPerson::getAttributes( std::vector<std::pair<std::string, shared_ptr<Ifc
 	std::copy( m_SuffixTitles.begin(), m_SuffixTitles.end(), std::back_inserter( SuffixTitles_vec_object->m_vec ) );
 	vec_attributes.push_back( std::make_pair( "SuffixTitles", SuffixTitles_vec_object ) );
 }
-void IfcPerson::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPerson::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> EngagedIn_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_EngagedIn_inverse.size(); ++i ) { EngagedIn_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcPersonAndOrganization>( m_EngagedIn_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "EngagedIn_inverse", EngagedIn_inverse_vec_obj ) );
 }
 void IfcPerson::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

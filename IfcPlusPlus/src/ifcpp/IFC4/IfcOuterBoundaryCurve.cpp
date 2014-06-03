@@ -63,7 +63,7 @@ void IfcOuterBoundaryCurve::getAttributes( std::vector<std::pair<std::string, sh
 {
 	IfcBoundaryCurve::getAttributes( vec_attributes );
 }
-void IfcOuterBoundaryCurve::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcOuterBoundaryCurve::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcOuterBoundaryCurve::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

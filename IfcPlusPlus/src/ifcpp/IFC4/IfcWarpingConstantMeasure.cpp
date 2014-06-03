@@ -35,7 +35,7 @@ shared_ptr<IfcWarpingConstantMeasure> IfcWarpingConstantMeasure::createObjectFro
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcWarpingConstantMeasure>(); }
-	auto type_object = std::make_shared<IfcWarpingConstantMeasure>();
+	shared_ptr<IfcWarpingConstantMeasure> type_object( new IfcWarpingConstantMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

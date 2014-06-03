@@ -104,7 +104,7 @@ void IfcProtectiveDeviceTrippingUnitType::getAttributes( std::vector<std::pair<s
 	IfcDistributionControlElementType::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcProtectiveDeviceTrippingUnitType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcProtectiveDeviceTrippingUnitType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcProtectiveDeviceTrippingUnitType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

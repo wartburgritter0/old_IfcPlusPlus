@@ -104,7 +104,7 @@ void IfcChillerType::getAttributes( std::vector<std::pair<std::string, shared_pt
 	IfcEnergyConversionDeviceType::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcChillerType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcChillerType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcChillerType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

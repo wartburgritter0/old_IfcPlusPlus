@@ -55,7 +55,7 @@ void IfcCartesianPointList3D::getAttributes( std::vector<std::pair<std::string, 
 {
 	IfcCartesianPointList::getAttributes( vec_attributes );
 }
-void IfcCartesianPointList3D::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCartesianPointList3D::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCartesianPointList3D::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

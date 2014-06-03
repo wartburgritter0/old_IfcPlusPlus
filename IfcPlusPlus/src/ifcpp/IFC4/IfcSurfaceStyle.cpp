@@ -67,7 +67,7 @@ void IfcSurfaceStyle::getAttributes( std::vector<std::pair<std::string, shared_p
 	std::copy( m_Styles.begin(), m_Styles.end(), std::back_inserter( Styles_vec_object->m_vec ) );
 	vec_attributes.push_back( std::make_pair( "Styles", Styles_vec_object ) );
 }
-void IfcSurfaceStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSurfaceStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSurfaceStyle::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

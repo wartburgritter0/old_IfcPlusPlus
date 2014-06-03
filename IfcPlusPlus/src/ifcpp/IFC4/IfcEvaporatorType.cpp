@@ -104,7 +104,7 @@ void IfcEvaporatorType::getAttributes( std::vector<std::pair<std::string, shared
 	IfcEnergyConversionDeviceType::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcEvaporatorType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcEvaporatorType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcEvaporatorType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

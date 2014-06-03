@@ -40,7 +40,7 @@ shared_ptr<IfcComplexPropertyTemplateTypeEnum> IfcComplexPropertyTemplateTypeEnu
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcComplexPropertyTemplateTypeEnum>(); }
-	auto type_object = std::make_shared<IfcComplexPropertyTemplateTypeEnum>();
+	shared_ptr<IfcComplexPropertyTemplateTypeEnum> type_object( new IfcComplexPropertyTemplateTypeEnum() );
 	if( _stricmp( arg.c_str(), ".P_COMPLEX." ) == 0 )
 	{
 		type_object->m_enum = IfcComplexPropertyTemplateTypeEnum::ENUM_P_COMPLEX;

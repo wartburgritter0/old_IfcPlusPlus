@@ -69,7 +69,7 @@ void IfcBoundaryFaceCondition::getAttributes( std::vector<std::pair<std::string,
 	vec_attributes.push_back( std::make_pair( "TranslationalStiffnessByAreaY", m_TranslationalStiffnessByAreaY ) );
 	vec_attributes.push_back( std::make_pair( "TranslationalStiffnessByAreaZ", m_TranslationalStiffnessByAreaZ ) );
 }
-void IfcBoundaryFaceCondition::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcBoundaryFaceCondition::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcBoundaryFaceCondition::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

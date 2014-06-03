@@ -1,13 +1,13 @@
 
 #include <iostream>
 #include <iomanip>
-#include <QtWidgets/QApplication>
+#include <QApplication>
 #include <osg/ShapeDrawable>
 #include <osgUtil/IntersectionVisitor>
 #include <osg/MatrixTransform>
 #include <osg/Switch>
 #include <osgViewer/View>
-#include <osgFx/Scribe>
+#include <osgFX/Scribe>
 #include <osgText/Text>
 
 #include <ifcpp/model/IfcPPModel.h>

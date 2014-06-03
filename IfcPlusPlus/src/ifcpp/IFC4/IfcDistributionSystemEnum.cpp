@@ -208,7 +208,7 @@ shared_ptr<IfcDistributionSystemEnum> IfcDistributionSystemEnum::createObjectFro
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcDistributionSystemEnum>(); }
-	auto type_object = std::make_shared<IfcDistributionSystemEnum>();
+	shared_ptr<IfcDistributionSystemEnum> type_object( new IfcDistributionSystemEnum() );
 	if( _stricmp( arg.c_str(), ".AIRCONDITIONING." ) == 0 )
 	{
 		type_object->m_enum = IfcDistributionSystemEnum::ENUM_AIRCONDITIONING;

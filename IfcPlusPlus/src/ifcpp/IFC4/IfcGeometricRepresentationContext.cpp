@@ -79,12 +79,15 @@ void IfcGeometricRepresentationContext::getAttributes( std::vector<std::pair<std
 {
 	IfcRepresentationContext::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "CoordinateSpaceDimension", m_CoordinateSpaceDimension ) );
-	vec_attributes.push_back( std::make_pair( "Precision", shared_ptr<IfcPPAttributeObjectDouble>( new  IfcPPAttributeObjectDouble( m_Precision ) ) ) );
+	vec_attributes.push_back( std::make_pair( "Precision", shared_ptr<IfcPPReal>( new IfcPPReal( m_Precision ) ) ) );
 	vec_attributes.push_back( std::make_pair( "WorldCoordinateSystem", m_WorldCoordinateSystem ) );
 	vec_attributes.push_back( std::make_pair( "TrueNorth", m_TrueNorth ) );
 }
-void IfcGeometricRepresentationContext::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcGeometricRepresentationContext::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> HasSubContexts_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_HasSubContexts_inverse.size(); ++i ) { HasSubContexts_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcGeometricRepresentationSubContext>( m_HasSubContexts_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "HasSubContexts_inverse", HasSubContexts_inverse_vec_obj ) );
 }
 void IfcGeometricRepresentationContext::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

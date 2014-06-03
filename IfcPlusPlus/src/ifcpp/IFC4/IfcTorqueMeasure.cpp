@@ -35,7 +35,7 @@ shared_ptr<IfcTorqueMeasure> IfcTorqueMeasure::createObjectFromStepData( const s
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcTorqueMeasure>(); }
-	auto type_object = std::make_shared<IfcTorqueMeasure>();
+	shared_ptr<IfcTorqueMeasure> type_object( new IfcTorqueMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

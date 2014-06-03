@@ -66,7 +66,7 @@ void IfcArbitraryOpenProfileDef::getAttributes( std::vector<std::pair<std::strin
 	IfcProfileDef::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "Curve", m_Curve ) );
 }
-void IfcArbitraryOpenProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcArbitraryOpenProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcArbitraryOpenProfileDef::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

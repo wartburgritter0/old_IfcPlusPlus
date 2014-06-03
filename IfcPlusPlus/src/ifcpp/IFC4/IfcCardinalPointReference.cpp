@@ -34,7 +34,7 @@ shared_ptr<IfcCardinalPointReference> IfcCardinalPointReference::createObjectFro
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcCardinalPointReference>(); }
-	auto type_object = std::make_shared<IfcCardinalPointReference>();
+	shared_ptr<IfcCardinalPointReference> type_object( new IfcCardinalPointReference() );
 	type_object->readArgument( arg );
 	return type_object;
 }

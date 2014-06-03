@@ -107,7 +107,7 @@ void IfcConstructionResource::getAttributes( std::vector<std::pair<std::string, 
 	vec_attributes.push_back( std::make_pair( "Usage", m_Usage ) );
 	vec_attributes.push_back( std::make_pair( "BaseQuantity", m_BaseQuantity ) );
 }
-void IfcConstructionResource::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcConstructionResource::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcConstructionResource::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

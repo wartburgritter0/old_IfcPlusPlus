@@ -35,7 +35,7 @@ shared_ptr<IfcAccelerationMeasure> IfcAccelerationMeasure::createObjectFromStepD
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcAccelerationMeasure>(); }
-	auto type_object = std::make_shared<IfcAccelerationMeasure>();
+	shared_ptr<IfcAccelerationMeasure> type_object( new IfcAccelerationMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

@@ -35,7 +35,7 @@ shared_ptr<IfcIonConcentrationMeasure> IfcIonConcentrationMeasure::createObjectF
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcIonConcentrationMeasure>(); }
-	auto type_object = std::make_shared<IfcIonConcentrationMeasure>();
+	shared_ptr<IfcIonConcentrationMeasure> type_object( new IfcIonConcentrationMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

@@ -111,7 +111,7 @@ void IfcMemberStandardCase::getAttributes( std::vector<std::pair<std::string, sh
 {
 	IfcMember::getAttributes( vec_attributes );
 }
-void IfcMemberStandardCase::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcMemberStandardCase::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcMemberStandardCase::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -70,9 +70,9 @@ void IfcEdgeCurve::getAttributes( std::vector<std::pair<std::string, shared_ptr<
 {
 	IfcEdge::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "EdgeGeometry", m_EdgeGeometry ) );
-	vec_attributes.push_back( std::make_pair( "SameSense", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_SameSense ) ) ) );
+	vec_attributes.push_back( std::make_pair( "SameSense", shared_ptr<IfcPPBool>( new IfcPPBool( m_SameSense ) ) ) );
 }
-void IfcEdgeCurve::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcEdgeCurve::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcEdgeCurve::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -34,7 +34,7 @@ shared_ptr<IfcComplexNumber> IfcComplexNumber::createObjectFromStepData( const s
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcComplexNumber>(); }
-	auto type_object = std::make_shared<IfcComplexNumber>();
+	shared_ptr<IfcComplexNumber> type_object( new IfcComplexNumber() );
 	readDoubleList( arg, type_object->m_vec );
 	return type_object;
 }

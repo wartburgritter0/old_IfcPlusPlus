@@ -76,7 +76,7 @@ void IfcPropertyEnumeratedValue::getAttributes( std::vector<std::pair<std::strin
 	vec_attributes.push_back( std::make_pair( "EnumerationValues", EnumerationValues_vec_object ) );
 	vec_attributes.push_back( std::make_pair( "EnumerationReference", m_EnumerationReference ) );
 }
-void IfcPropertyEnumeratedValue::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPropertyEnumeratedValue::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPropertyEnumeratedValue::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

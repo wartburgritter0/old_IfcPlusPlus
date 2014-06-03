@@ -35,7 +35,7 @@ shared_ptr<IfcLuminousIntensityMeasure> IfcLuminousIntensityMeasure::createObjec
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcLuminousIntensityMeasure>(); }
-	auto type_object = std::make_shared<IfcLuminousIntensityMeasure>();
+	shared_ptr<IfcLuminousIntensityMeasure> type_object( new IfcLuminousIntensityMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

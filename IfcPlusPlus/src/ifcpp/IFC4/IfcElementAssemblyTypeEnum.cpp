@@ -76,7 +76,7 @@ shared_ptr<IfcElementAssemblyTypeEnum> IfcElementAssemblyTypeEnum::createObjectF
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcElementAssemblyTypeEnum>(); }
-	auto type_object = std::make_shared<IfcElementAssemblyTypeEnum>();
+	shared_ptr<IfcElementAssemblyTypeEnum> type_object( new IfcElementAssemblyTypeEnum() );
 	if( _stricmp( arg.c_str(), ".ACCESSORY_ASSEMBLY." ) == 0 )
 	{
 		type_object->m_enum = IfcElementAssemblyTypeEnum::ENUM_ACCESSORY_ASSEMBLY;

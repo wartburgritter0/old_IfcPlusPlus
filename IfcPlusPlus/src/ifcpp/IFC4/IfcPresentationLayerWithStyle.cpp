@@ -96,11 +96,11 @@ void IfcPresentationLayerWithStyle::readStepArguments( const std::vector<std::st
 void IfcPresentationLayerWithStyle::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
 {
 	IfcPresentationLayerAssignment::getAttributes( vec_attributes );
-	vec_attributes.push_back( std::make_pair( "LayerOn", shared_ptr<IfcPPAttributeObjectLogical>( new  IfcPPAttributeObjectLogical( m_LayerOn ) ) ) );
-	vec_attributes.push_back( std::make_pair( "LayerFrozen", shared_ptr<IfcPPAttributeObjectLogical>( new  IfcPPAttributeObjectLogical( m_LayerFrozen ) ) ) );
-	vec_attributes.push_back( std::make_pair( "LayerBlocked", shared_ptr<IfcPPAttributeObjectLogical>( new  IfcPPAttributeObjectLogical( m_LayerBlocked ) ) ) );
+	vec_attributes.push_back( std::make_pair( "LayerOn", shared_ptr<IfcPPLogical>( new IfcPPLogical( m_LayerOn ) ) ) );
+	vec_attributes.push_back( std::make_pair( "LayerFrozen", shared_ptr<IfcPPLogical>( new IfcPPLogical( m_LayerFrozen ) ) ) );
+	vec_attributes.push_back( std::make_pair( "LayerBlocked", shared_ptr<IfcPPLogical>( new IfcPPLogical( m_LayerBlocked ) ) ) );
 }
-void IfcPresentationLayerWithStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPresentationLayerWithStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPresentationLayerWithStyle::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

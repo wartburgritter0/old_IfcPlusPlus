@@ -87,7 +87,7 @@ void IfcCurrencyRelationship::getAttributes( std::vector<std::pair<std::string, 
 	vec_attributes.push_back( std::make_pair( "RateDateTime", m_RateDateTime ) );
 	vec_attributes.push_back( std::make_pair( "RateSource", m_RateSource ) );
 }
-void IfcCurrencyRelationship::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCurrencyRelationship::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCurrencyRelationship::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

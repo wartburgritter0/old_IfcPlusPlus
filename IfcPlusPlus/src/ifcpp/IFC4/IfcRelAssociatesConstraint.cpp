@@ -84,7 +84,7 @@ void IfcRelAssociatesConstraint::getAttributes( std::vector<std::pair<std::strin
 	vec_attributes.push_back( std::make_pair( "Intent", m_Intent ) );
 	vec_attributes.push_back( std::make_pair( "RelatingConstraint", m_RelatingConstraint ) );
 }
-void IfcRelAssociatesConstraint::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelAssociatesConstraint::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelAssociatesConstraint::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

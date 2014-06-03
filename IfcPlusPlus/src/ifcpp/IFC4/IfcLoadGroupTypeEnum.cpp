@@ -52,7 +52,7 @@ shared_ptr<IfcLoadGroupTypeEnum> IfcLoadGroupTypeEnum::createObjectFromStepData(
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcLoadGroupTypeEnum>(); }
-	auto type_object = std::make_shared<IfcLoadGroupTypeEnum>();
+	shared_ptr<IfcLoadGroupTypeEnum> type_object( new IfcLoadGroupTypeEnum() );
 	if( _stricmp( arg.c_str(), ".LOAD_GROUP." ) == 0 )
 	{
 		type_object->m_enum = IfcLoadGroupTypeEnum::ENUM_LOAD_GROUP;

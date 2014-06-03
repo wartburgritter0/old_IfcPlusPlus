@@ -92,7 +92,7 @@ void IfcOwnerHistory::getAttributes( std::vector<std::pair<std::string, shared_p
 	vec_attributes.push_back( std::make_pair( "LastModifyingApplication", m_LastModifyingApplication ) );
 	vec_attributes.push_back( std::make_pair( "CreationDate", m_CreationDate ) );
 }
-void IfcOwnerHistory::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcOwnerHistory::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcOwnerHistory::setInverseCounterparts( shared_ptr<IfcPPEntity> )

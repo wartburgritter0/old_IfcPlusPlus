@@ -104,7 +104,7 @@ void IfcRelConnectsStructuralMember::getAttributes( std::vector<std::pair<std::s
 	vec_attributes.push_back( std::make_pair( "SupportedLength", m_SupportedLength ) );
 	vec_attributes.push_back( std::make_pair( "ConditionCoordinateSystem", m_ConditionCoordinateSystem ) );
 }
-void IfcRelConnectsStructuralMember::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelConnectsStructuralMember::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelConnectsStructuralMember::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

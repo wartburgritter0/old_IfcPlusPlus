@@ -35,7 +35,7 @@ shared_ptr<IfcAbsorbedDoseMeasure> IfcAbsorbedDoseMeasure::createObjectFromStepD
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcAbsorbedDoseMeasure>(); }
-	auto type_object = std::make_shared<IfcAbsorbedDoseMeasure>();
+	shared_ptr<IfcAbsorbedDoseMeasure> type_object( new IfcAbsorbedDoseMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

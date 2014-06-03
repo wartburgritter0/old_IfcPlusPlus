@@ -35,7 +35,7 @@ shared_ptr<IfcElectricCurrentMeasure> IfcElectricCurrentMeasure::createObjectFro
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcElectricCurrentMeasure>(); }
-	auto type_object = std::make_shared<IfcElectricCurrentMeasure>();
+	shared_ptr<IfcElectricCurrentMeasure> type_object( new IfcElectricCurrentMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

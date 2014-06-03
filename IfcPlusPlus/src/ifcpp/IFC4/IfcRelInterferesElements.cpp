@@ -98,9 +98,9 @@ void IfcRelInterferesElements::getAttributes( std::vector<std::pair<std::string,
 	vec_attributes.push_back( std::make_pair( "RelatedElement", m_RelatedElement ) );
 	vec_attributes.push_back( std::make_pair( "InterferenceGeometry", m_InterferenceGeometry ) );
 	vec_attributes.push_back( std::make_pair( "InterferenceType", m_InterferenceType ) );
-	vec_attributes.push_back( std::make_pair( "ImpliedOrder", shared_ptr<IfcPPAttributeObjectLogical>( new  IfcPPAttributeObjectLogical( m_ImpliedOrder ) ) ) );
+	vec_attributes.push_back( std::make_pair( "ImpliedOrder", shared_ptr<IfcPPLogical>( new IfcPPLogical( m_ImpliedOrder ) ) ) );
 }
-void IfcRelInterferesElements::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelInterferesElements::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelInterferesElements::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

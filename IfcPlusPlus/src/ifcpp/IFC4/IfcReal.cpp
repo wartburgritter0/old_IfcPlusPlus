@@ -35,7 +35,7 @@ shared_ptr<IfcReal> IfcReal::createObjectFromStepData( const std::string& arg )
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcReal>(); }
-	auto type_object = std::make_shared<IfcReal>();
+	shared_ptr<IfcReal> type_object( new IfcReal() );
 	type_object->readArgument( arg );
 	return type_object;
 }

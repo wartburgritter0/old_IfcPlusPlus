@@ -113,7 +113,7 @@ void IfcBurner::getAttributes( std::vector<std::pair<std::string, shared_ptr<Ifc
 	IfcEnergyConversionDevice::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcBurner::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcBurner::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcBurner::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -66,7 +66,7 @@ void IfcSectionProperties::getAttributes( std::vector<std::pair<std::string, sha
 	vec_attributes.push_back( std::make_pair( "StartProfile", m_StartProfile ) );
 	vec_attributes.push_back( std::make_pair( "EndProfile", m_EndProfile ) );
 }
-void IfcSectionProperties::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSectionProperties::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSectionProperties::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

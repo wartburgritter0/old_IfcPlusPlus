@@ -99,10 +99,13 @@ void IfcStructuralResultGroup::getAttributes( std::vector<std::pair<std::string,
 	IfcGroup::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "TheoryType", m_TheoryType ) );
 	vec_attributes.push_back( std::make_pair( "ResultForLoadGroup", m_ResultForLoadGroup ) );
-	vec_attributes.push_back( std::make_pair( "IsLinear", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_IsLinear ) ) ) );
+	vec_attributes.push_back( std::make_pair( "IsLinear", shared_ptr<IfcPPBool>( new IfcPPBool( m_IsLinear ) ) ) );
 }
-void IfcStructuralResultGroup::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralResultGroup::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> ResultGroupFor_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_ResultGroupFor_inverse.size(); ++i ) { ResultGroupFor_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcStructuralAnalysisModel>( m_ResultGroupFor_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "ResultGroupFor_inverse", ResultGroupFor_inverse_vec_obj ) );
 }
 void IfcStructuralResultGroup::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

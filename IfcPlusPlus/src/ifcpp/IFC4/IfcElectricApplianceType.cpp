@@ -104,7 +104,7 @@ void IfcElectricApplianceType::getAttributes( std::vector<std::pair<std::string,
 	IfcFlowTerminalType::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcElectricApplianceType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcElectricApplianceType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcElectricApplianceType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -121,12 +121,12 @@ void IfcTask::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPP
 	IfcProcess::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "Status", m_Status ) );
 	vec_attributes.push_back( std::make_pair( "WorkMethod", m_WorkMethod ) );
-	vec_attributes.push_back( std::make_pair( "IsMilestone", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_IsMilestone ) ) ) );
-	vec_attributes.push_back( std::make_pair( "Priority", shared_ptr<IfcPPAttributeObjectInt>( new  IfcPPAttributeObjectInt( m_Priority ) ) ) );
+	vec_attributes.push_back( std::make_pair( "IsMilestone", shared_ptr<IfcPPBool>( new IfcPPBool( m_IsMilestone ) ) ) );
+	vec_attributes.push_back( std::make_pair( "Priority", shared_ptr<IfcPPInt>( new IfcPPInt( m_Priority ) ) ) );
 	vec_attributes.push_back( std::make_pair( "TaskTime", m_TaskTime ) );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcTask::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTask::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTask::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

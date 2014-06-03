@@ -79,7 +79,7 @@ void IfcWorkTime::getAttributes( std::vector<std::pair<std::string, shared_ptr<I
 	vec_attributes.push_back( std::make_pair( "Start", m_Start ) );
 	vec_attributes.push_back( std::make_pair( "Finish", m_Finish ) );
 }
-void IfcWorkTime::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcWorkTime::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcWorkTime::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -35,7 +35,7 @@ shared_ptr<IfcPositiveRatioMeasure> IfcPositiveRatioMeasure::createObjectFromSte
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcPositiveRatioMeasure>(); }
-	auto type_object = std::make_shared<IfcPositiveRatioMeasure>();
+	shared_ptr<IfcPositiveRatioMeasure> type_object( new IfcPositiveRatioMeasure() );
 	// read TYPE
 	type_object->readArgument( arg );
 	return type_object;

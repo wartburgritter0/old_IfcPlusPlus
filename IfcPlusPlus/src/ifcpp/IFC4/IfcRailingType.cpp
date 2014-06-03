@@ -104,7 +104,7 @@ void IfcRailingType::getAttributes( std::vector<std::pair<std::string, shared_pt
 	IfcBuildingElementType::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcRailingType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRailingType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRailingType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

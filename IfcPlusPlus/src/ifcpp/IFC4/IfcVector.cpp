@@ -62,7 +62,7 @@ void IfcVector::getAttributes( std::vector<std::pair<std::string, shared_ptr<Ifc
 	vec_attributes.push_back( std::make_pair( "Orientation", m_Orientation ) );
 	vec_attributes.push_back( std::make_pair( "Magnitude", m_Magnitude ) );
 }
-void IfcVector::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcVector::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcVector::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

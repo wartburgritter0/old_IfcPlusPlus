@@ -14,8 +14,8 @@
 #include <iostream>
 
 #include <QtCore/qglobal.h>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QSplashScreen>
+#include <QApplication>
+#include <QSplashScreen>
 #include <osgViewer/CompositeViewer>
 
 #include <ifcpp/model/IfcPPException.h>
@@ -24,6 +24,7 @@
 #include <ifcppgeometry/RepresentationConverter.h>
 #include <ifcppgeometry/ConverterOSG.h>
 #include <ifcppgeometry/DebugViewerCallback.h>
+#include <ifcppgeometry/CSG_Adapter.h>
 
 #include "gui/TabReadWrite.h"
 #include "gui/MainWindow.h"
@@ -116,7 +117,8 @@ int main(int argc, char *argv[])
 
 			if( file_type.compare( "IFC" ) == 0 || file_type.compare( "STP" ) == 0  )
 			{
-				window->getTabReadWrite()->slotLoadIfcFile( QString(arg1.c_str()) );
+				QString path(arg1.c_str());
+				window->getTabReadWrite()->slotLoadIfcFile( path );
 			}
 		}
 	}

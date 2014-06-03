@@ -69,7 +69,7 @@ void IfcArbitraryProfileDefWithVoids::getAttributes( std::vector<std::pair<std::
 {
 	IfcArbitraryClosedProfileDef::getAttributes( vec_attributes );
 }
-void IfcArbitraryProfileDefWithVoids::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcArbitraryProfileDefWithVoids::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcArbitraryProfileDefWithVoids::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

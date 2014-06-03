@@ -64,7 +64,7 @@ void IfcExternallyDefinedHatchStyle::getAttributes( std::vector<std::pair<std::s
 {
 	IfcExternalReference::getAttributes( vec_attributes );
 }
-void IfcExternallyDefinedHatchStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcExternallyDefinedHatchStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcExternallyDefinedHatchStyle::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

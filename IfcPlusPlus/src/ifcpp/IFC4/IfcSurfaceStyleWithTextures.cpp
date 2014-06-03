@@ -53,7 +53,7 @@ void IfcSurfaceStyleWithTextures::getAttributes( std::vector<std::pair<std::stri
 {
 	IfcPresentationItem::getAttributes( vec_attributes );
 }
-void IfcSurfaceStyleWithTextures::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSurfaceStyleWithTextures::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSurfaceStyleWithTextures::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

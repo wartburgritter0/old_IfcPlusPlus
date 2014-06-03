@@ -60,7 +60,7 @@ void IfcCurveStyleFontPattern::getAttributes( std::vector<std::pair<std::string,
 	vec_attributes.push_back( std::make_pair( "VisibleSegmentLength", m_VisibleSegmentLength ) );
 	vec_attributes.push_back( std::make_pair( "InvisibleSegmentLength", m_InvisibleSegmentLength ) );
 }
-void IfcCurveStyleFontPattern::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCurveStyleFontPattern::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCurveStyleFontPattern::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

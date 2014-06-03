@@ -13,12 +13,12 @@
 
 #include <QtCore/qglobal.h>
 #include <QtCore/QSettings>
-#include <QtWidgets/QToolButton>
-#include <QtWidgets/QBoxLayout>
-#include <QtWidgets/QCheckBox>
-#include <QtWidgets/QRadioButton>
-#include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QLabel>
+#include <QToolButton>
+#include <QBoxLayout>
+#include <QCheckBox>
+#include <QRadioButton>
+#include <QButtonGroup>
+#include <QLabel>
 
 #include <osgGA/OrbitManipulator>
 

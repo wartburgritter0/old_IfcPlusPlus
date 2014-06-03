@@ -104,7 +104,7 @@ void IfcCableCarrierFittingType::getAttributes( std::vector<std::pair<std::strin
 	IfcFlowFittingType::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcCableCarrierFittingType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCableCarrierFittingType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCableCarrierFittingType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

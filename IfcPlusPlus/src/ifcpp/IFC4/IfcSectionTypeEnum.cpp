@@ -40,7 +40,7 @@ shared_ptr<IfcSectionTypeEnum> IfcSectionTypeEnum::createObjectFromStepData( con
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcSectionTypeEnum>(); }
-	auto type_object = std::make_shared<IfcSectionTypeEnum>();
+	shared_ptr<IfcSectionTypeEnum> type_object( new IfcSectionTypeEnum() );
 	if( _stricmp( arg.c_str(), ".UNIFORM." ) == 0 )
 	{
 		type_object->m_enum = IfcSectionTypeEnum::ENUM_UNIFORM;

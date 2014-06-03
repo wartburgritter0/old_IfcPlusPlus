@@ -891,8 +891,9 @@ namespace carve {
           edge_t *removed = edge->mergeFaces();
           if (removed == NULL) {
             coplanar_face_edges.erase(edge);
-            ++n_merge;
+            
           } else {
+			  ++n_merge;
             edge_t *e = removed;
             do {
               edge_t *n = e->next;
@@ -1060,7 +1061,7 @@ namespace carve {
       }
 
 
-
+	public:
       size_t cleanFaceEdges(mesh_t *mesh) {
         size_t n_removed = 0;
         for (size_t i = 0; i < mesh->faces.size(); ++i) {
@@ -1163,7 +1164,7 @@ namespace carve {
 
 
 
-    public:
+
       // Merge adjacent coplanar faces (where coplanar is determined
       // by dot-product >= cos(min_normal_angle)).
       size_t mergeCoplanarFaces(meshset_t *meshset, double min_normal_angle) {

@@ -72,7 +72,7 @@ void IfcExtrudedAreaSolid::getAttributes( std::vector<std::pair<std::string, sha
 	vec_attributes.push_back( std::make_pair( "ExtrudedDirection", m_ExtrudedDirection ) );
 	vec_attributes.push_back( std::make_pair( "Depth", m_Depth ) );
 }
-void IfcExtrudedAreaSolid::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcExtrudedAreaSolid::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcExtrudedAreaSolid::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

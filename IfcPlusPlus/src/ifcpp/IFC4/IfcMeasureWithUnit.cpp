@@ -59,7 +59,7 @@ void IfcMeasureWithUnit::getAttributes( std::vector<std::pair<std::string, share
 	vec_attributes.push_back( std::make_pair( "ValueComponent", m_ValueComponent ) );
 	vec_attributes.push_back( std::make_pair( "UnitComponent", m_UnitComponent ) );
 }
-void IfcMeasureWithUnit::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcMeasureWithUnit::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcMeasureWithUnit::setInverseCounterparts( shared_ptr<IfcPPEntity> )

@@ -140,7 +140,7 @@ void IfcReinforcingBarType::getAttributes( std::vector<std::pair<std::string, sh
 	std::copy( m_BendingParameters.begin(), m_BendingParameters.end(), std::back_inserter( BendingParameters_vec_object->m_vec ) );
 	vec_attributes.push_back( std::make_pair( "BendingParameters", BendingParameters_vec_object ) );
 }
-void IfcReinforcingBarType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcReinforcingBarType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcReinforcingBarType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

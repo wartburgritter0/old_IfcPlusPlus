@@ -45,8 +45,14 @@ void IfcRepresentationItem::readStepArguments( const std::vector<std::string>& a
 void IfcRepresentationItem::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
 {
 }
-void IfcRepresentationItem::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRepresentationItem::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> LayerAssignment_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_LayerAssignment_inverse.size(); ++i ) { LayerAssignment_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcPresentationLayerAssignment>( m_LayerAssignment_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "LayerAssignment_inverse", LayerAssignment_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> StyledByItem_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_StyledByItem_inverse.size(); ++i ) { StyledByItem_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcStyledItem>( m_StyledByItem_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "StyledByItem_inverse", StyledByItem_inverse_vec_obj ) );
 }
 void IfcRepresentationItem::setInverseCounterparts( shared_ptr<IfcPPEntity> )
 {

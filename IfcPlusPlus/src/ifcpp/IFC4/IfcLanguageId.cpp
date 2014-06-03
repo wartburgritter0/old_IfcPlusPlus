@@ -33,7 +33,7 @@ shared_ptr<IfcLanguageId> IfcLanguageId::createObjectFromStepData( const std::st
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcLanguageId>(); }
-	auto type_object = std::make_shared<IfcLanguageId>();
+	shared_ptr<IfcLanguageId> type_object( new IfcLanguageId() );
 	// read TYPE
 	type_object->readArgument( arg );
 	return type_object;

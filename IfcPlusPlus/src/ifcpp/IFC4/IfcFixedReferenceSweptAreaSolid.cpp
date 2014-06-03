@@ -83,7 +83,7 @@ void IfcFixedReferenceSweptAreaSolid::getAttributes( std::vector<std::pair<std::
 	vec_attributes.push_back( std::make_pair( "EndParam", m_EndParam ) );
 	vec_attributes.push_back( std::make_pair( "FixedReference", m_FixedReference ) );
 }
-void IfcFixedReferenceSweptAreaSolid::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcFixedReferenceSweptAreaSolid::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcFixedReferenceSweptAreaSolid::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

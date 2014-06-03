@@ -35,7 +35,7 @@ shared_ptr<IfcIsothermalMoistureCapacityMeasure> IfcIsothermalMoistureCapacityMe
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcIsothermalMoistureCapacityMeasure>(); }
-	auto type_object = std::make_shared<IfcIsothermalMoistureCapacityMeasure>();
+	shared_ptr<IfcIsothermalMoistureCapacityMeasure> type_object( new IfcIsothermalMoistureCapacityMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

@@ -69,7 +69,7 @@ void IfcStructuralLoadPlanarForce::getAttributes( std::vector<std::pair<std::str
 	vec_attributes.push_back( std::make_pair( "PlanarForceY", m_PlanarForceY ) );
 	vec_attributes.push_back( std::make_pair( "PlanarForceZ", m_PlanarForceZ ) );
 }
-void IfcStructuralLoadPlanarForce::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralLoadPlanarForce::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcStructuralLoadPlanarForce::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

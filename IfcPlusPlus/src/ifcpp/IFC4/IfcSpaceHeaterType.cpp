@@ -104,7 +104,7 @@ void IfcSpaceHeaterType::getAttributes( std::vector<std::pair<std::string, share
 	IfcFlowTerminalType::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcSpaceHeaterType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSpaceHeaterType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSpaceHeaterType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

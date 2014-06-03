@@ -35,7 +35,7 @@ shared_ptr<IfcTemperatureGradientMeasure> IfcTemperatureGradientMeasure::createO
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcTemperatureGradientMeasure>(); }
-	auto type_object = std::make_shared<IfcTemperatureGradientMeasure>();
+	shared_ptr<IfcTemperatureGradientMeasure> type_object( new IfcTemperatureGradientMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

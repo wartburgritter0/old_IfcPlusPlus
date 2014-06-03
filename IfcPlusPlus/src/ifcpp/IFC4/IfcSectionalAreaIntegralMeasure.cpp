@@ -35,7 +35,7 @@ shared_ptr<IfcSectionalAreaIntegralMeasure> IfcSectionalAreaIntegralMeasure::cre
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcSectionalAreaIntegralMeasure>(); }
-	auto type_object = std::make_shared<IfcSectionalAreaIntegralMeasure>();
+	shared_ptr<IfcSectionalAreaIntegralMeasure> type_object( new IfcSectionalAreaIntegralMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

@@ -66,7 +66,7 @@ void IfcRightCircularCone::getAttributes( std::vector<std::pair<std::string, sha
 	vec_attributes.push_back( std::make_pair( "Height", m_Height ) );
 	vec_attributes.push_back( std::make_pair( "BottomRadius", m_BottomRadius ) );
 }
-void IfcRightCircularCone::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRightCircularCone::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRightCircularCone::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

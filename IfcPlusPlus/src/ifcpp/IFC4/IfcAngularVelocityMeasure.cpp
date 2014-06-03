@@ -35,7 +35,7 @@ shared_ptr<IfcAngularVelocityMeasure> IfcAngularVelocityMeasure::createObjectFro
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcAngularVelocityMeasure>(); }
-	auto type_object = std::make_shared<IfcAngularVelocityMeasure>();
+	shared_ptr<IfcAngularVelocityMeasure> type_object( new IfcAngularVelocityMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

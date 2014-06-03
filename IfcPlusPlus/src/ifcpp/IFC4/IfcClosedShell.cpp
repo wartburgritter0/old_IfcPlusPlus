@@ -55,7 +55,7 @@ void IfcClosedShell::getAttributes( std::vector<std::pair<std::string, shared_pt
 {
 	IfcConnectedFaceSet::getAttributes( vec_attributes );
 }
-void IfcClosedShell::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcClosedShell::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcClosedShell::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -102,7 +102,7 @@ void IfcPermit::getAttributes( std::vector<std::pair<std::string, shared_ptr<Ifc
 	vec_attributes.push_back( std::make_pair( "Status", m_Status ) );
 	vec_attributes.push_back( std::make_pair( "LongDescription", m_LongDescription ) );
 }
-void IfcPermit::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPermit::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPermit::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

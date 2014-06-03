@@ -108,7 +108,7 @@ void IfcStructuralSurfaceReaction::getAttributes( std::vector<std::pair<std::str
 	IfcStructuralReaction::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcStructuralSurfaceReaction::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralSurfaceReaction::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcStructuralSurfaceReaction::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

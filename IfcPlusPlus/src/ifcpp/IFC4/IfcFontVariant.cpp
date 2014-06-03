@@ -34,7 +34,7 @@ shared_ptr<IfcFontVariant> IfcFontVariant::createObjectFromStepData( const std::
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcFontVariant>(); }
-	auto type_object = std::make_shared<IfcFontVariant>();
+	shared_ptr<IfcFontVariant> type_object( new IfcFontVariant() );
 	type_object->readArgument( arg );
 	return type_object;
 }

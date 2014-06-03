@@ -19,9 +19,9 @@
 
 #include <QtCore/qglobal.h>
 
-#include <QtWidgets/QAction>
-#include <QtWidgets/QToolBar>
-#include <QtWidgets/QCheckBox>
+#include <QAction>
+#include <QToolBar>
+#include <QCheckBox>
 #include <QtCore/QSettings>
 #include <QtCore/QFile>
 
@@ -31,6 +31,7 @@
 #include "ifcppgeometry/GeomUtils.h"
 #include "ifcppgeometry/DebugViewerCallback.h"
 #include "ifcppgeometry/ConverterOSG.h"
+#include "ifcppgeometry/CSG_Adapter.h"
 
 #include "DebugViewer.h"
 
@@ -249,23 +250,31 @@ void DebugViewer::renderMeshset( const carve::mesh::MeshSet<3>* meshset, const o
 		return;
 	}
 
-	std::stringstream strs_err;
-	ConverterOSG::checkMeshSet( meshset, strs_err, -1 );
+	//std::stringstream strs_err;
+	//CSG_Adapter::checkMeshSetValidAndClosed( meshset, strs_err, -1 );
 	
-	osg::ref_ptr<osg::Geode> geode = new osg::Geode();
-	if( wireframe )
+	const int nmeshes = meshset->meshes.size();
+	for( int i=0; i<nmeshes; ++i )
 	{
-		osg::ref_ptr<osg::PolygonMode> polygon_mode = new osg::PolygonMode();
-		polygon_mode->setMode(  osg::PolygonMode::FRONT_AND_BACK, osg::PolygonMode::LINE );
-		geode->getOrCreateStateSet()->setAttribute( polygon_mode );
-	}
-	osg::Material* material = new osg::Material();//(osg::Material *) geode->getStateSet()->getAttribute(osg::StateAttribute::MATERIAL); 
-	material->setColorMode(osg::Material::EMISSION); 
-	material->setEmission(osg::Material::FRONT_AND_BACK, color ); 
-	geode->getOrCreateStateSet()->setAttributeAndModes(material, osg::StateAttribute::OVERRIDE); 
+		osg::Vec4f color_mesh( color.r()*float(i)/float(nmeshes), color.g()*float(i)/float(nmeshes), color.b()*float(i)/float(nmeshes), color.a() );
 
-	ConverterOSG::drawMeshSet( meshset, geode );
-	m_view_controller->getModelNode()->addChild(geode);
+		osg::ref_ptr<osg::Geode> geode = new osg::Geode();
+		if( wireframe )
+		{
+			osg::ref_ptr<osg::PolygonMode> polygon_mode = new osg::PolygonMode();
+			polygon_mode->setMode(  osg::PolygonMode::FRONT_AND_BACK, osg::PolygonMode::LINE );
+			geode->getOrCreateStateSet()->setAttribute( polygon_mode );
+		}
+
+		osg::Material* material = new osg::Material();//(osg::Material *) geode->getStateSet()->getAttribute(osg::StateAttribute::MATERIAL); 
+		material->setColorMode(osg::Material::EMISSION); 
+		material->setEmission(osg::Material::FRONT_AND_BACK, color ); 
+		geode->getOrCreateStateSet()->setAttributeAndModes(material, osg::StateAttribute::OVERRIDE); 
+
+		ConverterOSG::drawMesh( meshset->meshes[i], geode );
+
+		m_view_controller->getModelNode()->addChild(geode);
+	}
 
 	osg::ref_ptr<osg::Geode> geode_vertex_numbers = new osg::Geode();
 	m_view_controller->getModelNode()->addChild(geode_vertex_numbers);

@@ -100,8 +100,11 @@ void IfcTypeResource::getAttributes( std::vector<std::pair<std::string, shared_p
 	vec_attributes.push_back( std::make_pair( "LongDescription", m_LongDescription ) );
 	vec_attributes.push_back( std::make_pair( "ResourceType", m_ResourceType ) );
 }
-void IfcTypeResource::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTypeResource::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> ResourceOf_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_ResourceOf_inverse.size(); ++i ) { ResourceOf_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelAssignsToResource>( m_ResourceOf_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "ResourceOf_inverse", ResourceOf_inverse_vec_obj ) );
 }
 void IfcTypeResource::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

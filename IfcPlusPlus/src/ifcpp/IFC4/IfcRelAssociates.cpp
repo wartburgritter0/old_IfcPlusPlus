@@ -78,7 +78,7 @@ void IfcRelAssociates::getAttributes( std::vector<std::pair<std::string, shared_
 	std::copy( m_RelatedObjects.begin(), m_RelatedObjects.end(), std::back_inserter( RelatedObjects_vec_object->m_vec ) );
 	vec_attributes.push_back( std::make_pair( "RelatedObjects", RelatedObjects_vec_object ) );
 }
-void IfcRelAssociates::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelAssociates::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelAssociates::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

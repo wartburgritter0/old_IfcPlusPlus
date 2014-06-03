@@ -81,7 +81,7 @@ void IfcRelAssociatesClassification::getAttributes( std::vector<std::pair<std::s
 	IfcRelAssociates::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "RelatingClassification", m_RelatingClassification ) );
 }
-void IfcRelAssociatesClassification::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelAssociatesClassification::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelAssociatesClassification::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

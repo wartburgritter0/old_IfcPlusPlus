@@ -81,9 +81,9 @@ void IfcMaterialConstituent::getAttributes( std::vector<std::pair<std::string, s
 	vec_attributes.push_back( std::make_pair( "Fraction", m_Fraction ) );
 	vec_attributes.push_back( std::make_pair( "Category", m_Category ) );
 }
-void IfcMaterialConstituent::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcMaterialConstituent::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
-	vec_attributes.push_back( std::make_pair( "ToMaterialConstituentSet_inverse", shared_ptr<IfcPPEntity>( m_ToMaterialConstituentSet_inverse ) ) );
+	vec_attributes_inverse.push_back( std::make_pair( "ToMaterialConstituentSet_inverse", shared_ptr<IfcPPEntity>( m_ToMaterialConstituentSet_inverse ) ) );
 }
 void IfcMaterialConstituent::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

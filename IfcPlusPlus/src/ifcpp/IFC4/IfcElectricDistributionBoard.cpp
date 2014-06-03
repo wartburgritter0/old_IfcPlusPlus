@@ -113,7 +113,7 @@ void IfcElectricDistributionBoard::getAttributes( std::vector<std::pair<std::str
 	IfcFlowController::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcElectricDistributionBoard::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcElectricDistributionBoard::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcElectricDistributionBoard::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

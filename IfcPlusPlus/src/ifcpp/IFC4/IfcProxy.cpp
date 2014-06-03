@@ -102,7 +102,7 @@ void IfcProxy::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcP
 	vec_attributes.push_back( std::make_pair( "ProxyType", m_ProxyType ) );
 	vec_attributes.push_back( std::make_pair( "Tag", m_Tag ) );
 }
-void IfcProxy::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcProxy::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcProxy::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

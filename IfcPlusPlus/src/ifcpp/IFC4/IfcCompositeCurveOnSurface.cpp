@@ -63,7 +63,7 @@ void IfcCompositeCurveOnSurface::getAttributes( std::vector<std::pair<std::strin
 {
 	IfcCompositeCurve::getAttributes( vec_attributes );
 }
-void IfcCompositeCurveOnSurface::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCompositeCurveOnSurface::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCompositeCurveOnSurface::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

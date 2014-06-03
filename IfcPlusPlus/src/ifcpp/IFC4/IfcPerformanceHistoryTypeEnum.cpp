@@ -40,7 +40,7 @@ shared_ptr<IfcPerformanceHistoryTypeEnum> IfcPerformanceHistoryTypeEnum::createO
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcPerformanceHistoryTypeEnum>(); }
-	auto type_object = std::make_shared<IfcPerformanceHistoryTypeEnum>();
+	shared_ptr<IfcPerformanceHistoryTypeEnum> type_object( new IfcPerformanceHistoryTypeEnum() );
 	if( _stricmp( arg.c_str(), ".USERDEFINED." ) == 0 )
 	{
 		type_object->m_enum = IfcPerformanceHistoryTypeEnum::ENUM_USERDEFINED;

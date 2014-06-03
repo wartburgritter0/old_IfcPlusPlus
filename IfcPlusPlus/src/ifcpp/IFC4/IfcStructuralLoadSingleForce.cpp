@@ -85,7 +85,7 @@ void IfcStructuralLoadSingleForce::getAttributes( std::vector<std::pair<std::str
 	vec_attributes.push_back( std::make_pair( "MomentY", m_MomentY ) );
 	vec_attributes.push_back( std::make_pair( "MomentZ", m_MomentZ ) );
 }
-void IfcStructuralLoadSingleForce::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralLoadSingleForce::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcStructuralLoadSingleForce::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

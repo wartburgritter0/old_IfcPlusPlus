@@ -72,7 +72,7 @@ void IfcRevolvedAreaSolid::getAttributes( std::vector<std::pair<std::string, sha
 	vec_attributes.push_back( std::make_pair( "Axis", m_Axis ) );
 	vec_attributes.push_back( std::make_pair( "Angle", m_Angle ) );
 }
-void IfcRevolvedAreaSolid::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRevolvedAreaSolid::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRevolvedAreaSolid::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

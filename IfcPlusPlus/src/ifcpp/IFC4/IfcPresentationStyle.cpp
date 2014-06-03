@@ -53,7 +53,7 @@ void IfcPresentationStyle::getAttributes( std::vector<std::pair<std::string, sha
 {
 	vec_attributes.push_back( std::make_pair( "Name", m_Name ) );
 }
-void IfcPresentationStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcPresentationStyle::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcPresentationStyle::setInverseCounterparts( shared_ptr<IfcPPEntity> )

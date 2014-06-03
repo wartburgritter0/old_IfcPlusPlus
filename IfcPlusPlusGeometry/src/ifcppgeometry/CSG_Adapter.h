@@ -16,6 +16,9 @@
 #include "IncludeCarveHeaders.h"
 #include <ifcpp/model/shared_ptr.h>
 
+typedef carve::mesh::Edge<3> edge_t;
+typedef carve::mesh::Face<3> face_t;
+
 class CSG_Adapter
 {
 public:
@@ -23,6 +26,9 @@ public:
 	~CSG_Adapter();
 
 	static void simplifyMesh( shared_ptr<carve::mesh::MeshSet<3> >& meshset );
-	static bool computeCSG( carve::mesh::MeshSet<3>* op1, carve::mesh::MeshSet<3>* op2, const carve::csg::CSG::OP operation, 
+	static bool computeCSG( shared_ptr<carve::mesh::MeshSet<3> >& op1, shared_ptr<carve::mesh::MeshSet<3> >& op2, const carve::csg::CSG::OP operation, 
 		const int entity1, const int entity2, std::stringstream& err, shared_ptr<carve::mesh::MeshSet<3> >& result );
+	//static bool checkMeshSetEmpty(	const carve::mesh::MeshSet<3>* meshset );
+	static bool checkMeshSetValidAndClosed(	const carve::mesh::MeshSet<3>* meshset, std::stringstream& err_poly, int entity_id );
+	static bool checkFaceIntegrity(	const carve::mesh::MeshSet<3>* meshset );
 };

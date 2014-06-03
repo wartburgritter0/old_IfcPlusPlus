@@ -104,7 +104,7 @@ void IfcDuctFittingType::getAttributes( std::vector<std::pair<std::string, share
 	IfcFlowFittingType::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcDuctFittingType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDuctFittingType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcDuctFittingType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

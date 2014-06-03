@@ -40,7 +40,7 @@ shared_ptr<IfcChimneyTypeEnum> IfcChimneyTypeEnum::createObjectFromStepData( con
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcChimneyTypeEnum>(); }
-	auto type_object = std::make_shared<IfcChimneyTypeEnum>();
+	shared_ptr<IfcChimneyTypeEnum> type_object( new IfcChimneyTypeEnum() );
 	if( _stricmp( arg.c_str(), ".USERDEFINED." ) == 0 )
 	{
 		type_object->m_enum = IfcChimneyTypeEnum::ENUM_USERDEFINED;

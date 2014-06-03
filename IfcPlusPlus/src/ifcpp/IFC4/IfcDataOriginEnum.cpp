@@ -52,7 +52,7 @@ shared_ptr<IfcDataOriginEnum> IfcDataOriginEnum::createObjectFromStepData( const
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcDataOriginEnum>(); }
-	auto type_object = std::make_shared<IfcDataOriginEnum>();
+	shared_ptr<IfcDataOriginEnum> type_object( new IfcDataOriginEnum() );
 	if( _stricmp( arg.c_str(), ".MEASURED." ) == 0 )
 	{
 		type_object->m_enum = IfcDataOriginEnum::ENUM_MEASURED;

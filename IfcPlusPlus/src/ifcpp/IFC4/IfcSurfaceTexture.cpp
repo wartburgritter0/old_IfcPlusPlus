@@ -75,16 +75,22 @@ void IfcSurfaceTexture::readStepArguments( const std::vector<std::string>& args,
 void IfcSurfaceTexture::getAttributes( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
 {
 	IfcPresentationItem::getAttributes( vec_attributes );
-	vec_attributes.push_back( std::make_pair( "RepeatS", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_RepeatS ) ) ) );
-	vec_attributes.push_back( std::make_pair( "RepeatT", shared_ptr<IfcPPAttributeObjectBool>( new  IfcPPAttributeObjectBool( m_RepeatT ) ) ) );
+	vec_attributes.push_back( std::make_pair( "RepeatS", shared_ptr<IfcPPBool>( new IfcPPBool( m_RepeatS ) ) ) );
+	vec_attributes.push_back( std::make_pair( "RepeatT", shared_ptr<IfcPPBool>( new IfcPPBool( m_RepeatT ) ) ) );
 	vec_attributes.push_back( std::make_pair( "Mode", m_Mode ) );
 	vec_attributes.push_back( std::make_pair( "TextureTransform", m_TextureTransform ) );
 	shared_ptr<IfcPPAttributeObjectVector> Parameter_vec_object( new  IfcPPAttributeObjectVector() );
 	std::copy( m_Parameter.begin(), m_Parameter.end(), std::back_inserter( Parameter_vec_object->m_vec ) );
 	vec_attributes.push_back( std::make_pair( "Parameter", Parameter_vec_object ) );
 }
-void IfcSurfaceTexture::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSurfaceTexture::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> IsMappedBy_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_IsMappedBy_inverse.size(); ++i ) { IsMappedBy_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcTextureCoordinate>( m_IsMappedBy_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "IsMappedBy_inverse", IsMappedBy_inverse_vec_obj ) );
+	shared_ptr<IfcPPAttributeObjectVector> UsedInStyles_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_UsedInStyles_inverse.size(); ++i ) { UsedInStyles_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcSurfaceStyleWithTextures>( m_UsedInStyles_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "UsedInStyles_inverse", UsedInStyles_inverse_vec_obj ) );
 }
 void IfcSurfaceTexture::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

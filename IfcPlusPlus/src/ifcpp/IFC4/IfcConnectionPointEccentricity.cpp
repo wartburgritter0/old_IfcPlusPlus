@@ -73,7 +73,7 @@ void IfcConnectionPointEccentricity::getAttributes( std::vector<std::pair<std::s
 	vec_attributes.push_back( std::make_pair( "EccentricityInY", m_EccentricityInY ) );
 	vec_attributes.push_back( std::make_pair( "EccentricityInZ", m_EccentricityInZ ) );
 }
-void IfcConnectionPointEccentricity::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcConnectionPointEccentricity::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcConnectionPointEccentricity::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

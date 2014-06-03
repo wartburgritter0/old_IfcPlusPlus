@@ -67,7 +67,7 @@ void IfcBooleanResult::getAttributes( std::vector<std::pair<std::string, shared_
 	vec_attributes.push_back( std::make_pair( "FirstOperand", m_FirstOperand ) );
 	vec_attributes.push_back( std::make_pair( "SecondOperand", m_SecondOperand ) );
 }
-void IfcBooleanResult::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcBooleanResult::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcBooleanResult::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

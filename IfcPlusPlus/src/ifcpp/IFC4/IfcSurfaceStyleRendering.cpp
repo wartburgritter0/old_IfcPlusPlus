@@ -97,7 +97,7 @@ void IfcSurfaceStyleRendering::getAttributes( std::vector<std::pair<std::string,
 	vec_attributes.push_back( std::make_pair( "SpecularHighlight", m_SpecularHighlight ) );
 	vec_attributes.push_back( std::make_pair( "ReflectanceMethod", m_ReflectanceMethod ) );
 }
-void IfcSurfaceStyleRendering::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSurfaceStyleRendering::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSurfaceStyleRendering::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

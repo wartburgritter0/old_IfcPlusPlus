@@ -110,7 +110,7 @@ void IfcStructuralAnalysisModel::getAttributes( std::vector<std::pair<std::strin
 	vec_attributes.push_back( std::make_pair( "OrientationOf2DPlane", m_OrientationOf2DPlane ) );
 	vec_attributes.push_back( std::make_pair( "SharedPlacement", m_SharedPlacement ) );
 }
-void IfcStructuralAnalysisModel::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralAnalysisModel::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcStructuralAnalysisModel::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

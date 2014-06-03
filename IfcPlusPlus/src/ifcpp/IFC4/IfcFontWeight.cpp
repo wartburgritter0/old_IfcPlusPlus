@@ -34,7 +34,7 @@ shared_ptr<IfcFontWeight> IfcFontWeight::createObjectFromStepData( const std::st
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcFontWeight>(); }
-	auto type_object = std::make_shared<IfcFontWeight>();
+	shared_ptr<IfcFontWeight> type_object( new IfcFontWeight() );
 	type_object->readArgument( arg );
 	return type_object;
 }

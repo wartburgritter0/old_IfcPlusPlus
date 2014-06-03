@@ -56,7 +56,7 @@ void IfcTextureVertex::getAttributes( std::vector<std::pair<std::string, shared_
 	std::copy( m_Coordinates.begin(), m_Coordinates.end(), std::back_inserter( Coordinates_vec_object->m_vec ) );
 	vec_attributes.push_back( std::make_pair( "Coordinates", Coordinates_vec_object ) );
 }
-void IfcTextureVertex::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTextureVertex::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcTextureVertex::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

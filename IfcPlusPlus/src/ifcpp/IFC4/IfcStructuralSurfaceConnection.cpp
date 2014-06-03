@@ -98,7 +98,7 @@ void IfcStructuralSurfaceConnection::getAttributes( std::vector<std::pair<std::s
 {
 	IfcStructuralConnection::getAttributes( vec_attributes );
 }
-void IfcStructuralSurfaceConnection::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcStructuralSurfaceConnection::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcStructuralSurfaceConnection::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

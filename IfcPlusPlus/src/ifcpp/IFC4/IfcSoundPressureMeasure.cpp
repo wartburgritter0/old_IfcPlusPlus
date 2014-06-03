@@ -35,7 +35,7 @@ shared_ptr<IfcSoundPressureMeasure> IfcSoundPressureMeasure::createObjectFromSte
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcSoundPressureMeasure>(); }
-	auto type_object = std::make_shared<IfcSoundPressureMeasure>();
+	shared_ptr<IfcSoundPressureMeasure> type_object( new IfcSoundPressureMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

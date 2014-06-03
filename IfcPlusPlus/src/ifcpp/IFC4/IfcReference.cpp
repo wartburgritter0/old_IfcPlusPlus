@@ -73,7 +73,7 @@ void IfcReference::getAttributes( std::vector<std::pair<std::string, shared_ptr<
 	vec_attributes.push_back( std::make_pair( "InstanceName", m_InstanceName ) );
 	vec_attributes.push_back( std::make_pair( "InnerReference", m_InnerReference ) );
 }
-void IfcReference::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcReference::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcReference::setInverseCounterparts( shared_ptr<IfcPPEntity> )

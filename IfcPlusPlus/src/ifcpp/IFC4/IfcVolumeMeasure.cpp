@@ -35,7 +35,7 @@ shared_ptr<IfcVolumeMeasure> IfcVolumeMeasure::createObjectFromStepData( const s
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcVolumeMeasure>(); }
-	auto type_object = std::make_shared<IfcVolumeMeasure>();
+	shared_ptr<IfcVolumeMeasure> type_object( new IfcVolumeMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

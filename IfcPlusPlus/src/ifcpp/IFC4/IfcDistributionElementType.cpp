@@ -98,7 +98,7 @@ void IfcDistributionElementType::getAttributes( std::vector<std::pair<std::strin
 {
 	IfcElementType::getAttributes( vec_attributes );
 }
-void IfcDistributionElementType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcDistributionElementType::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcDistributionElementType::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

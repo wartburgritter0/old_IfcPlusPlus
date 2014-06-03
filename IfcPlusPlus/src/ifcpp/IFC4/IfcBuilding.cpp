@@ -120,7 +120,7 @@ void IfcBuilding::getAttributes( std::vector<std::pair<std::string, shared_ptr<I
 	vec_attributes.push_back( std::make_pair( "ElevationOfTerrain", m_ElevationOfTerrain ) );
 	vec_attributes.push_back( std::make_pair( "BuildingAddress", m_BuildingAddress ) );
 }
-void IfcBuilding::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcBuilding::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcBuilding::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

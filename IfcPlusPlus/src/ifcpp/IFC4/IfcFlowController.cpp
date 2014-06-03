@@ -107,7 +107,7 @@ void IfcFlowController::getAttributes( std::vector<std::pair<std::string, shared
 {
 	IfcDistributionFlowElement::getAttributes( vec_attributes );
 }
-void IfcFlowController::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcFlowController::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcFlowController::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

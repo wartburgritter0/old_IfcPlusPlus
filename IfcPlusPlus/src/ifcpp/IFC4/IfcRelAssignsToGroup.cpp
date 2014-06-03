@@ -84,7 +84,7 @@ void IfcRelAssignsToGroup::getAttributes( std::vector<std::pair<std::string, sha
 	IfcRelAssigns::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "RelatingGroup", m_RelatingGroup ) );
 }
-void IfcRelAssignsToGroup::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcRelAssignsToGroup::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcRelAssignsToGroup::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

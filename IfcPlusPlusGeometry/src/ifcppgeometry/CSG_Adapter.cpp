@@ -1,809 +1,305 @@
-
 #include <ifcpp/model/IfcPPException.h>
 #include <ifcpp/model/IfcPPOpenMP.h>
 
 #include "DebugViewerCallback.h"
 #include "ConverterOSG.h"
 #include "GeometryInputData.h"
+#include "GeometryException.h"
 #include "CSG_Adapter.h"
 
-void collectAdjacentFacesSameNormal( const carve::mesh::Face<3>* face, const carve::geom::vector<3>& normal,
-									std::vector<carve::mesh::Face<3>* >& vec_faces, 
-									std::vector<carve::mesh::Edge<3>* >& vec_perimeter_edges)
+
+void mergeAlignedEdges( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
 {
-	carve::mesh::Edge<3>* edge = face->edge;
-	do
+	if( !meshset )
 	{
-		carve::mesh::Edge<3>* edge_reverse = edge->rev;
-		carve::mesh::Face<3>* adjacent_face = edge_reverse->face;
-		const carve::geom::vector<3>& adjacent_face_normal = adjacent_face->plane.N;
-		const double cos_angle = dot( adjacent_face_normal, normal );
-		if( abs( cos_angle + 1.0 ) < 0.000000001 || abs( cos_angle - 1.0 ) < 0.000000001 )
+		return;
+	}
+	bool cache_dirty = false;
+
+	std::map<face_t*, std::vector<edge_t*> > map_omit_face_edges;
+	for( size_t i_mesh = 0; i_mesh < meshset->meshes.size(); ++i_mesh )
+	{
+		carve::mesh::Mesh<3>* mesh = meshset->meshes[i_mesh];
+
+		std::vector<edge_t*>& vec_closed_edges = mesh->closed_edges;
+		for( size_t closed_edge_i = 0; closed_edge_i < vec_closed_edges.size(); ++closed_edge_i )
 		{
-			bool already_in_vec = false;
-			for( int i=0; i<vec_faces.size(); ++i )
+			edge_t* edge_i = vec_closed_edges[closed_edge_i];
+
+			// edge i and j are in line, check if connected directly
+			edge_t* edge_next = edge_i->next;
+			if( !edge_next )
 			{
-				carve::mesh::Face<3>* f = vec_faces[i];
-				if( f == adjacent_face )
+				std::cout << "!edge_next" << std::endl;
+				continue;
+			}
+
+			if( edge_next == reinterpret_cast<carve::mesh::Edge<3>*>(0xfeeefeeefeeefeee) )
+			{
+				std::cout << "!edge_next" << std::endl;
+				continue;
+			}
+
+			if( !edge_next->rev )
+			{
+				std::cout << "!edge_j->rev" << std::endl;
+				continue;
+			}
+					
+			if( edge_next->rev == reinterpret_cast<carve::mesh::Edge<3>*>(0xfeeefeeefeeefeee) )
+			{
+				std::cout << "!edge_j->rev" << std::endl;
+				continue;
+			}
+
+					
+			if( edge_next->rev->next == edge_i->rev )
+			{
+				// --->o--->			 --->o--->
+				//     |^                    |^
+				//     ||edge_next(x)        ||
+				//     v|                    || 
+				//     o                     ||
+				//     |^                    ||
+				//  (x)||edge_i	             ||edge_i
+				//     v|				     v|
+				// <---o<---			 <---o<---
+
+				int remove_count = 0;
+				for( size_t closed_edge_remove = 0; closed_edge_remove < vec_closed_edges.size(); ++closed_edge_remove )
 				{
-					already_in_vec = true;
-					break;
+					//const carve::geom::vector<3>& linesegment_i = vec_edge_segments[closed_edge_i];
+					edge_t* edge_check = vec_closed_edges[closed_edge_remove];
+
+					if( edge_next == edge_check )
+					{
+						vec_closed_edges.erase( vec_closed_edges.begin() + closed_edge_remove );
+						--closed_edge_remove;
+						++remove_count;
+						if( remove_count == 2 )
+						{
+							break;
+						}
+					}
+
+					if( edge_i->rev == edge_check )
+					{
+						vec_closed_edges.erase( vec_closed_edges.begin() + closed_edge_remove );
+						--closed_edge_remove;
+						++remove_count;
+						if( remove_count == 2 )
+						{
+							break;
+						}
+					}
 				}
+
+				// this links previous and next edges and deletes edge_j and reverse of edge_i:
+				edge_t* edge_next_rev = edge_next->rev;
+				edge_next->removeHalfEdge();
+				edge_i->rev->removeHalfEdge();
+				edge_i->rev = edge_next_rev;
+				edge_next_rev->rev = edge_i;
+				cache_dirty = true;
 			}
-			if( !already_in_vec )
-			{
-				vec_faces.push_back( adjacent_face );
-				collectAdjacentFacesSameNormal( adjacent_face, normal, vec_faces, vec_perimeter_edges );
-			}
+
+			// the vertex is kept in the vertex storage, no need to delete
 		}
-		else
-		{
-			vec_perimeter_edges.push_back( edge );
-		}
-
-		edge = edge->next;
-	}while( edge != face->edge );
-}
-
-
-void collectFacesOppositeOrientation( const carve::geom::vector<3>& normal, const std::vector<carve::mesh::Face<3>* >& vec_faces_in, std::vector<carve::mesh::Face<3>* >& vec_opposite_faces )
-{
-	for( int i=0; i<vec_faces_in.size(); ++i )
+	}
+	if( cache_dirty )
 	{
-		carve::mesh::Face<3>* face = vec_faces_in[i];
-		const carve::geom::vector<3>& face_normal = face->plane.N;
-		const double cos_angle = dot( face_normal, normal );
-		//if( abs( cos_angle + 1.0 ) < 0.000000001 || abs( cos_angle - 1.0 ) < 0.000000001 )
-		if( abs( cos_angle + 1.0 ) < 0.000001 )
+		double volume_check2 = 0;
+		for( size_t i = 0; i < meshset->meshes.size(); ++i )
 		{
-			vec_opposite_faces.push_back( face );
-		}
-		if( abs( cos_angle - 1.0 ) > 0.0001 )
-		{
-			int wait=0;
+			meshset->meshes[i]->cacheEdges();
 		}
 	}
 }
 
-void collectFinFaces( const carve::mesh::Face<3>* face, const carve::geom::vector<3>& normal, std::vector<carve::mesh::Face<3>* >& vec_faces, std::vector<carve::mesh::Edge<3>*>& vec_perimeter )
-{
-	carve::mesh::Edge<3>* edge = face->edge;
-	do
-	{
-		carve::mesh::Edge<3>* edge_reverse = edge->rev;
-		carve::mesh::Face<3>* adjacent_face = edge_reverse->face;
-		const carve::geom::vector<3>& adjacent_face_normal = adjacent_face->plane.N;
-		const double cos_angle = dot( adjacent_face_normal, normal );
-		if( abs( cos_angle + 1.0 ) < 0.0000001 || abs( cos_angle - 1.0 ) < 0.0000001 )
-		{
-			bool already_in_vec = false;
-			for( int i=0; i<vec_faces.size(); ++i )
-			{
-				carve::mesh::Face<3>* f = vec_faces[i];
-				if( f == adjacent_face )
-				{
-					already_in_vec = true;
-					break;
-				}
-			}
-			if( !already_in_vec )
-			{
-				vec_faces.push_back( adjacent_face );
-				collectAdjacentFacesSameNormal( adjacent_face, normal, vec_faces, vec_perimeter );
-			}
-		}
-		else
-		{
-			vec_perimeter.push_back( edge );
-		}
-
-		edge = edge->next;
-	}while( edge != face->edge );
-}
-
-
-void mergeCoplanarFaces( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
-{
-
-	// TODO: merge coplanar faces
-	//            v3
-	//           /|\
-	//          / |  \
-	//         /  |    \
-	//        /f2 |  f1  \
-	//       /    v2------v1
-	//      /    /|      /
-	//     /   /  |  f0 /  
-	//    /  /    |    /
-	//   / /      |   /
-	//  //   f3   |  /
-	// v4---------v0
-
-	// start with f0: check if adjacent face f1 has same normal
-	// check if one of the edges of f1 is aligned with one of the edges of f0
-	// if so, check if adjacent faces of aligned edges have same normal too
-	// check if f0 and f3 have same normal, if so create triangle v1-v3-v4, omit f0,f1,f2,f3
-	// else, create new triangles v0-v1-v2 and v3-v4-v0, omit f0,f1,f2,f3
-}
 
 void splitFace(carve::mesh::MeshSet<3>::face_t *face,
-                        const carve::csg::V2Set &edges,
-                        std::list<std::vector<carve::mesh::MeshSet<3>::vertex_t *> > &face_loops,
-                        std::list<std::vector<carve::mesh::MeshSet<3>::vertex_t *> > &hole_loops,
-                        const carve::csg::VertexIntersections & /* vi */);
+			   const carve::csg::V2Set &edges,
+			   std::list<std::vector<carve::mesh::MeshSet<3>::vertex_t *> > &face_loops,
+			   std::list<std::vector<carve::mesh::MeshSet<3>::vertex_t *> > &hole_loops,
+			   const carve::csg::VertexIntersections & /* vi */);
 
 int intersection_test_count = 0;
 #ifdef IFCPP_OPENMP
-	Mutex writelock_count;
+Mutex writelock_count;
 #endif
 
 
-void removeFins( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
+
+void removeSmallAreaFaces( shared_ptr<carve::mesh::MeshSet<3> >& meshset, double min_area = 0.0001, double min_side_length = 0.001 )
 {
 	if( !meshset )
 	{
 		return;
 	}
+	bool cache_dirty = false;
+	double min_side_length2 = min_side_length*min_side_length;
 
-	PolyInputCache3D poly_cache;
-	double volume_check = 0;
-
+	std::map<face_t*, std::vector<edge_t*> > map_omit_face_edges;
 	for( size_t i_mesh = 0; i_mesh < meshset->meshes.size(); ++i_mesh )
 	{
 		carve::mesh::Mesh<3>* mesh = meshset->meshes[i_mesh];
-		volume_check += mesh->volume();
-		const std::vector<carve::mesh::Face<3>* >& vec_faces = mesh->faces;
-		std::map<double, std::vector<carve::mesh::Face<3>* > > map_face_distances;
-		//std::map<carve::mesh::Face<3>*, std::vector<carve::geom::vector<3> > > map_face_subtract;
-	
-		for( size_t i2 = 0; i2 < vec_faces.size(); ++i2 )
+
+		// find edges that are in line
+		std::vector<face_t*>& vec_faces = mesh->faces;
+		
+		for( size_t face_i = 0; face_i < vec_faces.size(); ++face_i )
 		{
-			carve::mesh::Face<3>* face = vec_faces[i2];
-			const carve::geom::vector<3>& face_normal = face->plane.N;
+			face_t* face = vec_faces[face_i];
+			double area = min_area;
 
-			// check if there is a fin
-			carve::mesh::Edge<3>* edge = face->edge;
-			do
+			if( face->n_edges == 3 )
 			{
-				//const carve::geom::vector<3>& v = edge->vert->v;
-				carve::mesh::Edge<3>* edge_reverse = edge->rev;
-				carve::mesh::Face<3>* face_reverse = edge_reverse->face;
-				const carve::geom::vector<3>& face_reverse_normal = face->plane.N;
+				edge_t* edge = face->edge;
+				edge_t* edge2 = edge->next;
+				edge_t* edge3 = edge2->next;
+				const carve::geom::vector<3>& v1 = edge->v1()->v;
+				const carve::geom::vector<3>& v2 = edge2->v1()->v;
+				const carve::geom::vector<3>& v3 = edge3->v1()->v;
+				carve::geom::vector<3> sement12 = v2 - v1;
+				carve::geom::vector<3> sement23 = v3 - v2;
+				area = 0.5*(cross( sement12, sement23 ).length());
+			}
+			else
+			{
+				std::cout << __FUNC__ << ": I want triangles as input" << std::endl;
+				continue;
+			}
 
-				const double cos_angle = dot( face_normal, face_reverse_normal );
-				if( abs( cos_angle + 1.0 ) < 0.000001 )
+			if( area < min_area )
+			{
+				edge_t* edge = face->edge;
+				edge_t* edge_max = nullptr;
+				edge_t* edge_min = nullptr;
+				double max_edge_length2 = 0;
+				double min_edge_length2 = DBL_MAX;
+				for( size_t i_edge = 0; i_edge < face->n_edges; ++i_edge )
 				{
-					// fin detected
-					// check if all vertices are same
-
-					std::vector<carve::mesh::Face<3>* > vec_ad_faces;
-					std::vector<carve::mesh::Edge<3>* > vec_perimeter_edges;
-					collectAdjacentFacesSameNormal( face,  face_normal, vec_ad_faces, vec_perimeter_edges );
-
+					double edge_length2 = edge->length2();
+					if( edge_length2 > max_edge_length2 )
+					{
+						max_edge_length2 = edge_length2;
+						edge_max = edge;
+					}
+					if( edge_length2 < min_edge_length2 )
+					{
+						min_edge_length2 = edge_length2;
+						edge_min = edge;
+					}
+					edge = edge->next;
 				}
 
-				edge = edge->next;
-						
-			} while( edge != face->edge );
+				carve::geom::vector<3> centroid = face->centroid();
 
-			//const double face_distance_origin = round(face->plane.d/round_distance)*round_distance;
-			
-			
-			
-			
+				if( max_edge_length2 < min_side_length2 )
+				{
+					//    1-------------3
+					//     \    e3     /
+					//      \         /
+					//       \e1   e2/
+					//        \     /
+					//         \   /
+					//          \ /
+					//           2
+
+					for( size_t i_edge = 0; i_edge < face->n_edges; ++i_edge )
+					{
+						edge->vert->v.x = centroid.x;
+						edge->vert->v.y = centroid.y;
+						edge->vert->v.z = centroid.z;
+
+						edge = edge->next;
+					}
+					//face->remove();
+				}
+				else
+				{
+					// keep the longest edge
+
+					// 3----2
+					// |   |
+					// |  |
+					// | |
+					// ||
+					// 1
+
+					carve::mesh::Vertex<3>* vert_min1 = edge_min->vert;
+					carve::mesh::Vertex<3>* vert_min2 = edge_min->next->vert;
+
+					vert_min2->v.x = vert_min1->v.x;
+					vert_min2->v.y = vert_min1->v.y;
+					vert_min2->v.z = vert_min1->v.z;
+				}
+
+				// if all three edges ar almost equal, move the vertices to the center and collapse the edges
+			}
 		}
 	}
 }
 
-#define DISTANCE_ROUND_UP 1000.0
-#define DISTANCE_ROUND_DOWN	0.001
-
-void removeThinCSGRemainings( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
+void removeFins( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
 {
+	return;
+
 	if( !meshset )
 	{
 		return;
 	}
+	bool cache_dirty = false;
 
-	int count_begin = 0;
-	{
-#ifdef IFCPP_OPENMP
-		ScopedLock lock( writelock_count );
-#endif
-		count_begin = intersection_test_count;
-	}
-	//std::vector<PolyInputCache3D> vec_poly_cache_subtact_fins;
-	//std::map<carve::mesh::Face<3>*, std::vector<carve::geom::vector<3>* > > map_additional_face_openings;
-	//std::map<int,int> map_merged_idx;
-
-	int num_vertices1 = meshset->vertex_storage.size();
-	PolyInputCache3D poly_cache;
-	double volume_check = 0;
-
-	const carve::geom::aabb<3>& meshset_aabb = meshset->getAABB();
-	double round_distance = std::min( meshset_aabb.extent.x, std::min( meshset_aabb.extent.y, meshset_aabb.extent.z ) )*0.1;
-
+	std::map<face_t*, std::vector<edge_t*> > map_omit_face_edges;
 	for( size_t i_mesh = 0; i_mesh < meshset->meshes.size(); ++i_mesh )
 	{
 		carve::mesh::Mesh<3>* mesh = meshset->meshes[i_mesh];
-		volume_check += mesh->volume();
-		const std::vector<carve::mesh::Face<3>* >& vec_faces = mesh->faces;
-		std::map<double, std::vector<carve::mesh::Face<3>* > > map_face_distances;
-		//std::map<carve::mesh::Face<3>*, std::vector<carve::geom::vector<3> > > map_face_subtract;
-		std::set<carve::mesh::Face<3>* > set_unhandled_faces;
-
-		for( size_t i2 = 0; i2 < vec_faces.size(); ++i2 )
-		{
-			carve::mesh::Face<3>* face = vec_faces[i2];
-			//const double face_distance_origin = round(face->plane.d/round_distance)*round_distance;
-			const double face_distance_origin = abs(round(face->plane.d*DISTANCE_ROUND_UP)*DISTANCE_ROUND_DOWN);
-			std::vector<carve::mesh::Face<3>* >& vec_faces_same_distance = map_face_distances.insert( std::make_pair( face_distance_origin, std::vector<carve::mesh::Face<3>* >() ) ).first->second;
-			vec_faces_same_distance.push_back( face );
-			set_unhandled_faces.insert( face );
-		}
-
-		std::vector<carve::mesh::Vertex<3>*[3] > vec_additional_triangles;
 		
-		//for( size_t i2 = 0; i2 < vec_faces.size(); ++i2 )
-		for( std::map<double, std::vector<carve::mesh::Face<3>* > >::iterator it = map_face_distances.begin(); it != map_face_distances.end(); ++it )
+		// find edges that are in line
+		std::vector<edge_t*>& vec_closed_edges = mesh->closed_edges;
+		
+		for( size_t closed_edge_i = 0; closed_edge_i < vec_closed_edges.size(); ++closed_edge_i )
 		{
-			//carve::mesh::Face<3>* face = vec_faces[i2];
-			std::vector<carve::mesh::Face<3>* >& vec_same_distance_faces = it->second;
-
-			if( vec_same_distance_faces.size() == 1 )
+			edge_t* edge = vec_closed_edges[closed_edge_i];
+			edge_t* edge_reverse = edge->rev;
+			face_t* face = edge->face;
+			face_t* face_reverse = edge_reverse->face;
+			
+			carve::geom::vector<3>& face_normal = face->plane.N;
+			carve::geom::vector<3>& face_reverse_normal = face_reverse->plane.N;
+			
+			const double cos_angle = dot( face_normal, face_reverse_normal );
+			if( std::abs(cos_angle+1.0) > 0.000001 )
 			{
 				continue;
 			}
-
-			//std::map<double, std::vector<carve::mesh::Face<3>* > > map_same_orientation_faces;
 			
+			//                      e->rev->prev
+			//              <----------------                             //
+			//             | --------------->                            //
+			//  e->rev [x] |^    e->next [x]             e->rev->prev   // e
+			//             ||                                          //
+			//             ||e 
+			//             v|
 
-			for( size_t i_same_distance = 0; i_same_distance < vec_same_distance_faces.size(); ++i_same_distance )
+
+			if( edge->next->rev == edge_reverse->prev )
 			{
-				//set_faces_done.insert( face );
-				carve::mesh::Face<3>* face = vec_same_distance_faces[i_same_distance];
-				bool face_processed = false;
-				//const carve::geom::aabb<3>& face_aabb = face->getAABB();
-				const carve::geom::vector<3>& face_normal = face->plane.N;
-
-				// within set of same distance, find the faces that have opposite orientation
-				std::vector<carve::mesh::Face<3>* > vec_opposite_orientation_faces;
-				collectFacesOppositeOrientation( face_normal, vec_same_distance_faces, vec_opposite_orientation_faces );
-
-				if( vec_opposite_orientation_faces.size() < 1 )
-				{
-					continue;
-				}
-
-				std::vector<carve::mesh::Vertex<3>* > face_vertices;
-				face->getVertices( face_vertices );
-
-				//if( vec_same_distance_faces.size() == 11 )
-				//{
-				//	set_unhandled_faces.erase( face );
-				//	continue;
-
-				//}
-
-				if( face_vertices.size() != 3 )
-				{
-					std::cout << "not a triangle" << std::endl;
-					continue;
-				}
-
-				std::vector<carve::geom::vector<2> > verts2d;
-				face->getProjectedVertices( verts2d );
-				bool omit_face = false;
-
-				carve::mesh::Vertex<3>* face_vertex0 = face_vertices[0];
-				carve::mesh::Vertex<3>* face_vertex1 = face_vertices[1];
-				carve::mesh::Vertex<3>* face_vertex2 = face_vertices[2];
-
-				std::vector<carve::mesh::Face<3>* > vec_ad_faces;
-				std::vector<carve::mesh::Edge<3>* > vec_perimeter_edges;
-				collectAdjacentFacesSameNormal( face,  face_normal, vec_ad_faces, vec_perimeter_edges );
-
-
-				for( size_t i3 = 0; i3 < vec_opposite_orientation_faces.size(); ++i3 )
-				{
-					carve::mesh::Face<3>* opposite_face = vec_opposite_orientation_faces[i3];
-					if( opposite_face  == face )
-					{
-						// shouldn't happen, but still check
-						continue;
-					}
-					const carve::geom::vector<3>& opposite_face_normal = opposite_face->plane.N;
-
-
-					//std::list<std::vector<carve::mesh::MeshSet<3>::vertex_t *> > face_loops;
-					//std::list<std::vector<carve::mesh::MeshSet<3>::vertex_t *> > hole_loops;
-
-					//carve::csg::V2Set face_split_edges;
-
-					//// for (size_t j = 0; j < divided_base_loop[i].size() - 1; ++j) {
-					////face_split_edges.insert(std::make_pair(divided_base_loop[i][j], divided_base_loop[i][j+1]));
-
-					//splitFace(face, face_edges, face_loops, hole_loops, vertex_intersections);
-
-					//std::vector<carve::mesh::Face<3>* >& vec_faces_same_distance = map_face_distances.insert( std::make_pair( face_distance_origin, std::vector<carve::mesh::Face<3>* >() ) ).first->second;
-					//vec_faces_same_distance.push_back( face );
-
-					//const double face_distance_origin = round(face->plane.d*DISTANCE_ROUND_UP)*DISTANCE_ROUND_DOWN;
-					const double face_distance_origin = face->plane.d;
-					//const double opposite_face_distance_origin = round(opposite_face->plane.d*DISTANCE_ROUND_UP)*DISTANCE_ROUND_DOWN;
-					const double opposite_face_distance_origin = opposite_face->plane.d;
-					if( abs(face_distance_origin+opposite_face_distance_origin) > 0.0001 )
-					{
-						// faces are not in same plane, but in opposite planes
-						continue;
-					}
-			
-#ifdef _DEBUG
-					const double opposite_direction = dot( opposite_face_normal, face_normal );
-					if( abs( opposite_direction + 1.0 ) > 0.000000001  )
-					{
-						std::cout << "orientation check failed" << std::endl;
-					}
-#endif
-
-					bool create_subtract_poly = false;
-					if( abs(face_distance_origin+opposite_face_distance_origin) > carve::EPSILON )
-					{
-						create_subtract_poly = true;
-					}
-
-					//if( !face_processed )
-					//{
-					//	set_unhandled_faces.erase( face );
-					//	face_processed = true;
-					//}
-
-
-					// split triangles
-
-					// collect ajacent faces with same normal
-					std::vector<carve::mesh::Face<3>* > vec_opposite_plane_faces;
-					std::vector<carve::mesh::Edge<3>* > vec_opposite_perimeter;
-					collectAdjacentFacesSameNormal( opposite_face,  face_normal, vec_opposite_plane_faces, vec_opposite_perimeter );
-
-					if( create_subtract_poly )
-					{
-						// project vec_opposite_plane_faces to face->plane -> poly1 
-						// project vec_ad_faces to opposite_face->plane -> poly2
-						// carve::meshset* subtract_mesh = carve::csg::compute( poly1, poly2, carve::csg::CSG::INTERSECTION, CLASSIFY_EDGE )
-						// vec_subtract_meshsets.push_back( subtract_mesh );
-						// foreach( face_opposite in vec_opposite_plane_faces) set_unhandled_faces.erase( face_opposite );
-						// foreach( ad_face in vec_ad_faces) set_unhandled_faces.erase( ad_face );
-						// std::vector<carve::mesh::meshset<3>* > vec_subtract_meshsets
-						// meshset = carve::csg::compute( meshset, subtract_mesh, carve::csg::CSG::A_MINUS_B, CLASSIFY_EDGE )
-
-
-
-					}
-					else
-					{
-						// meshset mesh_adjacent, mesh_opposite
-						// carve::meshset* subtract_mesh = carve::csg::compute( mesh_adjacent, mesh_opposite, carve::csg::CSG::INTERSECTION, CLASSIFY_EDGE )
-						// vec_subtract_meshsets.push_back( subtract_mesh );
-						// foreach( face_opposite in vec_opposite_plane_faces) set_unhandled_faces.erase( face_opposite );
-						// foreach( ad_face in vec_ad_faces) set_unhandled_faces.erase( ad_face );
-						// std::vector<carve::mesh::meshset<3>* > vec_subtract_meshsets
-						// meshset = carve::csg::compute( meshset, subtract_mesh, carve::csg::CSG::A_MINUS_B, CLASSIFY_EDGE )
-					}
-
-					/*
-					// project and compute triangle intersection
-					std::vector<carve::geom::vector<2> > verts2d_opposite;
-					opposite_face->getProjectedVertices( verts2d_opposite );
-
-					std::vector<carve::geom::vector<2> > intersection_result_points;
-					//carve::geom::vector<2> intersection_result_p1;
-					//carve::geom::vector<2> intersection_result_p2;
-					//set_faces_done.insert( same_plane_face );
-
-					{
-					#ifdef IFCPP_OPENMP
-						ScopedLock lock( writelock_count );
-					#endif
-						++intersection_test_count;
-					}
-						//enum LineIntersectionClass {  COLINEAR        = -1, NO_INTERSECTION = 0, INTERSECTION_LL = 1, INTERSECTION_PL = 2,  INTERSECTION_LP = 3, INTERSECTION_PP = 4 };
-						//                                                            const P2 &l1v1, const P2 &l1v2, const P2 &l2v1, const P2 &l2v2
-					carve::geom2d::LineIntersectionInfo* info_array[3][3];
-					try
-					{
-						carve::geom2d::LineIntersectionInfo info00 = carve::geom2d::lineSegmentIntersection( verts2d[0], verts2d[1], verts2d_opposite[0], verts2d_opposite[1] );
-						carve::geom2d::LineIntersectionInfo info01 = carve::geom2d::lineSegmentIntersection( verts2d[0], verts2d[1], verts2d_opposite[1], verts2d_opposite[2] );
-						carve::geom2d::LineIntersectionInfo info02 = carve::geom2d::lineSegmentIntersection( verts2d[0], verts2d[1], verts2d_opposite[2], verts2d_opposite[0] );
-
-						carve::geom2d::LineIntersectionInfo info10 = carve::geom2d::lineSegmentIntersection( verts2d[1], verts2d[2], verts2d_opposite[0], verts2d_opposite[1] );
-						carve::geom2d::LineIntersectionInfo info11 = carve::geom2d::lineSegmentIntersection( verts2d[1], verts2d[2], verts2d_opposite[1], verts2d_opposite[2] );
-						carve::geom2d::LineIntersectionInfo info12 = carve::geom2d::lineSegmentIntersection( verts2d[1], verts2d[2], verts2d_opposite[2], verts2d_opposite[0] );
-
-						carve::geom2d::LineIntersectionInfo info20 = carve::geom2d::lineSegmentIntersection( verts2d[2], verts2d[0], verts2d_opposite[0], verts2d_opposite[1] );
-						carve::geom2d::LineIntersectionInfo info21 = carve::geom2d::lineSegmentIntersection( verts2d[2], verts2d[0], verts2d_opposite[1], verts2d_opposite[2] );
-						carve::geom2d::LineIntersectionInfo info22 = carve::geom2d::lineSegmentIntersection( verts2d[2], verts2d[0], verts2d_opposite[2], verts2d_opposite[0] );
-						info_array[0][0] = &info00;
-						info_array[0][1] = &info01;
-						info_array[0][2] = &info02;
-
-						info_array[1][0] = &info10;
-						info_array[1][1] = &info11;
-						info_array[1][2] = &info12;
-
-						info_array[2][0] = &info20;
-						info_array[2][1] = &info21;
-						info_array[2][2] = &info22;
-
-						//int sum_intersection_class = info00.iclass + info01.iclass + info02.iclass + info10.iclass + info11.iclass + info12.iclass + info20.iclass + info21.iclass + info22.iclass;
-
-						int line_intersection_count = 0;
-						int point_intersection_count = 0;
-						for( int i_info=0; i_info < 3; ++i_info )
-						{
-							int line_intersection_per_line_count = 0;
-							int point_intersection_per_line_count = 0;
-							for( int j_info=0; j_info < 3; ++j_info )
-							{
-								carve::geom2d::LineIntersectionInfo* info = info_array[i_info][j_info];
-								if( info->iclass == carve::INTERSECTION_LL )
-								{
-									intersection_result_points.push_back( info->ipoint );
-									++line_intersection_per_line_count;
-								}
-								else if( info->iclass == carve::INTERSECTION_PP )
-								{
-									++point_intersection_per_line_count;
-								}
-
-							}
-							if( line_intersection_per_line_count > 0 )
-							{
-								++line_intersection_count;
-							}
-							if( point_intersection_per_line_count > 0 )
-							{
-								++point_intersection_count;
-							}
-						}
-
-						if( point_intersection_count >= 3 )
-						{
-							omit_face = true;
-						}
-
-					}
-					catch( carve::exception&e )
-					{
-						std::cout << e.str().c_str() << std::endl;
-						continue;
-					}
-					*/
-				}
+				edge_t* edge_next_rev = edge->next->rev;
+				edge->next->removeHalfEdge();
+				edge_reverse->removeHalfEdge();
+				edge->rev = edge_next_rev;
+				edge_next_rev->rev = edge;
+				cache_dirty = true;
 			}
 		}
-
-
-		// handle the rest of the triangles
-		for( std::set<carve::mesh::Face<3>* >::iterator it = set_unhandled_faces.begin(); it != set_unhandled_faces.end(); ++it )
+	}
+	if( cache_dirty )
+	{
+		for( size_t i = 0; i < meshset->meshes.size(); ++i )
 		{
-			carve::mesh::Face<3>* face = *it;
-
-			std::vector<carve::mesh::Vertex<3>* > face_vertices;
-			face->getVertices( face_vertices );
-
-			//set_faces.erase( face );
-
-			if( face_vertices.size() != 3 )
-			{
-				std::cout << "not a triangle" << std::endl;
-				continue;
-			}
-
-			carve::mesh::Vertex<3>* face_vertex0 = face_vertices[0];
-			carve::mesh::Vertex<3>* face_vertex1 = face_vertices[1];
-			carve::mesh::Vertex<3>* face_vertex2 = face_vertices[2];
-
-			int vertex_index0 = poly_cache.addPoint( face_vertex0->v );
-			int vertex_index1 = poly_cache.addPoint( face_vertex1->v );
-			int vertex_index2 = poly_cache.addPoint( face_vertex2->v );
-			poly_cache.m_poly_data->addFace( vertex_index0, vertex_index1, vertex_index2 );
-		}
-	}
-
-
-						//std::vector<carve::geom2d::LineIntersectionInfo> vec_info;
-						//vec_info.push_back( carve::geom2d::lineSegmentIntersection( verts2d[0], verts2d[1], verts2d_check[0], verts2d_check[1] ) );
-						//vec_info.push_back( carve::geom2d::lineSegmentIntersection( verts2d[0], verts2d[1], verts2d_check[1], verts2d_check[2] ) );
-						//vec_info.push_back( carve::geom2d::lineSegmentIntersection( verts2d[0], verts2d[1], verts2d_check[2], verts2d_check[0] ) );
-
-						//vec_info.push_back( carve::geom2d::lineSegmentIntersection( verts2d[1], verts2d[2], verts2d_check[0], verts2d_check[1] ) );
-						//vec_info.push_back( carve::geom2d::lineSegmentIntersection( verts2d[1], verts2d[2], verts2d_check[1], verts2d_check[2] ) );
-						//vec_info.push_back( carve::geom2d::lineSegmentIntersection( verts2d[1], verts2d[2], verts2d_check[2], verts2d_check[0] ) );
-
-						//vec_info.push_back( carve::geom2d::lineSegmentIntersection( verts2d[2], verts2d[0], verts2d_check[0], verts2d_check[1] ) );
-						//vec_info.push_back( carve::geom2d::lineSegmentIntersection( verts2d[2], verts2d[0], verts2d_check[1], verts2d_check[2] ) );
-						//vec_info.push_back( carve::geom2d::lineSegmentIntersection( verts2d[2], verts2d[0], verts2d_check[2], verts2d_check[0] ) );
-
-						//for( int i_info=0; i_info < vec_info.size(); ++i_info )
-						//{
-						//	carve::geom2d::LineIntersectionInfo& info = vec_info[i_info];
-						//	if( info.iclass == carve::INTERSECTION_LL )
-						//	{
-
-						//	}
-						//}
-						
-
-						
-						//if( sum_intersection_class > 0 )
-						//{
-						//	// 
-						//	if( info00.iclass > 0 )
-						//	{
-						//		intersection_result_p0 = info00.ipoint;
-
-						//		if( info01.iclass <= 0 && info02.iclass <= 0 )
-						//		{
-						//			if( info10.iclass > 0 )
-						//			{
-						//				intersection_result_p1 = info00.p2;
-						//				
-						//				intersection_result_p1 = info00.p2;
-						//			}
-						//		}
-						//	}
-
-						//}
-
-						//std::vector<carve::geom::vector<3>* > intersected_points( 3, nullptr );
-						//int num_intersected = 0;
-						//for( int i_triangle = 0; i_triangle < 3; ++i_triangle )
-						//{
-						//	carve::mesh::Vertex<3>* face_vertex = face_vertices[i_triangle];
-
-						//	// project one triangle to the other
-						//	carve::geom::linesegment<3> line( face_vertex->v, face_vertex->v+face_normal );
-						//	//carve::geom::vector<3> intersect_point1;
-						//	//bool intersected1;
-						//	//bool intersected1 = face_check->simpleLineSegmentIntersection( line, intersect_point1 );
-
-						//	//intersected_points[i_triangle] = nullptr;
-
-						//	carve::mesh::MeshSet<3>::vertex_t::vector_t p;
-						//	//carve::IntersectionClass intersects =	carve::geom3d::lineSegmentPlaneIntersection(face_check_plane, line, p);
-						//	//                                          const Plane &p, const Vector &v1, const Vector &v2, Vector &v, double &t
-						//	double t;
-						//	carve::IntersectionClass intersects = carve::geom3d::rayPlaneIntersection(face_check_plane, face_vertex->v, face_vertex->v+face_normal, p, t );
-						//	
-						//	if (intersects == carve::INTERSECT_NONE || intersects == carve::INTERSECT_BAD)
-						//	{
-						//		//intersected_points[i_triangle] = nullptr;
-						//		//intersected1 = false;
-						//	}
-						//	else
-						//	{
-
-						//		//std::vector<carve::geom::vector<2> > verts;
-						//		//getProjectedVertices(verts);
-						//		if (carve::geom2d::pointInPolySimple(verts2d_check, face_check->project(p)))
-						//		{
-						//			intersected_points[i_triangle] = &(p);
-						//			//intersect_point1 = p;
-						//			++num_intersected;
-						//			//intersected1 = true;
-						//		}
-						//		//intersected1 = false;
-						//	}
-						//}
-
-						//if( num_intersected == 3 )
-						//{
-						//	omit_face = true;
-						//	map_face_subtract.insert( std::make_pair( face, std::vector<carve::geom::vector<3> >() ) );
-						//	//std::map<carve::mesh::Face<3>*, std::vector<carve::geom::vector<3> > > map_face_subtract;
-
-						//	//triangleinter
-						//}
-						//else if( num_intersected > 0 )
-						//{
-						//	//triangle
-						//}
-						//else
-						//{
-						//	// no intersection. could be disjoint, or enclosing the other triangle completely. this will be handled by other triangle
-						//}
-
-
-						//carve::geom::TriangleInt tr_interserction = carve::geom::triangle_intersection( 
-
-						//if( face->nVertices() == 3 )
-						//{
-						//	std::vector<carve::mesh::Vertex<3> *> face_vertices_check;
-						//	face_check->getVertices( face_vertices_check );
-
-						//	if( face_vertices.size() == face_vertices_check.size() )
-						//	{
-						//		if( (face_vertex0->v - face_vertices_check[0]->v).length2() < 0.001 )
-						//		{
-						//			if( (face_vertex1->v - face_vertices_check[1]->v).length2() < 0.001 )
-						//			{
-						//				if( (face_vertex2->v - face_vertices_check[2]->v).length2() < 0.001 )
-						//				{
-						//					// omit face
-						//					omit_face = true;
-						//				}
-
-						//			}
-						//		}
-						//	}
-						//}
-
-
-
-
-						//// check if one face is included in the other
-						//
-						//bool all_in = true;
-						//bool all_out = true;
-						//int num_in = 0;
-						//int num_out = 0;
-						//int num_border = 0;
-
-						//for( int i_vert = 0; i_vert < verts2d_check.size(); ++i_vert )
-						//{
-						//	carve::geom::vector<2>& vert_check = verts2d_check[i_vert];
-						//	carve::geom2d::PolyInclusionInfo pi = carve::geom2d::pointInPoly( verts2d, vert_check );
-						//	switch(pi.iclass)
-						//	{
-						//	case carve::POINT_VERTEX:
-						//		++num_border;
-						//		break;
-						//	case carve::POINT_EDGE:
-						//		++num_border;
-						//		break;
-						//	case carve::POINT_ON:
-						//		++num_border;
-						//		break;
-						//	case carve::POINT_IN:
-						//		++num_in;
-						//		break;
-						//	case carve::POINT_OUT:
-						//		++num_out;
-						//		break;
-						//	default:
-						//		++num_out;
-						//		break;
-						//	}
-						//}
-
-						//if( num_in > 0 )
-						//{
-						//	if( num_out == 0 )
-						//	{
-
-						//	}
-						//}
-
-						//if( num_out == 0 ) // num_in + num_border == verts2d_check.size()
-						//{
-						//	// face is completely enclosed by other face
-						//	// remove inner face, re-triangulate outer face
-
-						//	// check if faces are disjoint, or one within the ohter
-						//	bool disjoint = true;
-						//	int num_on = 0;
-						//	for( int i_vert = 0; i_vert < verts2d.size(); ++i_vert )
-						//	{
-						//		carve::geom::vector<2>& vert = verts2d[i_vert];
-						//		carve::geom2d::PolyInclusionInfo pi = carve::geom2d::pointInPoly( verts2d_check, vert );
-						//		switch(pi.iclass)
-						//		{
-						//		case carve::POINT_VERTEX:
-						//			++num_on;
-						//			break;
-						//		case carve::POINT_EDGE:
-						//			++num_on;
-						//			break;
-						//		case carve::POINT_ON:
-						//			++num_on;
-						//			break;
-						//		case carve::POINT_IN:
-						//			//++num_in;
-						//			break;
-						//		case carve::POINT_OUT:
-						//			disjoint = false;
-						//			break;
-						//		default:
-						//			//++num_out;
-						//			break;
-						//		}
-						//	}
-
-						//	//map_additional_face_openings.insert( 
-						//}
-			//		}
-			//	}
-			//}
-
-			
-
-			// check winding order
-			//carve::geom3d::Vector normal_2d = GeomUtils::computePolygon2DNormal( verts2d );
-			//if( normal_2d.z < 0 )
-			//{
-			//	std::reverse( verts2d.begin(), verts2d.end() );
-			//}
-
-			//std::vector<carve::triangulate::tri_idx> triangulated;
-			//if( verts2d.size() > 3 )
-			//{
-			//	try
-			//	{
-			//		carve::triangulate::triangulate(verts2d, triangulated);
-			//		carve::triangulate::improve(verts2d, triangulated);
-			//	}
-			//	catch(...)
-			//	{
-			//		std::cout << __FUNC__ << " carve::triangulate::incorporateHolesIntoPolygon failed " << std::endl;
-			//		continue;
-			//	}
-			//}
-			//else
-			//{
-			//	triangulated.push_back( carve::triangulate::tri_idx( 0, 1, 2 ) );
-			//}
-
-			//if( omit_face )
-			//{
-			//	continue;
-			//}
-
-
-
-			// now insert points to polygon, avoiding points with same coordinates
-			//int i_vert = 0;
-			//carve::mesh::Edge<3>* edge = face->edge;
-			//do
-			//{
-			//	const carve::geom::vector<3>& v = edge->vert->v;
-			//	edge = edge->next;
-			//	int vertex_index = poly_cache.addPoint( v );
-			//	map_merged_idx[i_vert] = vertex_index;
-			//	++i_vert;
-			//} while( edge != face->edge );
-
-
-
-
-	meshset = nullptr;
-	meshset = shared_ptr<carve::mesh::MeshSet<3> >( poly_cache.m_poly_data->createMesh(carve::input::opts()) );
-
-	double volume_check2 = 0;
-	for( size_t i = 0; i < meshset->meshes.size(); ++i )
-	{
-		carve::mesh::Mesh<3>* mesh = meshset->meshes[i];
-		volume_check2 += mesh->volume();
-	}
-
-	if( abs(volume_check - volume_check2) > 0.0001 )
-	{
-		std::cout << __FUNC__ << " volume check failed." << std::endl;
-	}
-
-	int num_vertices2 = meshset->vertex_storage.size();
-	if( num_vertices1 != num_vertices2 )
-	{
-		std::cout << __FUNC__ << " num vertices check failed." << std::endl;
-	}
-
-	{
-		#ifdef IFCPP_OPENMP
-		ScopedLock lock( writelock_count );
-		#endif
-		if( intersection_test_count > count_begin )
-		{
-			std::cout << "intersection_test_count: " << intersection_test_count << std::endl;
+			meshset->meshes[i]->cacheEdges();
 		}
 	}
 }
@@ -817,61 +313,355 @@ void retriangulateMeshSet( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
 	}
 
 	PolyInputCache3D poly_cache;
-	double volume_check = 0;
-
+	std::map<int,int> map_merged_idx;
 	for( size_t ii = 0; ii < meshset->meshes.size(); ++ii )
 	{
 		carve::mesh::Mesh<3>* mesh = meshset->meshes[ii];
-		volume_check += mesh->volume();
-		const std::vector<carve::mesh::Face<3>* >& vec_faces = mesh->faces;
+		std::vector<carve::mesh::Face<3>* >& vec_faces = mesh->faces;
 
 		for( size_t i2 = 0; i2 < vec_faces.size(); ++i2 )
 		{
 			carve::mesh::Face<3>* face = vec_faces[i2];
+			std::vector<int> face_idx;
 
-			std::vector<carve::mesh::Vertex<3>* > face_vertices;
-			face->getVertices( face_vertices );
+			//carve::geom3d::Vector normal = face->plane.N;
 
-			if( face_vertices.size() != 3 )
+			std::vector<carve::geom::vector<2> > verts2d;
+			face->getProjectedVertices( verts2d );
+			if( verts2d.size() < 3 )
 			{
-				std::cout << "not a triangle" << std::endl;
 				continue;
 			}
 
-			int vertex_index0 = poly_cache.addPoint( face_vertices[0]->v );
-			int vertex_index1 = poly_cache.addPoint( face_vertices[1]->v );
-			int vertex_index2 = poly_cache.addPoint( face_vertices[2]->v );
+			// check winding order
+			//carve::geom3d::Vector normal_2d = GeomUtils::computePolygon2DNormal( verts2d );
+			//if( normal_2d.z < 0 )
+			//{
+			//      std::reverse( verts2d.begin(), verts2d.end() );
+			//}
 
-			if( vertex_index0 == vertex_index1 || vertex_index0 == vertex_index2 || vertex_index1 == vertex_index2 )
+			std::vector<carve::triangulate::tri_idx> triangulated;
+			if( verts2d.size() > 3 )
 			{
-				//++num_skipped_triangles;
-				continue;
+				try
+				{
+					carve::triangulate::triangulate(verts2d, triangulated);
+					carve::triangulate::improve(verts2d, triangulated);
+				}
+				catch(...)
+				{
+					std::cout << __FUNC__ << " carve::triangulate failed " << std::endl;
+					continue;
+				}
+			}
+			else
+			{
+				triangulated.push_back( carve::triangulate::tri_idx( 0, 1, 2 ) );
 			}
 
-			poly_cache.m_poly_data->addFace( vertex_index0, vertex_index1, vertex_index2 );
+			// now insert points to polygon, avoiding points with same coordinates
+			int i_vert = 0;
+			carve::mesh::Edge<3>* edge = face->edge;
+			do
+			{
+				const carve::geom::vector<3>& v = edge->vert->v;
+				edge = edge->next;
+				int vertex_index = poly_cache.addPoint( v );
+				map_merged_idx[i_vert] = vertex_index;
+				++i_vert;
+			} while( edge != face->edge );
+
+			//std::vector<carve::mesh::Vertex<3>* > verts;
+			//face->getVertices( verts );
+
+			// TODO: merge coplanar faces and re-triangulate
+
+			for( size_t i = 0; i != triangulated.size(); ++i )
+			{
+				carve::triangulate::tri_idx triangle = triangulated[i];
+				int a = triangle.a;
+				int b = triangle.b;
+				int c = triangle.c;
+
+				//if( a >= verts.size() || b >= verts.size() || c >= verts.size() )
+				//{
+				//	continue;
+				//}
+
+				//int vertex_id_a = poly_cache.addPoint( verts[a]->v );
+				//int vertex_id_b = poly_cache.addPoint( verts[b]->v );
+				//int vertex_id_c = poly_cache.addPoint( verts[c]->v );
+				
+				int vertex_id_a = map_merged_idx[a];
+				int vertex_id_b = map_merged_idx[b];
+				int vertex_id_c = map_merged_idx[c];
+
+				if( vertex_id_a == vertex_id_b || vertex_id_a == vertex_id_c || vertex_id_b == vertex_id_c )
+				{
+					continue;
+				}
+
+
+#ifdef _DEBUG
+				const carve::poly::Vertex<3>& v_a = poly_cache.m_poly_data->getVertex(vertex_id_a);
+				const carve::poly::Vertex<3>& v_b = poly_cache.m_poly_data->getVertex(vertex_id_b);
+
+				double dx = v_a.v[0] - v_b.v[0];
+				if( std::abs(dx) < 0.0000001 )
+				{
+					double dy = v_a.v[1] - v_b.v[1];
+					if( std::abs(dy) < 0.0000001 )
+					{
+						double dz = v_a.v[2] - v_b.v[2];
+						if( std::abs(dz) < 0.0000001 )
+						{
+							std::cerr << "abs(dx) < 0.00001 && abs(dy) < 0.00001 && abs(dz) < 0.00001\n";
+						}
+					}
+				}
+#endif
+				poly_cache.m_poly_data->addFace( vertex_id_a, vertex_id_b, vertex_id_c );
+			}
 		}
 	}
 
-	meshset = nullptr;
+	meshset.reset();
 	meshset = shared_ptr<carve::mesh::MeshSet<3> >( poly_cache.m_poly_data->createMesh(carve::input::opts()) );
-
-	double volume_check2 = 0;
-	for( size_t i = 0; i < meshset->meshes.size(); ++i )
-	{
-		carve::mesh::Mesh<3>* mesh = meshset->meshes[i];
-		volume_check2 += mesh->volume();
-	}
-
-	if( abs(volume_check - volume_check2) > 0.001 )
-	{
-		std::cout << __FUNC__ << " volume check failed, vol1: " << volume_check << ", vol2: " << volume_check2 << std::endl;
-	}
 }
 
+bool CSG_Adapter::checkFaceIntegrity(	const carve::mesh::MeshSet<3>* mesh_set )
+{
+	for( size_t i = 0; i < mesh_set->meshes.size(); ++i )
+	{
+		carve::mesh::Mesh<3>* mesh_i = mesh_set->meshes[i];
+		if( mesh_i->open_edges.size() > 0 )
+		{
+			return false;
+		}
+		std::vector<carve::mesh::Face<3>* >& vec_faces = mesh_i->faces;
+		for( size_t j=0; j<vec_faces.size(); ++j )
+		{
+			carve::mesh::Face<3>* face = vec_faces[j];
+			carve::mesh::Edge<3>* e = face->edge;
+			const size_t n_edges = face->n_edges;
+			for( size_t i_edge = 0; i_edge < n_edges; ++i_edge )
+			{
+				if( e == reinterpret_cast<carve::mesh::Edge<3>*>(0xfeeefeeefeeefeee) )
+				{
+					return false;
+				}
+				if( !e->rev )
+				{
+					return false;
+				}
+				if( e->rev->next == reinterpret_cast<carve::mesh::Edge<3>*>(0xfeeefeeefeeefeee) )
+				{
+					return false;
+				}
+				if( ! e->rev->next )
+				{
+					return false;
+				}
+				if( ! e->rev->next->next )
+				{
+					return false;
+				}
+				if( ! e->rev->next->next->vert )
+				{
+					return false;
+				}
+
+				if( !e->next )
+				{
+					return false;
+				}
+				if( e->next == reinterpret_cast<carve::mesh::Edge<3>*>(0xfeeefeeefeeefeee) )
+				{
+					return false;
+				}
+				if( !e->prev )
+				{
+					return false;
+				}
+				if( !e->rev )
+				{
+					return false;
+				}
+				if( !e->vert )
+				{
+					return false;
+				}
+				if( !e->face )
+				{
+					return false;
+				}
+
+				e = e->next;
+			}
+			if( e != face->edge )
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+class MeshOps
+{
+public:
+	static void applyPosition( carve::mesh::MeshSet<3>* meshset, const carve::math::Matrix& pos )
+	{
+		for (size_t i = 0; i < meshset->vertex_storage.size(); ++i )
+		{
+			carve::geom::vector<3>& point = meshset->vertex_storage[i].v;
+			point = pos*point;
+		}
+		for (size_t i = 0; i < meshset->meshes.size(); ++i)
+		{
+			meshset->meshes[i]->recalc();
+		}
+	}
+	static void roundVertices( carve::mesh::MeshSet<3>* meshset )
+	{
+		std::vector<carve::mesh::Vertex<3> >& vertex_storage = meshset->vertex_storage;
+		const size_t num_vertices = vertex_storage.size();
+		for( int i=0; i<num_vertices; ++i )
+		{
+			carve::mesh::Vertex<3>& vertex = vertex_storage[i];
+			vertex.v.x = round( vertex.v.x*1000000.0 ) * 0.000001;
+			vertex.v.y = round( vertex.v.y*1000000.0 ) * 0.000001;
+			vertex.v.z = round( vertex.v.z*1000000.0 ) * 0.000001;
+		}
+	}
+	static int getNumFaces( const carve::mesh::MeshSet<3>* meshset )
+	{
+		int num_faces = 0;
+		for( int i=0; i<meshset->meshes.size(); ++i )
+		{
+			num_faces += meshset->meshes[i]->faces.size();
+		}
+		return num_faces;
+	}
+	static int getNumClosedEdges( const carve::mesh::MeshSet<3>* meshset )
+	{
+		int num_edges = 0;
+		for( int i=0; i<meshset->meshes.size(); ++i )
+		{
+			num_edges += meshset->meshes[i]->closed_edges.size();
+		}
+		return num_edges;
+	}
+	static double getVolume( const carve::mesh::MeshSet<3>* meshset )
+	{
+		double meshset_volume = 0;
+		for( size_t kk = 0; kk < meshset->meshes.size(); ++kk )
+		{
+			carve::mesh::Mesh<3>* mesh = meshset->meshes[kk];
+			double mesh_volume = mesh->volume();
+			meshset_volume += mesh_volume;
+		}
+		return meshset_volume;
+	}
+};
+
+bool CSG_Adapter::checkMeshSetValidAndClosed( const carve::mesh::MeshSet<3>* mesh_set, std::stringstream& err_poly, int entity_id )
+{
+	if( !mesh_set )
+	{
+#ifdef _DEBUG
+		std::cout << "MeshSet of entity #" << entity_id << " not valid" << std::endl;
+#endif
+		return false;
+	}
+	if( mesh_set->meshes.size() == 0 )
+	{
+#ifdef _DEBUG
+		std::cout << "MeshSet of entity #" << entity_id << " has no meshes" << std::endl;
+#endif
+		return false;
+	}
+
+	if( !checkFaceIntegrity( mesh_set ) )
+	{
+		return false;
+	}
+
+	std::stringstream err;
+	bool meshes_closed = true;
+	for( size_t i = 0; i < mesh_set->meshes.size(); ++i )
+	{
+		carve::mesh::Mesh<3>* mesh_i = mesh_set->meshes[i];
+		if( !mesh_i )
+		{
+			err << "meshes[i] is nullptr" << std::endl;
+			continue;
+		}
+
+		if( mesh_i->isNegative() )
+		{
+			mesh_i->invert();
+			if( mesh_i->isNegative() )
+			{
+				mesh_i->recalc();
+				mesh_i->calcOrientation();
+				if( mesh_i->isNegative() )
+				{
+					err << "mesh_set->meshes[" << i << "]->isNegative() " << std::endl;
+				}
+			}
+		}
+
+		if( !mesh_i->isClosed() )
+		{
+			meshes_closed = false;
+			break;
+		}
+
+		if( mesh_i->open_edges.size() > 0 )
+		{
+			meshes_closed = false;
+			break;
+		}
+	}
+
+	if( !meshes_closed )
+	{
+		err << "mesh_set not closed" << std::endl;
+	}
+
+#ifdef _DEBUG
+	if( meshes_closed )
+	{
+		// check volume
+		double object_volume = MeshOps::getVolume( mesh_set );
+		if( object_volume <= 0 )
+		{
+			err << "object_volume <= 0" << std::endl;
+		}
+	}
+#endif
+
+	if( err.tellp() > 0 )
+	{
+#ifdef _DEBUG
+		err_poly << "MeshSet of entity #" << entity_id << " has problems:" << std::endl;
+		err_poly << err.str().c_str();
+#endif
+		return false;
+	}
+	return true;
+}
+
+#ifdef _DEBUG
+int simplify_count = 0;
+double y_trans = 0;
+#endif
 
 void CSG_Adapter::simplifyMesh( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
 {
-	//carve::mesh::MeshSimplifier simplifier;
+
+	carve::mesh::MeshSimplifier simplifier;
 	//double min_colinearity = m_geom_settings->m_min_colinearity;
 	//double min_delta_v = m_geom_settings->m_min_delta_v;
 	//double min_normal_angle = m_geom_settings->m_min_normal_angle;
@@ -895,121 +685,270 @@ void CSG_Adapter::simplifyMesh( shared_ptr<carve::mesh::MeshSet<3> >& meshset )
 	//	std::cout << "simplifier.eliminateShortEdges failed." << std::endl;
 	//}
 
-	//carve::csg::CarveTriangulatorWithImprovement triang;
-	//for( size_t ii = 0; ii < meshset->meshes.size(); ++ii )
-	//{
-	//	carve::mesh::Mesh<3>* mesh = meshset->meshes[ii];
-	//	std::vector<carve::mesh::Face<3>* >& vec_faces = mesh->faces;
-	//	carve::mesh::Face<3>* face_orig = nullptr;
-	//	triang.processOutputFace( vec_faces, face_orig, false );
-	//}
-	
 	if( !meshset )
 	{
 		return;
 	}
 
-	bool rebuild = true;
-	int num_vertices = meshset->vertex_storage.size();
-	if( rebuild && num_vertices > 8 )
+	if( meshset->vertex_storage.size() < 9 )
 	{
-		retriangulateMeshSet( meshset );
-#ifdef _DEBUG
-		std::stringstream err;
-		bool result_meshset_ok = ConverterOSG::checkMeshSet( meshset.get(), err, -1 );
-		if( !result_meshset_ok )
-		{
-			std::cout << err.str().c_str() << std::endl;
-		}
-#endif
+		//std::cout << "meshset->vertex_storage.size() < 9" << std::endl;
+		return;
+	}
+
+	std::stringstream err;
+	bool meshset_ok = CSG_Adapter::checkMeshSetValidAndClosed( meshset.get(), err, -1 );
+	if( !meshset_ok )
+	{
+		std::cout << err.str().c_str() << std::endl;
+		return;
+	}
+	shared_ptr<carve::mesh::MeshSet<3> > meshset_copy( meshset->clone() );
+
+	retriangulateMeshSet( meshset );
 	
-		//simplifier.removeFins(meshset.get());
-		//removeThinCSGRemainings( meshset );
+	//simplifier.simplify( meshset.get(), 0.00001,0.001, 0.000001, 0.001 );
+	//retriangulateMeshSet( meshset );
+
+	//return;
+	simplifier.removeLowVolumeManifolds( meshset.get(), 0.000001 );
+
+	if( meshset->meshes.size() < 1 )
+	{
+		return;
 	}
+	//size_t modifications_short_edges = simplifier.eliminateShortEdges(meshset.get(), 0.001 );
+	//removeSmallAreaFaces( meshset );
+
+	//if( modifications_short_edges > 0 )
+	{
+		//retriangulateMeshSet( meshset );
+	}
+
+	int num_faces = MeshOps::getNumFaces( meshset.get() );
+	size_t modifications_coplanar = simplifier.mergeCoplanarFaces( meshset.get(), 0.00001 );
+	if( modifications_coplanar > 0 )
+	{
+		int num_faces_post_merge = MeshOps::getNumFaces( meshset.get() );
+
+		if( num_faces_post_merge + modifications_coplanar != num_faces )
+		{
+			std::cout << "num_faces_post_merge + modifications_coplanar != num_faces" << std::endl;
+		}
+	}
+
+	bool faces_ok = checkFaceIntegrity( meshset.get() );
+	if( !faces_ok )
+	{
+		meshset = meshset_copy;
+#ifdef _DEBUG
+		std::cout << "Error in simplifier.mergeCoplanarFaces" << std::endl;
+#endif
+		return;
+	}
+
+	meshset_copy = shared_ptr<carve::mesh::MeshSet<3> >( meshset->clone() );
+	mergeAlignedEdges( meshset );
+
+	faces_ok = checkFaceIntegrity( meshset.get() );
+	if( !faces_ok )
+	{
+		meshset = meshset_copy;
+#ifdef _DEBUG
+		std::cout << "Error in mergeAlignedEdges" << std::endl;
+#endif
+		return;
+	}
+
+	//if( meshset->vertex_storage.size() < 9 )
+	//{
+	//	return;
+	//}
+
+	simplifier.removeRemnantFaces(meshset.get());
+	//simplifier.cleanFaceEdges(meshset.get());
+#ifdef _DEBUG
+	meshset_copy = shared_ptr<carve::mesh::MeshSet<3> >( meshset->clone() );
+	bool meshset_ok_pre_triang = CSG_Adapter::checkMeshSetValidAndClosed( meshset.get(), err, -1 );
+	if( !meshset_ok_pre_triang )
+	{
+		//meshset = meshset_copy;
+		std::cout << "Error in removeRemnantFaces" << std::endl;
+	}
+#endif
+
+	//retriangulateMeshSet( meshset );
+
+#ifdef _DEBUG
+	bool meshset_ok_post_triang = CSG_Adapter::checkMeshSetValidAndClosed( meshset.get(), err, -1 );
+	if( !meshset_ok_post_triang )
+	{
+		meshset = meshset_copy;
+		std::cout << "Error in retriangulateMeshSet" << std::endl;
+	}
+#endif
+
+	//simplifier.removeRemnantFaces(meshset.get());
+	//size_t modifications_short_edges2 = simplifier.eliminateShortEdges(meshset.get(), 0.0001 );
+	
+	removeFins( meshset );
+    simplifier.cleanFaceEdges( meshset.get() );
+
+	for( size_t i = 0; i < meshset->meshes.size(); ++i )
+	{
+		meshset->meshes[i]->cacheEdges();
+	}
+
+	std::stringstream err_simplified;
+	bool simplified_meshset_ok = CSG_Adapter::checkMeshSetValidAndClosed( meshset.get(), err_simplified, -1 );
+	if( !simplified_meshset_ok )
+	{
+#ifdef _DEBUG
+		std::cout << err_simplified.str().c_str() << std::endl;
+		renderMeshsetInDebugViewer( meshset.get(), osg::Vec4f( 0.2f, 0.3f, 0.4f, 1.f ), false );
+		//throw DebugBreakException( "!simplified_meshset_ok" );
+#endif
+		meshset = meshset_copy;
+		return;
+	}
+
+	simplifier.removeLowVolumeManifolds(meshset.get(), 0.0);
+	retriangulateMeshSet( meshset );
+	
+	std::stringstream err_retriangulated;
+	bool retriangulated_meshset_ok = CSG_Adapter::checkMeshSetValidAndClosed( meshset.get(), err_retriangulated, -1 );
+	if( !retriangulated_meshset_ok )
+	{
+#ifdef _DEBUG
+		std::cout << err_retriangulated.str().c_str() << std::endl;
+		renderMeshsetInDebugViewer( meshset.get(), osg::Vec4f( 0.2f, 0.3f, 0.4f, 1.f ), false );
+		//throw DebugBreakException( "!simplified_meshset_ok" );
+#endif
+		meshset = meshset_copy;
+	}
+
+#ifdef _DEBUG
+	++simplify_count;
+#endif
 }
 
-void applyPosition( carve::mesh::MeshSet<3>* meshset, const carve::math::Matrix& pos )
-{
-	for (size_t i = 0; i < meshset->vertex_storage.size(); ++i )
-	{
-		carve::geom::vector<3>& point = meshset->vertex_storage[i].v;
-		point = pos*point;
-	}
-	for (size_t i = 0; i < meshset->meshes.size(); ++i)
-	{
-		meshset->meshes[i]->recalc();
-	}
-}
 
+
+//#define ROUND_MESH_COORDS
+#define SIMPLIFY_MESH_PRE_CSG
+#define SIMPLIFY_MESH_POST_CSG
+#ifdef _DEBUG
 double y_pos = 0;
-bool CSG_Adapter::computeCSG( carve::mesh::MeshSet<3>* op1, carve::mesh::MeshSet<3>* op2, const carve::csg::CSG::OP operation, 
-									 const int entity1, const int entity2, std::stringstream& err, shared_ptr<carve::mesh::MeshSet<3> >& result )
+#endif
+
+bool CSG_Adapter::computeCSG( shared_ptr<carve::mesh::MeshSet<3> >& op1, shared_ptr<carve::mesh::MeshSet<3> >& op2, const carve::csg::CSG::OP operation, 
+							 const int entity1, const int entity2, std::stringstream& err, shared_ptr<carve::mesh::MeshSet<3> >& result )
 {
+#ifdef ROUND_MESH_COORDS
+	MeshOps::roundVertices( op1.get() );
+	MeshOps::roundVertices( op1.get() );
+#endif
+
 	bool csg_operation_ok = false;
 	try
 	{
-		bool meshset1_ok = ConverterOSG::checkMeshSet( op1, err, entity1 );
-		bool meshset2_ok = ConverterOSG::checkMeshSet( op2, err, entity2 );
+		bool meshset1_ok = CSG_Adapter::checkMeshSetValidAndClosed( op1.get(), err, entity1 );
+		bool meshset2_ok = CSG_Adapter::checkMeshSetValidAndClosed( op2.get(), err, entity2 );
 
-		// check if meshset aabb is far away from origin. if so, move to origin, compute, move back
-		carve::geom::vector<3> translate_avoid_large_numbers;
-		const carve::geom::aabb<3>& aabb_op1 = op1->getAABB();
-		if( aabb_op1.pos.length2() > 10000 )
+		if( meshset1_ok && meshset2_ok )
 		{
-			const carve::geom::aabb<3>& aabb_op2 = op2->getAABB();
-
-			if( aabb_op2.pos.length2() > 10000 )
+		
+#ifdef SIMPLIFY_MESH_PRE_CSG
+			simplifyMesh( op1 );
+			simplifyMesh( op2 );
+			// TODO: Subclass from carve::mesh::MeshSet and add attribute to remember which meshset has already been simplified. 
+#endif
+			// check if meshset aabb is far away from origin. if so, move to origin, compute, move back
+			carve::geom::vector<3> translate_avoid_large_numbers;
+			const carve::geom::aabb<3>& aabb_op1 = op1->getAABB();
+			if( aabb_op1.pos.length2() > 10000 )
 			{
-				carve::geom::vector<3> aabb_op1_direction( aabb_op1.pos );
-				aabb_op1_direction.normalize();
+				const carve::geom::aabb<3>& aabb_op2 = op2->getAABB();
 
-				carve::geom::vector<3> aabb_op2_direction( aabb_op2.pos );
-				aabb_op2_direction.normalize();
-
-				double cos_angle = dot( aabb_op1_direction, aabb_op2_direction );
-				if( cos_angle > -0.5 )
+				if( aabb_op2.pos.length2() > 10000 )
 				{
-					// if close to -1, the bboxes are in opposite direction, not useful to translate
-					// if close to 1, the bboxes are somewhere in the same direction, good to translate
+					carve::geom::vector<3> aabb_op1_direction( aabb_op1.pos );
+					aabb_op1_direction.normalize();
 
-					// check extent
-					if( aabb_op1.extent.length2() < 1000 && aabb_op2.extent.length2() < 1000 )
+					carve::geom::vector<3> aabb_op2_direction( aabb_op2.pos );
+					aabb_op2_direction.normalize();
+
+					double cos_angle = dot( aabb_op1_direction, aabb_op2_direction );
+					if( cos_angle > -0.5 )
 					{
-						if( aabb_op1.pos.length2() > aabb_op2.pos.length2() )
+						// if close to -1, the bboxes are in opposite direction, not useful to translate
+						// if close to 1, the bboxes are somewhere in the same direction, good to translate
+
+						// check extent
+						if( aabb_op1.extent.length2() < 1000 && aabb_op2.extent.length2() < 1000 )
 						{
-							// TODO: take biggest |x|, biggest |y|, biggest |z|
-							translate_avoid_large_numbers = carve::geom::VECTOR( aabb_op1.pos.x, aabb_op1.pos.y, aabb_op1.pos.z );
-						}
-						else
-						{
-							translate_avoid_large_numbers = carve::geom::VECTOR( aabb_op2.pos.x, aabb_op2.pos.y, aabb_op2.pos.z );
+							if( aabb_op1.pos.length2() > aabb_op2.pos.length2() )
+							{
+								// TODO: take biggest |x|, biggest |y|, biggest |z|
+								translate_avoid_large_numbers = carve::geom::VECTOR( aabb_op1.pos.x, aabb_op1.pos.y, aabb_op1.pos.z );
+							}
+							else
+							{
+								translate_avoid_large_numbers = carve::geom::VECTOR( aabb_op2.pos.x, aabb_op2.pos.y, aabb_op2.pos.z );
+							}
 						}
 					}
 				}
 			}
-		}
 
+			if( translate_avoid_large_numbers.length2() > 1000.0 )
+			{
+				carve::math::Matrix mat_trans = carve::math::Matrix::TRANS( -translate_avoid_large_numbers );
+				MeshOps::applyPosition( op1.get(), mat_trans );
+				MeshOps::applyPosition( op2.get(), mat_trans );
+			}
 
-		if( translate_avoid_large_numbers.length2() > 1000.0 )
-		{
-			carve::math::Matrix mat_trans = carve::math::Matrix::TRANS( -translate_avoid_large_numbers );
-			applyPosition( op1, mat_trans );
-			applyPosition( op2, mat_trans );
-		}
-
-		if( meshset1_ok && meshset2_ok )
-		{
 			carve::csg::CSG csg;
-			csg.hooks.registerHook(new carve::csg::CarveTriangulator(), carve::csg::CSG::Hooks::PROCESS_OUTPUT_FACE_BIT);
+			//csg.hooks.registerHook(new carve::csg::CarveTriangulator(), carve::csg::CSG::Hooks::PROCESS_OUTPUT_FACE_BIT);
 			//csg.hooks.registerHook(new carve::csg::CarveTriangulatorWithImprovement(), carve::csg::CSG::Hooks::PROCESS_OUTPUT_FACE_BIT);
 			//csg.hooks.registerHook(new carve::csg::CarveHoleResolver(), carve::csg::CSG::Hooks::PROCESS_OUTPUT_FACE_BIT);
-			
+
 			//carve::csg::CSG::CLASSIFY_TYPE m_classify_type;
-			result = shared_ptr<carve::mesh::MeshSet<3> >( csg.compute( op1, op2, operation, nullptr, carve::csg::CSG::CLASSIFY_EDGE ) );
-			bool result_meshset_ok = ConverterOSG::checkMeshSet( result.get(), err, -1 );
+			result = shared_ptr<carve::mesh::MeshSet<3> >( csg.compute( op1.get(), op2.get(), operation, nullptr, carve::csg::CSG::CLASSIFY_EDGE ) );
+
+			bool result_meshset_ok = false;
+			if( result )
+			{
+				if( result->meshes.size() == 0 )
+				{
+					if( operation == carve::csg::CSG::A_MINUS_B )
+					{
+						result = op1;
+						result_meshset_ok = true;
+					}
+					else if( operation == carve::csg::CSG::B_MINUS_A )
+					{
+						result = op2;
+						result_meshset_ok = true;
+					}
+					else
+					{
+						result.reset();
+					}
+				}
+				else
+				{
+					result_meshset_ok = CSG_Adapter::checkMeshSetValidAndClosed( result.get(), err, -1 );
+				}
+			}
+
 			if( result_meshset_ok )
 			{
 				csg_operation_ok = true;
+
+#ifdef SIMPLIFY_MESH_POST_CSG
+				simplifyMesh( result );
+#endif
 			}
 			else
 			{
@@ -1017,16 +956,29 @@ bool CSG_Adapter::computeCSG( carve::mesh::MeshSet<3>* op1, carve::mesh::MeshSet
 				std::cout << "csg.compute result nok ok." << std::endl;
 #endif
 			}
+		
+			if( translate_avoid_large_numbers.length2() > 1000.0 )
+			{
+				carve::math::Matrix mat_trans = carve::math::Matrix::TRANS( translate_avoid_large_numbers );
+				if( result )
+				{
+					MeshOps::applyPosition( result.get(), mat_trans );
+				}
+				MeshOps::applyPosition( op1.get(), mat_trans );
+				MeshOps::applyPosition( op2.get(), mat_trans );
+			}
 		}
-
-		if( translate_avoid_large_numbers.length2() > 1000.0 )
+		else
 		{
-			carve::math::Matrix mat_trans = carve::math::Matrix::TRANS( translate_avoid_large_numbers );
-			applyPosition( result.get(), mat_trans );
-			applyPosition( op1, mat_trans );
-			applyPosition( op2, mat_trans );
+			csg_operation_ok = false;
 		}
 	}
+#ifdef _DEBUG
+	catch(DebugBreakException& e)
+	{
+		throw e;
+	}
+#endif
 	catch( carve::exception& ce )
 	{
 		csg_operation_ok = false;
@@ -1051,6 +1003,8 @@ bool CSG_Adapter::computeCSG( carve::mesh::MeshSet<3>* op1, carve::mesh::MeshSet
 		err << "csg operation failed, id1=" << entity1 << ", id2=" << entity2 << std::endl;
 	}
 
+	//csg_operation_ok = false;
+
 #ifdef _DEBUG
 	if( !csg_operation_ok )
 	{
@@ -1059,21 +1013,21 @@ bool CSG_Adapter::computeCSG( carve::mesh::MeshSet<3>* op1, carve::mesh::MeshSet
 		if( result )
 		{
 			carve::mesh::MeshSet<3>* result_copy = result->clone();//new carve::mesh::MeshSet<3>();
-			applyPosition( result_copy, carve::math::Matrix( carve::math::Matrix::TRANS( 0, y_pos, 0 ) ) );
+			MeshOps::applyPosition( result_copy, carve::math::Matrix( carve::math::Matrix::TRANS( 0, y_pos, 0 ) ) );
 			renderMeshsetInDebugViewer( result_copy, osg::Vec4(0.0f, 0.5f, 0.0f, 1.0f), false );
 		}
 
 		carve::mesh::MeshSet<3>* op1_copy = op1->clone();
-		applyPosition( op1_copy, carve::math::Matrix( carve::math::Matrix::TRANS( 0, y_pos, 0 ) ) );
+		MeshOps::applyPosition( op1_copy, carve::math::Matrix( carve::math::Matrix::TRANS( 0, y_pos, 0 ) ) );
 		renderMeshsetInDebugViewer( op1_copy, osg::Vec4(0.0f, 0.8f, 0.0f, 1.0f), true );
 
 		carve::mesh::MeshSet<3>* op2_copy = op2->clone();
-		applyPosition( op2_copy, carve::math::Matrix( carve::math::Matrix::TRANS( 0, y_pos, 0 ) ) );
+		MeshOps::applyPosition( op2_copy, carve::math::Matrix( carve::math::Matrix::TRANS( 0, y_pos, 0 ) ) );
 		renderMeshsetInDebugViewer( op2_copy, osg::Vec4(0.8f, 0.0f, 0.0f, 1.0f), true );
 
 		y_pos += 1;
 
-		dumpMeshsets( op1, op2, result.get(), entity1, entity2 );
+		dumpMeshsets( op1.get(), op2.get(), result.get(), entity1, entity2 );
 	}
 #endif
 	return csg_operation_ok;

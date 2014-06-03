@@ -36,7 +36,7 @@ shared_ptr<IfcNormalisedRatioMeasure> IfcNormalisedRatioMeasure::createObjectFro
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcNormalisedRatioMeasure>(); }
-	auto type_object = std::make_shared<IfcNormalisedRatioMeasure>();
+	shared_ptr<IfcNormalisedRatioMeasure> type_object( new IfcNormalisedRatioMeasure() );
 	// read TYPE
 	type_object->readArgument( arg );
 	return type_object;

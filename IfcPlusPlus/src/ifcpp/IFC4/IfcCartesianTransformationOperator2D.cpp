@@ -69,7 +69,7 @@ void IfcCartesianTransformationOperator2D::getAttributes( std::vector<std::pair<
 {
 	IfcCartesianTransformationOperator::getAttributes( vec_attributes );
 }
-void IfcCartesianTransformationOperator2D::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCartesianTransformationOperator2D::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCartesianTransformationOperator2D::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

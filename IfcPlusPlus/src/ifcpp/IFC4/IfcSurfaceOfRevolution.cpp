@@ -66,7 +66,7 @@ void IfcSurfaceOfRevolution::getAttributes( std::vector<std::pair<std::string, s
 	IfcSweptSurface::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "AxisPosition", m_AxisPosition ) );
 }
-void IfcSurfaceOfRevolution::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcSurfaceOfRevolution::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcSurfaceOfRevolution::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

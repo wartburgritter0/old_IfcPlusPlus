@@ -35,7 +35,7 @@ shared_ptr<IfcMonetaryMeasure> IfcMonetaryMeasure::createObjectFromStepData( con
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcMonetaryMeasure>(); }
-	auto type_object = std::make_shared<IfcMonetaryMeasure>();
+	shared_ptr<IfcMonetaryMeasure> type_object( new IfcMonetaryMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

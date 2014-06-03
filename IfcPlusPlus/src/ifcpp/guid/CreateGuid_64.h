@@ -2,7 +2,7 @@
 
 #include <string>
 #include <sstream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <time.h>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>

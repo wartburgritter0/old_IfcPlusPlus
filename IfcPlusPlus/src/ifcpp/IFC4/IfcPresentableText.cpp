@@ -34,7 +34,7 @@ shared_ptr<IfcPresentableText> IfcPresentableText::createObjectFromStepData( con
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcPresentableText>(); }
-	auto type_object = std::make_shared<IfcPresentableText>();
+	shared_ptr<IfcPresentableText> type_object( new IfcPresentableText() );
 	type_object->readArgument( arg );
 	return type_object;
 }

@@ -36,7 +36,7 @@ shared_ptr<IfcModulusOfRotationalSubgradeReactionMeasure> IfcModulusOfRotational
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcModulusOfRotationalSubgradeReactionMeasure>(); }
-	auto type_object = std::make_shared<IfcModulusOfRotationalSubgradeReactionMeasure>();
+	shared_ptr<IfcModulusOfRotationalSubgradeReactionMeasure> type_object( new IfcModulusOfRotationalSubgradeReactionMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

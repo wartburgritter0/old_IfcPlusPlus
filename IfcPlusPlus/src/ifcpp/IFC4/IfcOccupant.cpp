@@ -92,7 +92,7 @@ void IfcOccupant::getAttributes( std::vector<std::pair<std::string, shared_ptr<I
 	IfcActor::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcOccupant::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcOccupant::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcOccupant::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

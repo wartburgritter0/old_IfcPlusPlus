@@ -115,7 +115,7 @@ void IfcInventory::getAttributes( std::vector<std::pair<std::string, shared_ptr<
 	vec_attributes.push_back( std::make_pair( "CurrentValue", m_CurrentValue ) );
 	vec_attributes.push_back( std::make_pair( "OriginalValue", m_OriginalValue ) );
 }
-void IfcInventory::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcInventory::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcInventory::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

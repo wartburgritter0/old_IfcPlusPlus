@@ -68,7 +68,7 @@ shared_ptr<IfcCoilTypeEnum> IfcCoilTypeEnum::createObjectFromStepData( const std
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcCoilTypeEnum>(); }
-	auto type_object = std::make_shared<IfcCoilTypeEnum>();
+	shared_ptr<IfcCoilTypeEnum> type_object( new IfcCoilTypeEnum() );
 	if( _stricmp( arg.c_str(), ".DXCOOLINGCOIL." ) == 0 )
 	{
 		type_object->m_enum = IfcCoilTypeEnum::ENUM_DXCOOLINGCOIL;

@@ -71,7 +71,7 @@ void IfcCenterLineProfileDef::getAttributes( std::vector<std::pair<std::string, 
 	IfcArbitraryOpenProfileDef::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "Thickness", m_Thickness ) );
 }
-void IfcCenterLineProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcCenterLineProfileDef::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcCenterLineProfileDef::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

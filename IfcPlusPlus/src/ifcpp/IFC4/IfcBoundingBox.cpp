@@ -72,7 +72,7 @@ void IfcBoundingBox::getAttributes( std::vector<std::pair<std::string, shared_pt
 	vec_attributes.push_back( std::make_pair( "YDim", m_YDim ) );
 	vec_attributes.push_back( std::make_pair( "ZDim", m_ZDim ) );
 }
-void IfcBoundingBox::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcBoundingBox::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcBoundingBox::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

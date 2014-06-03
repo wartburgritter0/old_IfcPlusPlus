@@ -95,8 +95,11 @@ void IfcTypeProduct::getAttributes( std::vector<std::pair<std::string, shared_pt
 	IfcTypeObject::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "Tag", m_Tag ) );
 }
-void IfcTypeProduct::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcTypeProduct::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
+	shared_ptr<IfcPPAttributeObjectVector> ReferencedBy_inverse_vec_obj( new IfcPPAttributeObjectVector() );
+	for( int i=0; i<m_ReferencedBy_inverse.size(); ++i ) { ReferencedBy_inverse_vec_obj->m_vec.push_back( shared_ptr<IfcRelAssignsToProduct>( m_ReferencedBy_inverse[i] ) ); }
+	vec_attributes_inverse.push_back( std::make_pair( "ReferencedBy_inverse", ReferencedBy_inverse_vec_obj ) );
 }
 void IfcTypeProduct::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
 {

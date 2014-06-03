@@ -62,7 +62,7 @@ void IfcMappedItem::getAttributes( std::vector<std::pair<std::string, shared_ptr
 	vec_attributes.push_back( std::make_pair( "MappingSource", m_MappingSource ) );
 	vec_attributes.push_back( std::make_pair( "MappingTarget", m_MappingTarget ) );
 }
-void IfcMappedItem::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcMappedItem::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcMappedItem::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

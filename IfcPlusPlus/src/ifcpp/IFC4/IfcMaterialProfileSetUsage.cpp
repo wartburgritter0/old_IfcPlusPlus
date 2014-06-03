@@ -67,7 +67,7 @@ void IfcMaterialProfileSetUsage::getAttributes( std::vector<std::pair<std::strin
 	vec_attributes.push_back( std::make_pair( "CardinalPoint", m_CardinalPoint ) );
 	vec_attributes.push_back( std::make_pair( "ReferenceExtent", m_ReferenceExtent ) );
 }
-void IfcMaterialProfileSetUsage::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcMaterialProfileSetUsage::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcMaterialProfileSetUsage::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

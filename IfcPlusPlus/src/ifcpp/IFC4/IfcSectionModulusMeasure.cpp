@@ -35,7 +35,7 @@ shared_ptr<IfcSectionModulusMeasure> IfcSectionModulusMeasure::createObjectFromS
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcSectionModulusMeasure>(); }
-	auto type_object = std::make_shared<IfcSectionModulusMeasure>();
+	shared_ptr<IfcSectionModulusMeasure> type_object( new IfcSectionModulusMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

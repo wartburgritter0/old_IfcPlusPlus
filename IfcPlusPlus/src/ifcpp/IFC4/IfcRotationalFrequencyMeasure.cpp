@@ -35,7 +35,7 @@ shared_ptr<IfcRotationalFrequencyMeasure> IfcRotationalFrequencyMeasure::createO
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcRotationalFrequencyMeasure>(); }
-	auto type_object = std::make_shared<IfcRotationalFrequencyMeasure>();
+	shared_ptr<IfcRotationalFrequencyMeasure> type_object( new IfcRotationalFrequencyMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

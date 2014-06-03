@@ -55,7 +55,7 @@ void IfcUnitAssignment::getAttributes( std::vector<std::pair<std::string, shared
 	std::copy( m_Units.begin(), m_Units.end(), std::back_inserter( Units_vec_object->m_vec ) );
 	vec_attributes.push_back( std::make_pair( "Units", Units_vec_object ) );
 }
-void IfcUnitAssignment::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcUnitAssignment::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcUnitAssignment::setInverseCounterparts( shared_ptr<IfcPPEntity> )

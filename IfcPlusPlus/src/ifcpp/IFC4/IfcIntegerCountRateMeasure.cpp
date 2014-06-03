@@ -35,7 +35,7 @@ shared_ptr<IfcIntegerCountRateMeasure> IfcIntegerCountRateMeasure::createObjectF
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcIntegerCountRateMeasure>(); }
-	auto type_object = std::make_shared<IfcIntegerCountRateMeasure>();
+	shared_ptr<IfcIntegerCountRateMeasure> type_object( new IfcIntegerCountRateMeasure() );
 	type_object->readArgument( arg );
 	return type_object;
 }

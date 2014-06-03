@@ -113,7 +113,7 @@ void IfcLightFixture::getAttributes( std::vector<std::pair<std::string, shared_p
 	IfcFlowTerminal::getAttributes( vec_attributes );
 	vec_attributes.push_back( std::make_pair( "PredefinedType", m_PredefinedType ) );
 }
-void IfcLightFixture::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcLightFixture::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcLightFixture::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )

@@ -46,7 +46,7 @@ shared_ptr<IfcLogical> IfcLogical::createObjectFromStepData( const std::string& 
 {
 	// read TYPE
 	if( arg.compare( "$" ) == 0 ) { return shared_ptr<IfcLogical>(); }
-	auto type_object = std::make_shared<IfcLogical>();
+	shared_ptr<IfcLogical> type_object( new IfcLogical() );
 	type_object->readArgument( arg );
 	return type_object;
 }

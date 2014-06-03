@@ -85,7 +85,7 @@ void IfcBoundaryNodeCondition::getAttributes( std::vector<std::pair<std::string,
 	vec_attributes.push_back( std::make_pair( "RotationalStiffnessY", m_RotationalStiffnessY ) );
 	vec_attributes.push_back( std::make_pair( "RotationalStiffnessZ", m_RotationalStiffnessZ ) );
 }
-void IfcBoundaryNodeCondition::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes )
+void IfcBoundaryNodeCondition::getAttributesInverse( std::vector<std::pair<std::string, shared_ptr<IfcPPObject> > >& vec_attributes_inverse )
 {
 }
 void IfcBoundaryNodeCondition::setInverseCounterparts( shared_ptr<IfcPPEntity> ptr_self_entity )
